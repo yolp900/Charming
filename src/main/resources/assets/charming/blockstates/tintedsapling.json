@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "stage=0": { "model": "charming:tinted_sapling" },
+    "stage=1": { "model": "charming:tinted_sapling" }
+  }
+}

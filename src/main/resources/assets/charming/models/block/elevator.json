@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "charming:blocks/elevator_top_bottom",
+    "down": "charming:blocks/elevator_top_bottom",
+    "up": "charming:blocks/elevator_top_bottom",
+    "north": "charming:blocks/elevator_side",
+    "east": "charming:blocks/elevator_side",
+    "south": "charming:blocks/elevator_side",
+    "west": "charming:blocks/elevator_side"
+  }
+}

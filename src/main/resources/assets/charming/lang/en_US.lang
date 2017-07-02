@@ -1,0 +1,35 @@
+//Creative Tab
+itemGroup.charming=Charming
+
+//Blocks
+//tile.charming:*name*.name=
+tile.charming:ConstructionTable.name=Construction Table
+tile.charming:Levitator.name=Levitator
+tile.charming:Elevator.name=Elevator
+tile.charming:TintedSapling.name=Tinted Sapling
+tile.charming:TintedLog.name=Tinted Wood
+tile.charming:TintedLeaves.name=Tinted Leaves
+tile.charming:TintedPlanks.name=Tinted Wood Planks
+
+//Items
+//item.charming:*name*.name=
+item.charming:SlotUpgrade.name=Slot Upgrade
+item.charming:TransmutationWand.Wood.name=Wooden Transmutation Wand
+item.charming:TransmutationWand.Stone.name=Stone Transmutation Wand
+item.charming:TransmutationWand.Iron.name=Iron Transmutation Wand
+item.charming:TransmutationWand.Obsidian.name=Obsidian Transmutation Wand
+item.charming:TransmutationWand.Diamond.name=Diamond Transmutation Wand
+item.charming:EffectStone.None.name=Empty Effect Stone
+item.charming:EffectStone.Inversion.name=Inversion Stone
+item.charming:EffectStone.Conversion.name=Conversion Stone
+item.charming:HalfEnderPearl.name=Half Ender Pearl
+
+//Gui Titles
+//guititle.charming:*title*=
+guititle.charming:ConstructionTable=Construction Table
+
+//Sound Subtitles
+subtitle.charming.ding=Ding!
+subtitle.charming.magicding=Magical Ding!
+subtitle.charming.construction=Construction
+subtitle.charming.elevator=Player elevated

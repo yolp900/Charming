@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "charming:blocks/construction_table_top",
+    "down": "charming:blocks/construction_table_bottom",
+    "up": "charming:blocks/construction_table_top",
+    "north": "charming:blocks/construction_table_side",
+    "east": "charming:blocks/construction_table_side",
+    "south": "charming:blocks/construction_table_side",
+    "west": "charming:blocks/construction_table_side"
+  }
+}

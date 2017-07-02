@@ -1,0 +1,6 @@
+{
+  "parent": "block/leaves",
+  "textures": {
+    "all": "charming:blocks/tinted_leaves_fancy"
+  }
+}

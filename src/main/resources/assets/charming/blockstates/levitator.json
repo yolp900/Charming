@@ -1,0 +1,9 @@
+{
+  "variants": {
+    "normal": { "model": "charming:levitator_on" },
+    "inverted=false,on=true": { "model": "charming:levitator_on"},
+    "inverted=false,on=false": { "model": "charming:levitator_off" },
+    "inverted=true,on=true": { "model": "charming:levitator_on_inverted"},
+    "inverted=true,on=false": { "model": "charming:levitator_off_inverted" }
+  }
+}

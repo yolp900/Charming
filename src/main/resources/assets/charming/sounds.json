@@ -1,0 +1,23 @@
+{
+  "ding": {
+    "category": "player",
+    "sounds": ["charming:ding"],
+    "subtitle": "subtitle.charming.ding"
+  },
+  "construction": {
+    "category": "blocks",
+    "sounds": ["charming:construction"],
+    "subtitle": "subtitle.charming.construction"
+  },
+  "magicding": {
+  	"category": "player",
+  	"sounds": ["charming:magicding"],
+  	"subtitle": "subtitle.charming.magicding"
+  },
+  "elevator": {
+  	"category": "player",
+  	"sounds": ["charming:elevator"],
+  	"subtitle": "subtitle.charming.elevator"
+  }
+
+}

@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "axis=y":  { "model": "charming:tinted_log" },
+    "axis=z":   { "model": "charming:tinted_log", "x": 90 },
+    "axis=x":   { "model": "charming:tinted_log", "x": 90, "y": 90 },
+    "axis=none": { "model": "charming:tinted_bark" }
+  }
+}

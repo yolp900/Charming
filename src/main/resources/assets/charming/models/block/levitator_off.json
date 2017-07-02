@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "charming:blocks/levitator_top_off",
+    "down": "charming:blocks/tinted_log_end",
+    "up": "charming:blocks/levitator_top_off",
+    "north": "charming:blocks/levitator_side_off",
+    "east": "charming:blocks/levitator_side_off",
+    "south": "charming:blocks/levitator_side_off",
+    "west": "charming:blocks/levitator_side_off"
+  }
+}

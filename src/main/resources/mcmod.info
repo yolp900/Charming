@@ -1,0 +1,16 @@
+[
+{
+  "modid": "charming",
+  "name": "Charming",
+  "description": "A Charming mod indeed. Magical Technology or something similar.",
+  "version": "0.01",
+  "mcversion": "1.11.2",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["yolp900"],
+  "credits": "Aviv871, for being awesome and helping with almost everything.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

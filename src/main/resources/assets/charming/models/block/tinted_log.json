@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "charming:blocks/tinted_log_end",
+    "side": "charming:blocks/tinted_log_side"
+  }
+}
