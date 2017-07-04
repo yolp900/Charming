@@ -78,15 +78,15 @@ public abstract class RecipeWandInteraction extends CraftingMechanic {
         return true;
     }
 
-    public abstract void handleInteraction(World world, EntityPlayer player, ItemStack stack, BlockPos pos, List<EntityItem> entityItems);
+    public abstract List<EntityItem> handleInteractionReturnWorldItems(World world, EntityPlayer player, ItemStack stack, BlockPos pos, List<EntityItem> entityItems);
 
     protected void removeBlocks(World world, BlockPos pos, EntityPlayer player, TransmutationStructure structure) {
         if (structure == null) return;
         structure.removeBlocks(world, pos, player);
     }
 
-    protected void removeItemStacks(World world, List<EntityItem> worldIngredients, List<Object> ingredientsToRemove) {
-        if (ingredientsToRemove == null) return;
+    protected List<EntityItem> removeItemStacks(World world, List<EntityItem> worldIngredients, List<Object> ingredientsToRemove) {
+        if (ingredientsToRemove == null) return worldIngredients;
         if (!world.isRemote) {
             List<Object> recipeIngredientsCopy = new ArrayList<>();
             recipeIngredientsCopy.addAll(ingredientsToRemove);
@@ -102,6 +102,7 @@ public abstract class RecipeWandInteraction extends CraftingMechanic {
                 }
             }
         }
+        return worldIngredients;
     }
 
     protected boolean removeItemStackFromWorldAfterMatching(World world, Object recipeObject, int recipeIndex, List<Object> recipe, EntityItem worldIngredient, int worldIngredientsIndex, List<EntityItem> worldIngredients) {
@@ -124,7 +125,6 @@ public abstract class RecipeWandInteraction extends CraftingMechanic {
             } else if (recipeStack.getCount() < worldIngredient.getItem().getCount()) {
                 ItemStack setStack = worldIngredient.getItem().copy();
                 setStack.setCount(worldIngredient.getItem().getCount() - recipeStack.getCount());
-                worldIngredients.set(worldIngredientsIndex, new EntityItem(world, worldIngredient.posX, worldIngredient.posY, worldIngredient.posZ, setStack));
                 worldIngredient.setItem(setStack);
                 recipe.set(recipeIndex, null);
                 return true;

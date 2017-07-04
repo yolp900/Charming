@@ -20,12 +20,12 @@ public class RecipeWandInteractionBlock extends RecipeWandInteraction {
     }
 
     @Override
-    public void handleInteraction(World world, EntityPlayer player, ItemStack stack, BlockPos pos, List<EntityItem> entityItems) {
+    public List<EntityItem> handleInteractionReturnWorldItems(World world, EntityPlayer player, ItemStack stack, BlockPos pos, List<EntityItem> entityItems) {
         if (!keepsAroundBlocks()) {
             removeBlocks(world, pos, player, getStructure());
         }
         changeBlock(world, pos, player, getOutput());
-        removeItemStacks(world, entityItems, getIngredientsToRemove());
+        return removeItemStacks(world, entityItems, getIngredientsToRemove());
     }
 
     protected void changeBlock(World world, BlockPos pos, EntityPlayer player, IBlockState recipeOutput) {

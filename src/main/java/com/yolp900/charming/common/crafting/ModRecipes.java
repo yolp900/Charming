@@ -135,7 +135,7 @@ public class ModRecipes {
 
         public static RecipeWandInteraction BlockInversion = new RecipeWandInteraction(TransmutationStructure.EMPTY, obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.Inversion.ordinal())), null, false, 1) {
             @Override
-            public void handleInteraction(World world, EntityPlayer player, ItemStack stack, BlockPos pos, List<EntityItem> entityItems) {
+            public List<EntityItem> handleInteractionReturnWorldItems(World world, EntityPlayer player, ItemStack stack, BlockPos pos, List<EntityItem> entityItems) {
                 TileEntity tile = world.getTileEntity(pos);
                 if (tile instanceof IInvertible) {
                     IInvertible levitator = (IInvertible) tile;
@@ -145,6 +145,7 @@ public class ModRecipes {
                         levitator.setInverted(true);
                     }
                 }
+                return entityItems;
             }
         };
 
@@ -161,7 +162,6 @@ public class ModRecipes {
             ConversionEffectStone = registerItemRecipe(stack(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.Conversion.ordinal())), TransmutationStructure.EMPTY, obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.None.ordinal()), NUGGET_GOLD, INGOT_IRON, DUST_REDSTONE), obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.None.ordinal()), NUGGET_GOLD, INGOT_IRON, DUST_REDSTONE), false, 1);
             EnderPearlSplitting = registerItemRecipe(stack(new ItemStack(ModItems.HalfPearl, 2)), TransmutationStructure.EMPTY, obj(ENDERPEARL), obj(ENDERPEARL), false, 1);
             RottenFleshToLeather = registerItemRecipe(stack(new ItemStack(Items.LEATHER)), TransmutationStructure.EMPTY, obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.Conversion.ordinal()), new ItemStack(Items.ROTTEN_FLESH, 2)), obj(new ItemStack(Items.ROTTEN_FLESH, 2)), false, 1);
-            registerRecipe(RottenFleshToLeather);
 
             registerRecipe(BlockInversion);
 
