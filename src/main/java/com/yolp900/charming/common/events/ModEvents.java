@@ -2,7 +2,6 @@ package com.yolp900.charming.common.events;
 
 import com.yolp900.charming.client.particle.ModParticles;
 import com.yolp900.charming.common.blocks.BlockElevator;
-import com.yolp900.charming.common.blocks.ModBlocks;
 import com.yolp900.charming.common.crafting.InteractionHandler;
 import com.yolp900.charming.config.ModConfig;
 import net.minecraftforge.common.MinecraftForge;

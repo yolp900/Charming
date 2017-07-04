@@ -13,6 +13,7 @@ import com.yolp900.charming.common.blocks.ModBlocks;
 import com.yolp900.charming.common.items.ItemEffectStone;
 import com.yolp900.charming.common.items.ModItems;
 import com.yolp900.charming.config.ModConfig;
+import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
@@ -32,7 +33,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static com.yolp900.charming.reference.LibOreDict.*;
@@ -125,7 +125,7 @@ public class ModRecipes {
 
         public static RecipeWandInteractionBlock ConstructionTable;
         public static RecipeWandInteractionBlock Levitator;
-        public static RecipeWandInteractionBlock TintedSapling; // Only for oak saplings, for now
+        public static RecipeWandInteractionBlock TintedSapling[] = new RecipeWandInteractionBlock[BlockSapling.TYPE.getAllowedValues().size()]; // Only for oak saplings, for now
 
         public static RecipeWandInteractionItem WoodenTransmutationWand;
         public static RecipeWandInteractionItem InversionEffectStone;
@@ -155,7 +155,9 @@ public class ModRecipes {
         static void registerWandInteractions() {
             ConstructionTable = registerBlockRecipe(ModBlocks.ConstructionTable.getDefaultState(), new TransmutationStructure(Blocks.CRAFTING_TABLE.getDefaultState(), bs(groupBS(Blocks.COBBLESTONE.getDefaultState(), 4)), null, Blocks.COBBLESTONE.getDefaultState()), obj(COBBLESTONE), obj(COBBLESTONE), false, 0);
             Levitator = registerBlockRecipe(ModBlocks.Levitator.getDefaultState(), new TransmutationStructure(ModBlocks.TintedLog.getDefaultState(), null, null, null), obj(ENDERPEARL), obj(ENDERPEARL), false, 1);
-            TintedSapling = registerBlockRecipe(ModBlocks.TintedSapling.getDefaultState(), new TransmutationStructure(Blocks.SAPLING.getDefaultState(), null, null, null), obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.Conversion.ordinal()), DYES(15)), obj(DYES(15)), false, 0);
+            for (int i = 0; i < BlockSapling.TYPE.getAllowedValues().size(); i++) {
+                TintedSapling[i] = registerBlockRecipe(ModBlocks.TintedSapling.getDefaultState(), new TransmutationStructure(Blocks.SAPLING.getDefaultState().withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.values()[i]), null, null, null), obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.Conversion.ordinal()), DYES(0)), obj(DYES(0)), false, 0);
+            }
 
             WoodenTransmutationWand = registerItemRecipe(stack(new ItemStack(ModItems.TransmutationWand, 1, 0)), TransmutationStructure.EMPTY, obj(STICK_WOOD, new OreDictStack(NUGGET_GOLD, 2)), obj(STICK_WOOD, new OreDictStack(NUGGET_GOLD, 2)), false, -1);
             InversionEffectStone = registerItemRecipe(stack(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.Inversion.ordinal())), TransmutationStructure.EMPTY, obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.None.ordinal()), Blocks.LEVER, Blocks.REDSTONE_TORCH), obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.None.ordinal()), Blocks.LEVER, Blocks.REDSTONE_TORCH), false, 0);
@@ -165,8 +167,8 @@ public class ModRecipes {
 
             registerRecipe(BlockInversion);
 
-            Collections.addAll(infusionParticleList, WoodenTransmutationWand, InversionEffectStone, EnderPearlSplitting, TintedSapling);
-            Collections.addAll(constructionParticleList, ConstructionTable);
+            addAllToList(infusionParticleList, WoodenTransmutationWand, InversionEffectStone, EnderPearlSplitting, TintedSapling);
+            addAllToList(constructionParticleList, ConstructionTable);
         }
 
         private static RecipeWandInteractionBlock registerBlockRecipe(@Nonnull IBlockState output, @Nonnull TransmutationStructure structure, @Nullable List<Object> ingredients, List<Object> ingredientsToRemove, boolean keepAroundBlocks, int minimalWandLevel) {
@@ -179,6 +181,16 @@ public class ModRecipes {
 
         private static void registerRecipe(RecipeWandInteraction recipe) {
             CharmingAPI.WandInteractions.registerInteractionRecipe(recipe);
+        }
+
+        private static void addAllToList(List<RecipeWandInteraction> list, Object... recipes) {
+            for (Object object : recipes) {
+                if (object instanceof RecipeWandInteraction) {
+                    list.add((RecipeWandInteraction) object);
+                } else if (object instanceof RecipeWandInteraction[]) {
+                    list.addAll(Arrays.asList(((RecipeWandInteraction[]) object)));
+                }
+            }
         }
 
     }

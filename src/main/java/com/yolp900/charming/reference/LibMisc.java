@@ -15,7 +15,7 @@ public class LibMisc {
     /**
      * Minecraft Colors.
      */
-    public static final String[] COLORS = {"White", "Orange", "Magenta", "LightBlue", "Yellow", "Lime", "Pink", "Gray", "Silver", "Cyan", "Purple", "Blue", "Brown", "Green", "Red", "Black"};
+    public static final String[] COLORS = {"Black", "Red", "Green", "Brown", "Blue", "Purple", "Cyan", "LightGray", "Gray", "Pink", "Lime", "Yellow", "LightBlue", "Magenta", "Orange", "White"};
 
     /**
      * Inventory Variant for ModelResourceLocations of Items.

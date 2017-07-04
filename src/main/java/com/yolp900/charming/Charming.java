@@ -1,6 +1,5 @@
 package com.yolp900.charming;
 
-import com.yolp900.charming.client.gui.ModGuiFactory;
 import com.yolp900.charming.common.CommonProxy;
 import com.yolp900.charming.common.items.ItemTransmutationWand;
 import com.yolp900.charming.common.items.ModItems;

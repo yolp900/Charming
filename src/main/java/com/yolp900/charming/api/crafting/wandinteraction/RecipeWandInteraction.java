@@ -57,7 +57,9 @@ public abstract class RecipeWandInteraction extends CraftingMechanic {
         recipeIngredientsCopy.addAll(recipeIngredients);
         NonNullList<ItemStack> worldItemStacks = NonNullList.create();
         for (EntityItem item : worldIngredients) {
-            if (!item.getItem().isEmpty()) worldItemStacks.add(item.getItem());
+            if (!item.getItem().isEmpty()) {
+                worldItemStacks.add(item.getItem());
+            }
         }
         for (int i = 0; i < recipeIngredientsCopy.size(); i++) {
             Object recipeObj = recipeIngredientsCopy.get(i);

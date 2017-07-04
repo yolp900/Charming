@@ -1,6 +1,5 @@
 package com.yolp900.charming.common.blocks;
 
-import com.yolp900.charming.common.blocks.base.ModBlock;
 import com.yolp900.charming.common.blocks.base.ModBlockSapling;
 import com.yolp900.charming.common.world.TreeGenerator;
 import com.yolp900.charming.reference.LibBlocks;

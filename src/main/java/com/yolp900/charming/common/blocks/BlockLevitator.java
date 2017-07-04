@@ -4,7 +4,6 @@ import com.yolp900.charming.common.blocks.base.ModBlock;
 import com.yolp900.charming.common.tileentities.TileEntityLevitator;
 import com.yolp900.charming.reference.LibBlocks;
 import com.yolp900.charming.reference.LibMisc;
-import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;

@@ -1,6 +1,5 @@
 package com.yolp900.charming.api.crafting.constructiontable;
 
-import com.yolp900.charming.Charming;
 import com.yolp900.charming.api.crafting.CraftingMechanic;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;

@@ -26,6 +26,9 @@ public class TransmutationStructure {
     }
 
     protected boolean matches(World world, EntityPlayer player, BlockPos pos) {
+        if (this == EMPTY) {
+            return true;
+        }
         if (getBlockClicked() != null) {
             if (!blocksMatch(world.getBlockState(pos), getBlockClicked())) return false;
         }
