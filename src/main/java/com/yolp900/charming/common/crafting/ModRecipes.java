@@ -97,6 +97,7 @@ public class ModRecipes {
         public static RecipeConstructionTable Elevator;
 
         public static RecipeConstructionTable[] TreeTransmutation = new RecipeConstructionTable[BlockSapling.TYPE.getAllowedValues().size()];
+        public static RecipeConstructionTable[] TintedTreeTransmutation = new RecipeConstructionTable[BlockSapling.TYPE.getAllowedValues().size()];
 
         static void registerConstructionTableRecipes() {
             StoneTransmutationWand = registerRecipe(new ItemStack(ModItems.TransmutationWand, 1, 1), obj(new ItemStack(ModItems.TransmutationWand, 1, 0)), obj(COBBLESTONE, STONE, new OreDictStack(NUGGET_GOLD, 2)), true, false);
@@ -109,6 +110,7 @@ public class ModRecipes {
                     j = 0;
                 }
                 TreeTransmutation[i] = registerRecipe(new ItemStack(Blocks.SAPLING, 1, j), obj(new ItemStack(Blocks.SAPLING, 1, i)), obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.Conversion.ordinal())), true, true);
+                TintedTreeTransmutation[i] = registerRecipe(new ItemStack(ModBlocks.TintedSapling), obj(new ItemStack(Blocks.SAPLING, 1, i), DYES(0), DYES(0)), obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.Conversion.ordinal())), true, true);
             }
         }
 
@@ -156,7 +158,7 @@ public class ModRecipes {
             ConstructionTable = registerBlockRecipe(ModBlocks.ConstructionTable.getDefaultState(), new TransmutationStructure(Blocks.CRAFTING_TABLE.getDefaultState(), bs(groupBS(Blocks.COBBLESTONE.getDefaultState(), 4)), null, Blocks.COBBLESTONE.getDefaultState()), obj(COBBLESTONE), obj(COBBLESTONE), false, 0);
             Levitator = registerBlockRecipe(ModBlocks.Levitator.getDefaultState(), new TransmutationStructure(ModBlocks.TintedLog.getDefaultState(), null, null, null), obj(ENDERPEARL), obj(ENDERPEARL), false, 1);
             for (int i = 0; i < BlockSapling.TYPE.getAllowedValues().size(); i++) {
-                TintedSapling[i] = registerBlockRecipe(ModBlocks.TintedSapling.getDefaultState(), new TransmutationStructure(Blocks.SAPLING.getDefaultState().withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.values()[i]), null, null, null), obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.Conversion.ordinal()), DYES(0)), obj(DYES(0)), false, 0);
+                TintedSapling[i] = registerBlockRecipe(ModBlocks.TintedSapling.getDefaultState(), new TransmutationStructure(Blocks.SAPLING.getDefaultState().withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.values()[i]), null, null, null), obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.Conversion.ordinal()), new OreDictStack(DYES(0), 2)), obj(new OreDictStack(DYES(0), 2)), false, 0);
             }
 
             WoodenTransmutationWand = registerItemRecipe(stack(new ItemStack(ModItems.TransmutationWand, 1, 0)), TransmutationStructure.EMPTY, obj(STICK_WOOD, new OreDictStack(NUGGET_GOLD, 2)), obj(STICK_WOOD, new OreDictStack(NUGGET_GOLD, 2)), false, -1);
