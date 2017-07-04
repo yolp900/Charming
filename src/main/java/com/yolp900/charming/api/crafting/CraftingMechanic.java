@@ -1,5 +1,6 @@
 package com.yolp900.charming.api.crafting;
 
+import com.yolp900.charming.Charming;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -93,24 +94,9 @@ public abstract class CraftingMechanic {
 
     protected boolean removeFromListsAfterMatching(Object recipeObject, int recipeIndex, List<Object> recipe, ItemStack input, int inputsIndex, NonNullList<ItemStack> inputs) {
         if (recipeObject instanceof ItemStack) {
-            ItemStack recipeStack = (ItemStack) recipeObject;
-            if (recipeStack.getCount() > input.getCount()) {
-                inputs.set(inputsIndex, ItemStack.EMPTY);
-                ItemStack setStack = recipeStack.copy();
-                setStack.setCount(recipeStack.getCount() - input.getCount());
-                recipe.set(recipeIndex, setStack);
-                return false;
-            } else if (recipeStack.getCount() == input.getCount()) {
-                inputs.set(inputsIndex, ItemStack.EMPTY);
-                recipe.set(recipeIndex, null);
-                return true;
-            } else if (recipeStack.getCount() < input.getCount()) {
-                ItemStack setStack = input.copy();
-                setStack.setCount(input.getCount() - recipeStack.getCount());
-                inputs.set(inputsIndex, setStack);
-                recipe.set(recipeIndex, null);
-                return true;
-            }
+            inputs.set(inputsIndex, ItemStack.EMPTY);
+            recipe.set(recipeIndex, null);
+            return true;
         } else {
             if (recipeObject instanceof Item) {
                 return removeFromListsAfterMatching(new ItemStack((Item) recipeObject), recipeIndex, recipe, input, inputsIndex, inputs);
