@@ -1,12 +1,10 @@
 package com.yolp900.charming.util;
 
 import com.yolp900.charming.common.blocks.ModBlocks;
-import com.yolp900.charming.common.blocks.base.ModBlock;
 import com.yolp900.charming.reference.LibOreDict;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStoneBrick;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -21,6 +19,7 @@ public class OreDictHandler {
         registerOre(LibOreDict.LOG_WOOD, ModBlocks.TintedLog);
         registerOre(LibOreDict.SAPLING, ModBlocks.TintedSapling);
         registerOre(LibOreDict.LEAVES, ModBlocks.TintedLeaves);
+        registerOre(LibOreDict.PLANK_WOOD, ModBlocks.TintedPlanks);
     }
 
     private static void registerOre(String name, Block block, int meta) {

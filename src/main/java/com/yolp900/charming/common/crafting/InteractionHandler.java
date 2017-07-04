@@ -1,6 +1,5 @@
 package com.yolp900.charming.common.crafting;
 
-import com.yolp900.charming.Charming;
 import com.yolp900.charming.api.CharmingAPI;
 import com.yolp900.charming.api.crafting.wandinteraction.RecipeWandInteraction;
 import com.yolp900.charming.client.particle.ModParticles;
@@ -53,7 +52,7 @@ public class InteractionHandler {
             if (ModRecipes.WandInteraction.infusionParticleList.contains(recipe)) {
                 NetworkHandler.sendToAllAround(new MessageSound(SoundHandler.ModSounds.MagicDing, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 1.5, 1), player.dimension, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 16);
                 double y = pos.getY() + 1.5;
-                if (!recipe.getStructure().getBlockClicked().isFullBlock()) {
+                if (recipe.getStructure().getBlockClicked() != null && !recipe.getStructure().getBlockClicked().isFullBlock()) {
                     y = pos.getY() + 0.5;
                 }
                 NetworkHandler.sendToAllAround(new MessageParticle(ModParticles.Particles.Transmutation, pos.getX() + 0.5, y, pos.getZ() + 0.5), player.dimension, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, 16);

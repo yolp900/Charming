@@ -11,15 +11,19 @@ import java.util.List;
 
 public abstract class CraftingMechanic {
 
-    protected boolean matchesShaped(NonNullList<ItemStack> inputStacks, List<Object> recipeStacks) {
-        if (inputStacks.size() != recipeStacks.size()) return false;
-        for (int i = 0; i < recipeStacks.size(); i++) {
-            Object recipeStack = recipeStacks.get(i);
-            ItemStack inputStack = inputStacks.get(i);
+    protected boolean matchesShaped(NonNullList<ItemStack> inputs, List<Object> recipe) {
+        List<Object> copyOfRecipe = new ArrayList<>();
+        copyOfRecipe.addAll(recipe);
+        NonNullList<ItemStack> copyOfInputs = NonNullList.create();
+        copyOfInputs.addAll(inputs);
+        if (copyOfInputs.size() != copyOfRecipe.size()) return false;
+        for (int i = 0; i < copyOfRecipe.size(); i++) {
+            Object recipeStack = copyOfRecipe.get(i);
+            ItemStack inputStack = copyOfInputs.get(i);
             if (inputStack.isEmpty()) {
                 if (recipeStack != null && recipeStack != ItemStack.EMPTY) return false;
             } else {
-                if (inputStack.isEmpty() || !isStackTheSameAsRecipeObj(inputStacks.get(i), recipeStack)) return false;
+                if (inputStack.isEmpty() || !isStackTheSameAsRecipeObj(inputStack, recipeStack)) return false;
             }
         }
         return true;

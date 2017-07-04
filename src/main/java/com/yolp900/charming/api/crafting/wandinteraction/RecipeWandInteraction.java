@@ -22,14 +22,14 @@ import java.util.List;
 public abstract class RecipeWandInteraction extends CraftingMechanic {
     private TransmutationStructure structure;
     private List<Object> ingredients = new ArrayList<>();
-    private boolean keepsItems;
+    private List<Object> ingredientsToRemove = new ArrayList<>();
     private boolean keepsAroundBlocks;
     private int minimalWandLevel;
 
-    public RecipeWandInteraction(@Nonnull TransmutationStructure structure, @Nullable List<Object> ingredients, boolean keepItems, boolean keepAroundBlocks, int minimalWandLevel) {
+    public RecipeWandInteraction(@Nonnull TransmutationStructure structure, @Nullable List<Object> ingredients, List<Object> ingredientsToRemove, boolean keepAroundBlocks, int minimalWandLevel) {
         this.structure = structure;
         this.ingredients = ingredients;
-        this.keepsItems = keepItems;
+        this.ingredientsToRemove = ingredientsToRemove;
         this.keepsAroundBlocks = keepAroundBlocks;
         this.minimalWandLevel = minimalWandLevel;
     }
@@ -85,11 +85,11 @@ public abstract class RecipeWandInteraction extends CraftingMechanic {
         structure.removeBlocks(world, pos, player);
     }
 
-    protected void removeItemStacks(World world, List<EntityItem> worldIngredients, List<Object> ingredients) {
-        if (ingredients == null) return;
+    protected void removeItemStacks(World world, List<EntityItem> worldIngredients, List<Object> ingredientsToRemove) {
+        if (ingredientsToRemove == null) return;
         if (!world.isRemote) {
             List<Object> recipeIngredientsCopy = new ArrayList<>();
-            recipeIngredientsCopy.addAll(ingredients);
+            recipeIngredientsCopy.addAll(ingredientsToRemove);
             for (int i = 0; i < recipeIngredientsCopy.size(); i++ ){
                 Object recipeObject = recipeIngredientsCopy.get(i);
                 for (int j = 0; j < worldIngredients.size(); j++) {
@@ -154,40 +154,12 @@ public abstract class RecipeWandInteraction extends CraftingMechanic {
         return false;
     }
 
-    /*
-
-    protected void removeBlocksAround(World world, BlockPos pos, List<IBlockState> recipeBlocks, List<IBlockState> blocksToRemove) {
-        if (!keepsAroundBlocks() && recipeBlocks != null && blocksToRemove != null && !world.isRemote) {
-            List<IBlockState> recipeBlocksCopy = new ArrayList<>();
-            recipeBlocksCopy.addAll(blocksToRemove);
-            for (int x = -1; x < 2; x++) {
-                for (int z = -1; z < 2; z++) {
-                    BlockPos curr = new BlockPos(pos.getX() + x, pos.getY(), pos.getZ() + z);
-                    if (!curr.equals(pos)) {
-                        IBlockState state = world.getBlockState(curr);
-                        for (int i = 0; i < recipeBlocksCopy.size(); i++) {
-                            IBlockState recipeState = recipeBlocksCopy.get(i);
-                            if (state.equals(recipeState)) {
-                                recipeBlocksCopy.set(i, Blocks.AIR.getDefaultState());
-                                world.setBlockToAir(curr);
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-
-    */
-
     public List<Object> getIngredients() {
         return ingredients;
     }
 
-    public boolean keepsItems() {
-        return keepsItems;
+    public List<Object> getIngredientsToRemove() {
+        return ingredientsToRemove;
     }
 
     public boolean keepsAroundBlocks() {

@@ -15,8 +15,8 @@ import java.util.List;
 public class RecipeWandInteractionItem extends RecipeWandInteraction {
     private NonNullList<ItemStack> outputs;
 
-    public RecipeWandInteractionItem(@Nonnull NonNullList<ItemStack> outputs, @Nonnull TransmutationStructure structure, @Nullable List<Object> ingredients, boolean keepItems, boolean keepAroundBlocks, int minimalWandLevel) {
-        super(structure, ingredients, keepItems, keepAroundBlocks, minimalWandLevel);
+    public RecipeWandInteractionItem(@Nonnull NonNullList<ItemStack> outputs, @Nonnull TransmutationStructure structure, @Nullable List<Object> ingredients, List<Object> ingredientsToRemove, boolean keepAroundBlocks, int minimalWandLevel) {
+        super(structure, ingredients, ingredientsToRemove, keepAroundBlocks, minimalWandLevel);
         this.outputs = outputs;
     }
 
@@ -25,9 +25,7 @@ public class RecipeWandInteractionItem extends RecipeWandInteraction {
         if (!keepsAroundBlocks()) {
             removeBlocks(world, pos, player, getStructure());
         }
-        if (!keepsItems()) {
-            removeItemStacks(world, entityItems, getIngredients());
-        }
+        removeItemStacks(world, entityItems, getIngredientsToRemove());
         spawnOutputs(world, pos, getOutputs());
     }
 

@@ -14,8 +14,8 @@ import java.util.List;
 public class RecipeWandInteractionBlock extends RecipeWandInteraction {
     private IBlockState output;
 
-    public RecipeWandInteractionBlock(@Nonnull IBlockState output, @Nonnull TransmutationStructure structure, @Nullable List<Object> ingredients, boolean keepItems, boolean keepAroundBlocks, int minimalWandLevel) {
-        super(structure, ingredients, keepItems, keepAroundBlocks, minimalWandLevel);
+    public RecipeWandInteractionBlock(@Nonnull IBlockState output, @Nonnull TransmutationStructure structure, @Nullable List<Object> ingredients, List<Object> ingredientsToRemove, boolean keepAroundBlocks, int minimalWandLevel) {
+        super(structure, ingredients, ingredientsToRemove, keepAroundBlocks, minimalWandLevel);
         this.output = output;
     }
 
@@ -25,9 +25,7 @@ public class RecipeWandInteractionBlock extends RecipeWandInteraction {
             removeBlocks(world, pos, player, getStructure());
         }
         changeBlock(world, pos, player, getOutput());
-        if (!keepsItems()) {
-            removeItemStacks(world, entityItems, getIngredients());
-        }
+        removeItemStacks(world, entityItems, getIngredientsToRemove());
     }
 
     protected void changeBlock(World world, BlockPos pos, EntityPlayer player, IBlockState recipeOutput) {

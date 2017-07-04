@@ -1,6 +1,5 @@
 package com.yolp900.charming.api;
 
-import com.yolp900.charming.Charming;
 import com.yolp900.charming.api.crafting.CraftingMechanic;
 import com.yolp900.charming.api.crafting.constructiontable.RecipeConstructionTable;
 import com.yolp900.charming.api.crafting.wandinteraction.RecipeWandInteraction;
@@ -71,32 +70,32 @@ public class CharmingAPI {
 
         /**
          * Registers a block interaction recipe.
-         * @param output            - The recipe's output.
-         * @param structure         - The recipe's block structure.
-         * @param ingredients       - The recipe's item ingredients (on the transmuted block).
-         * @param keepItems         - Whether you keep the items or not.
-         * @param keepAroundBlocks  - Whether you keep the blocks or not.
-         * @param minimalWandLevel  - minimal wand level for this recipe. 0 = wood, 1 = stone, 2 = iron, 3 = obsidian, 4 = diamond. set to -1 for an empty hand.
+         * @param output                - The recipe's output.
+         * @param structure             - The recipe's block structure.
+         * @param ingredients           - The recipe's item ingredients (on the transmuted block).
+         * @param ingredientsToRemove   - The ingredients to remove from the world.
+         * @param keepAroundBlocks      - Whether you keep the blocks or not.
+         * @param minimalWandLevel      - minimal wand level for this recipe. 0 = wood, 1 = stone, 2 = iron, 3 = obsidian, 4 = diamond. set to -1 for an empty hand.
          * @return The registered recipe.
          */
-        public static RecipeWandInteractionBlock registerBlockInteractionRecipe(@Nonnull IBlockState output, @Nonnull TransmutationStructure structure, @Nullable List<Object> ingredients, boolean keepItems, boolean keepAroundBlocks, int minimalWandLevel) {
-            RecipeWandInteractionBlock recipe = new RecipeWandInteractionBlock(output, structure, ingredients, keepItems, keepAroundBlocks, minimalWandLevel);
+        public static RecipeWandInteractionBlock registerBlockInteractionRecipe(@Nonnull IBlockState output, @Nonnull TransmutationStructure structure, @Nullable List<Object> ingredients, List<Object> ingredientsToRemove, boolean keepAroundBlocks, int minimalWandLevel) {
+            RecipeWandInteractionBlock recipe = new RecipeWandInteractionBlock(output, structure, ingredients, ingredientsToRemove, keepAroundBlocks, minimalWandLevel);
             interactionRecipeList.add(recipe);
             return recipe;
         }
 
         /**
          * Registers an item interaction recipe.
-         * @param outputs           - The recipe's outputs.
-         * @param structure         - The recipe's block structure.
-         * @param ingredients       - The recipe's item ingredients.
-         * @param keepItems         - Whether you keep the items or not.
-         * @param keepAroundBlocks  - Whether you keep the blocks or not.
-         * @param minimalWandLevel  - minimal wand level for this recipe. 0 = wood, 1 = stone, 2 = iron, 3 = obsidian, 4 = diamond. set to -1 for an empty hand.
+         * @param outputs               - The recipe's outputs.
+         * @param structure             - The recipe's block structure.
+         * @param ingredients           - The recipe's item ingredients.
+         * @param ingredientsToRemove   - The ingredients to remove from the world.
+         * @param keepAroundBlocks      - Whether you keep the blocks or not.
+         * @param minimalWandLevel      - minimal wand level for this recipe. 0 = wood, 1 = stone, 2 = iron, 3 = obsidian, 4 = diamond. set to -1 for an empty hand.
          * @return The registered recipe.
          */
-        public static RecipeWandInteractionItem registerItemInteractionRecipe(@Nonnull NonNullList<ItemStack> outputs, @Nonnull TransmutationStructure structure, @Nullable List<Object> ingredients, boolean keepItems, boolean keepAroundBlocks, int minimalWandLevel) {
-            RecipeWandInteractionItem recipe = new RecipeWandInteractionItem(outputs, structure, ingredients, keepItems, keepAroundBlocks, minimalWandLevel);
+        public static RecipeWandInteractionItem registerItemInteractionRecipe(@Nonnull NonNullList<ItemStack> outputs, @Nonnull TransmutationStructure structure, @Nullable List<Object> ingredients, List<Object> ingredientsToRemove, boolean keepAroundBlocks, int minimalWandLevel) {
+            RecipeWandInteractionItem recipe = new RecipeWandInteractionItem(outputs, structure, ingredients, ingredientsToRemove, keepAroundBlocks, minimalWandLevel);
             interactionRecipeList.add(recipe);
             return recipe;
         }
