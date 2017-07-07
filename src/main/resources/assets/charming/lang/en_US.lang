@@ -10,6 +10,7 @@ tile.charming:TintedSapling.name=Tinted Sapling
 tile.charming:TintedLog.name=Tinted Wood
 tile.charming:TintedLeaves.name=Tinted Leaves
 tile.charming:TintedPlanks.name=Tinted Wood Planks
+tile.charming:Flower.desertrose.name=Desert Rose
 
 //Items
 //item.charming:*name*.name=

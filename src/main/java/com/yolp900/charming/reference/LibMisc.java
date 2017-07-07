@@ -5,7 +5,7 @@ public class LibMisc {
     /**
      * EnumBlockTypes Name for Blocks with Metadata.
      */
-    public static final String BLOCK_TYPE = "blocktype";
+    public static final String BLOCK_TYPE = "type";
 
     /**
      * Levitator On-State PropertyBool name.

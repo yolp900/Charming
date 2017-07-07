@@ -9,6 +9,7 @@ import com.yolp900.charming.api.crafting.wandinteraction.RecipeWandInteractionBl
 import com.yolp900.charming.api.crafting.wandinteraction.RecipeWandInteractionItem;
 import com.yolp900.charming.api.crafting.wandinteraction.TransmutationStructure;
 import com.yolp900.charming.api.tiles.IInvertible;
+import com.yolp900.charming.common.blocks.BlockFlower;
 import com.yolp900.charming.common.blocks.ModBlocks;
 import com.yolp900.charming.common.items.ItemEffectStone;
 import com.yolp900.charming.common.items.ModItems;
@@ -127,12 +128,13 @@ public class ModRecipes {
 
         public static RecipeWandInteractionBlock ConstructionTable;
         public static RecipeWandInteractionBlock Levitator;
-        public static RecipeWandInteractionBlock TintedSapling[] = new RecipeWandInteractionBlock[BlockSapling.TYPE.getAllowedValues().size()]; // Only for oak saplings, for now
+        public static RecipeWandInteractionBlock TintedSapling[] = new RecipeWandInteractionBlock[BlockSapling.TYPE.getAllowedValues().size()];
 
         public static RecipeWandInteractionItem WoodenTransmutationWand;
         public static RecipeWandInteractionItem InversionEffectStone;
         public static RecipeWandInteractionItem ConversionEffectStone; //TODO maybe find other materials.
         public static RecipeWandInteractionItem EnderPearlSplitting;
+        public static RecipeWandInteractionItem DesertRose;
         public static RecipeWandInteractionItem RottenFleshToLeather;
 
         public static RecipeWandInteraction BlockInversion = new RecipeWandInteraction(TransmutationStructure.EMPTY, obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.Inversion.ordinal())), null, false, 1) {
@@ -165,11 +167,12 @@ public class ModRecipes {
             InversionEffectStone = registerItemRecipe(stack(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.Inversion.ordinal())), TransmutationStructure.EMPTY, obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.None.ordinal()), Blocks.LEVER, Blocks.REDSTONE_TORCH), obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.None.ordinal()), Blocks.LEVER, Blocks.REDSTONE_TORCH), false, 0);
             ConversionEffectStone = registerItemRecipe(stack(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.Conversion.ordinal())), TransmutationStructure.EMPTY, obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.None.ordinal()), NUGGET_GOLD, INGOT_IRON, DUST_REDSTONE), obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.None.ordinal()), NUGGET_GOLD, INGOT_IRON, DUST_REDSTONE), false, 1);
             EnderPearlSplitting = registerItemRecipe(stack(new ItemStack(ModItems.HalfPearl, 2)), TransmutationStructure.EMPTY, obj(ENDERPEARL), obj(ENDERPEARL), false, 1);
+            DesertRose = registerItemRecipe(stack(new ItemStack(ModBlocks.Flower, 1, BlockFlower.EnumTypes.DesertRose.getMetadata())), new TransmutationStructure(Blocks.SAND.getDefaultState(), bs(groupBS(Blocks.SAND.getDefaultState(), 4)), bs(groupBS(Blocks.SAND.getDefaultState(), 4)), null), obj(Blocks.YELLOW_FLOWER, new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.Conversion.ordinal())), obj(Blocks.YELLOW_FLOWER), true, 1);
             RottenFleshToLeather = registerItemRecipe(stack(new ItemStack(Items.LEATHER)), TransmutationStructure.EMPTY, obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.Conversion.ordinal()), new ItemStack(Items.ROTTEN_FLESH, 2)), obj(new ItemStack(Items.ROTTEN_FLESH, 2)), false, 1);
 
             registerRecipe(BlockInversion);
 
-            addAllToList(infusionParticleList, WoodenTransmutationWand, InversionEffectStone, EnderPearlSplitting, TintedSapling);
+            addAllToList(infusionParticleList, WoodenTransmutationWand, InversionEffectStone, EnderPearlSplitting, TintedSapling, DesertRose);
             addAllToList(constructionParticleList, ConstructionTable);
         }
 

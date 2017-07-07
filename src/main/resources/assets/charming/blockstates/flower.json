@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "type=desertrose": { "model": "charming:desert_rose" }
+  }
+}

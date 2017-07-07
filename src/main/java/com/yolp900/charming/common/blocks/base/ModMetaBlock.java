@@ -25,6 +25,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public abstract class ModMetaBlock extends ModBlock {
     // public static final PropertyEnum<EnumTypes> TYPE = PropertyEnum.create(LibMisc.BLOCK_TYPE, EnumTypes.class);
@@ -82,7 +83,7 @@ public abstract class ModMetaBlock extends ModBlock {
     protected abstract float getBlockHardness(int meta);
 
     @Override
-    public float getExplosionResistance(World world, BlockPos pos, @Nonnull Entity exploder, Explosion explosion) {
+    public float getExplosionResistance(World world, BlockPos pos, @Nullable Entity exploder, Explosion explosion) {
         return getExplosionResistance(getMetaFromState(world.getBlockState(pos)));
     }
 
@@ -95,7 +96,7 @@ public abstract class ModMetaBlock extends ModBlock {
         return getMaterial(getMetaFromState(state));
     }
 
-    // return return EnumTypes.values()[meta].getMaterial();
+    // return EnumTypes.values()[meta].getMaterial();
     @Nonnull
     protected abstract Material getMaterial(int meta);
 
@@ -129,7 +130,7 @@ public abstract class ModMetaBlock extends ModBlock {
         ModMetaItemBlock itemBlock = (ModMetaItemBlock) item;
 
         for (int i = 0; i < getNumOfTypes(); i++) {
-            ModelResourceLocation mrl = new ModelResourceLocation(new ResourceLocation(getBlockRegistryName().getResourceDomain(), LibLocations.ITEMBLOCK_MODEL_FOLDER_PREFIX + itemBlock.block.getName() + getBlockRegistryName().getResourcePath() + getTypeName(i)), LibMisc.INVENTORY_VARIANT);
+            ModelResourceLocation mrl = new ModelResourceLocation(new ResourceLocation(getBlockRegistryName().getResourceDomain(), LibLocations.ITEMBLOCK_MODEL_FOLDER_PREFIX + getBlockRegistryName().getResourcePath() + "_" + getTypeName(i)), LibMisc.INVENTORY_VARIANT);
             ModelLoader.setCustomModelResourceLocation(itemBlock, i, mrl);
         }
     }
@@ -144,6 +145,7 @@ public abstract class ModMetaBlock extends ModBlock {
 
         float getResistance();
 
+        @Nonnull
         Material getMaterial();
 
         MapColor getMapColor();

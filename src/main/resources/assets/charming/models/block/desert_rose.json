@@ -1,0 +1,6 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "charming:blocks/flower_desert_rose"
+  }
+}

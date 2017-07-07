@@ -26,10 +26,10 @@ public abstract class ModItem extends Item implements IModItem {
         this.setUnlocalizedName(getItemUnlocalizedName());
         this.setRegistryName(getItemRegistryName());
         this.setCreativeTab(getItemCreativeTab());
-        ModItems.modItems.add(this);
         if (this instanceof IMetaItem) {
             setHasSubtypes(true);
         }
+        ModItems.modItems.add(this);
     }
 
     public String getName() {

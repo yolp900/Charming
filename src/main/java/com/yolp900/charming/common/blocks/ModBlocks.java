@@ -16,6 +16,7 @@ public class ModBlocks {
     public static BlockTintedLog TintedLog;
     public static BlockTintedLeaves TintedLeaves;
     public static BlockTintedPlanks TintedPlanks;
+    public static BlockFlower Flower;
 
     public static void registerBlocks() {
         ConstructionTable = new BlockConstructionTable();
@@ -25,6 +26,7 @@ public class ModBlocks {
         TintedLog = new BlockTintedLog();
         TintedLeaves = new BlockTintedLeaves();
         TintedPlanks = new BlockTintedPlanks();
+        Flower = new BlockFlower();
 
         for (IModBlock block : modBlocks) {
             block.registerBlock();

@@ -13,5 +13,6 @@ public class LibBlocks {
     public static final String TINTED_LOG = "TintedLog";
     public static final String TINTED_LEAVES = "TintedLeaves";
     public static final String TINTED_PLANKS = "TintedPlanks";
+    public static final String FLOWER = "Flower";
 
 }
