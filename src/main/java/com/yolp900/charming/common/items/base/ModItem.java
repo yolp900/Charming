@@ -53,50 +53,11 @@ public abstract class ModItem extends Item implements IModItem {
     }
 
     @Override
-    @Nonnull
-    public String getUnlocalizedName(ItemStack stack) {
-        if (stack.getItem() instanceof IMetaItem) {
-            IMetaItem item = (IMetaItem) stack.getItem();
-            return super.getUnlocalizedName(stack) + "." + item.getTypeName(stack.getItemDamage());
-        } else {
-            return super.getUnlocalizedName(stack);
-        }
-    }
-
-    @Override
     public int getMetadata(int damage) {
         if (this instanceof IMetaItem) {
             return damage;
         } else {
             return super.getMetadata(damage);
-        }
-    }
-
-    @SideOnly (Side.CLIENT)
-    public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> subItems) {
-        if (item instanceof IMetaItem) {
-            for (int i = 0; i < ((IMetaItem) item).getNumOfTypes(); i++) {
-                subItems.add(new ItemStack(this, 1, i));
-            }
-        } else {
-            super.getSubItems(item, tab, subItems);
-        }
-    }
-
-    @Override
-    public void registerItem() {
-        GameRegistry.register(this);
-    }
-
-    @Override
-    public void registerRender() {
-        if (this instanceof IMetaItem) {
-            for (int i = 0; i < ((IMetaItem) this).getNumOfTypes(); i++) {
-                ModelResourceLocation mrl = new ModelResourceLocation(new ResourceLocation(getItemRegistryName().getResourceDomain(), getItemRegistryName().getResourcePath() + "_" + ((IMetaItem) this).getTypeName(i).toLowerCase()), LibMisc.INVENTORY_VARIANT);
-                ModelLoader.setCustomModelResourceLocation(this, i, mrl);
-            }
-        } else {
-            ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getItemRegistryName().toString()));
         }
     }
 

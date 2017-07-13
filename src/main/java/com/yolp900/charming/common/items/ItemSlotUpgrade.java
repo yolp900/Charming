@@ -1,5 +1,6 @@
 package com.yolp900.charming.common.items;
 
+import com.yolp900.charming.common.items.base.CustomMeshDefinition;
 import com.yolp900.charming.common.items.base.ModItemWithCustomMeshDefinition;
 import com.yolp900.charming.reference.LibItems;
 import com.yolp900.charming.reference.LibMisc;
@@ -18,6 +19,17 @@ public class ItemSlotUpgrade extends ModItemWithCustomMeshDefinition {
     @Override
     public IHandlesMeshDefinitions[] getMeshDefinitions() {
         return EnumMeshTypes.values();
+    }
+
+    @Override
+    public boolean usesDefaultItemRegistry() {
+        return true;
+    }
+
+    @Override
+    public boolean usesDefaultRenderRegistry() {
+        CustomMeshDefinition.registerRender(this);
+        return false;
     }
 
     public enum EnumMeshTypes implements IHandlesMeshDefinitions {

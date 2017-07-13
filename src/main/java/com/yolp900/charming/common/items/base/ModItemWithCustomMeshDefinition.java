@@ -12,11 +12,6 @@ public abstract class ModItemWithCustomMeshDefinition extends ModItem {
 
     public abstract IHandlesMeshDefinitions[] getMeshDefinitions();
 
-    @Override
-    public void registerRender() {
-        CustomMeshDefinition.registerRender(this);
-    }
-
     public interface IHandlesMeshDefinitions {
         boolean getMeshDefinitionCondition(ItemStack stack);
         ModelResourceLocation getModeResourceLocation(Item item);

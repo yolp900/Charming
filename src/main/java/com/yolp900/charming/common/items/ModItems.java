@@ -1,13 +1,15 @@
 package com.yolp900.charming.common.items;
 
 import com.yolp900.charming.common.items.base.IModItem;
+import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ModItems {
 
-    public static List<IModItem> modItems = new ArrayList<>();
+    public static List<Item> modItems = new ArrayList<>();
 
     public static ItemTransmutationWand TransmutationWand;
     public static ItemSlotUpgrade SlotUpgrade;
@@ -20,8 +22,17 @@ public class ModItems {
         EffectStone = new ItemEffectStone();
         HalfPearl = new ItemHalfPearl();
 
-        for (IModItem item : modItems) {
-            item.registerItem();
+        for (Item item : modItems) {
+            if (item instanceof IModItem) {
+                registerItem(item);
+            }
+        }
+    }
+
+    private static void registerItem(Item item) {
+        IModItem iModItem = (IModItem) item;
+        if (iModItem.usesDefaultItemRegistry()) {
+            GameRegistry.register(item);
         }
     }
 

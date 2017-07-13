@@ -14,8 +14,7 @@ public interface IModItem {
 
     CreativeTabs getItemCreativeTab();
 
-    void registerItem();
+    boolean usesDefaultItemRegistry();
 
-    void registerRender();
-
+    boolean usesDefaultRenderRegistry();
 }
