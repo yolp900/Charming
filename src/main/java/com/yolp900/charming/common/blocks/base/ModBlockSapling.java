@@ -2,17 +2,22 @@ package com.yolp900.charming.common.blocks.base;
 
 import com.yolp900.charming.Charming;
 import com.yolp900.charming.common.blocks.ModBlocks;
+import com.yolp900.charming.reference.LibLocations;
 import com.yolp900.charming.reference.Reference;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
@@ -51,16 +56,6 @@ public abstract class ModBlockSapling extends BlockSapling implements IModBlock 
     @Override
     public float getBlockHardness(IBlockState state, World world, BlockPos pos) {
         return 0.0F;
-    }
-
-    @Override
-    public boolean usesDefaultBlockRegistry() {
-        return true;
-    }
-
-    @Override
-    public boolean usesDefaultRenderRegistry() {
-        return true;
     }
 
     @Override

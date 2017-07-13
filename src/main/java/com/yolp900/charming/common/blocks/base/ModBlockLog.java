@@ -96,14 +96,4 @@ public abstract class ModBlockLog extends BlockLog implements IModBlock {
         return 2.0F;
     }
 
-    @Override
-    public boolean usesDefaultBlockRegistry() {
-        return true;
-    }
-
-    @Override
-    public boolean usesDefaultRenderRegistry() {
-        return true;
-    }
-
 }

@@ -47,6 +47,16 @@ public class BlockElevator extends ModBlock {
         return Material.WOOD;
     }
 
+    @Override
+    public boolean usesDefaultBlockRegistry() {
+        return true;
+    }
+
+    @Override
+    public boolean usesDefaultRenderRegistry() {
+        return true;
+    }
+
     public static class ElevatorHandler {
 
         @SubscribeEvent

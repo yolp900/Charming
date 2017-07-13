@@ -12,54 +12,25 @@ import javax.annotation.Nonnull;
 
 public interface IMetaBlock {
 
-    PropertyEnum<EnumType> getTypeEnum();
-    EnumType getDefaultState();
-    EnumType[] getTypes();
+    IEnumType[] getTypes();
 
-    enum EnumType implements IStringSerializable {
+    interface IEnumType extends IStringSerializable {
         ;
-        private float hardness;
-        private float resistance;
-        private Material material;
-        private MapColor mapColor;
-
-        EnumType(float hardness, float resistance, Material material) {
-            this(hardness, resistance, material, material.getMaterialMapColor());
-        }
-
-        EnumType(float hardness, float resistance, Material material, MapColor mapColor) {
-            this.hardness = hardness;
-            this.resistance = resistance;
-            this.material = material;
-            this.mapColor = mapColor;
-        }
 
         @Override
         @Nonnull
-        public String getName() {
-            return name();
-        }
+        String getName();
 
-        public int getMetadata() {
-            return ordinal();
-        }
+        int getMetadata();
 
-        public float getHardness() {
-            return hardness;
-        }
+        float getHardness();
 
-        public float getResistance() {
-            return resistance;
-        }
+        float getResistance();
 
         @Nonnull
-        public Material getMaterial() {
-            return material;
-        }
+        Material getMaterial();
 
-        public MapColor getMapColor() {
-            return mapColor;
-        }
+        MapColor getMapColor();
     }
 
     class ModMetaItemBlock extends ItemBlock {
@@ -88,5 +59,86 @@ public interface IMetaBlock {
             return damage;
         }
     }
+
+    /*
+    @Override
+    @Nonnull
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, ENUM_TYPE);
+    }
+
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return state.getValue(ENUM_TYPE).getMetadata();
+    }
+
+    @Nonnull
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        if (meta >= getTypes().length) {
+            meta = 0;
+        }
+        return getDefaultState().withProperty(ENUM_TYPE, ENUM_TYPE.values()[meta]);
+    }
+
+    @Override
+    public void getSubBlocks(@Nonnull Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list) {
+        for (int i = 0; i < getTypes().length; i++) {
+            list.add(new ItemStack(this, 1, i));
+        }
+    }
+
+    @Override
+    public int damageDropped(IBlockState state) {
+        return getMetaFromState(state);
+    }
+
+    @Override
+    public float getBlockHardness(IBlockState state, World world, BlockPos pos) {
+        return getTypes()[getMetaFromState(state)].getHardness();
+    }
+
+    @Override
+    public float getExplosionResistance(World world, BlockPos pos, @Nullable Entity exploder, Explosion explosion) {
+        return getTypes()[getMetaFromState(world.getBlockState(pos))].getResistance();
+    }
+
+    @Override
+    @Nonnull
+    public Material getMaterial(IBlockState state) {
+        return getTypes()[getMetaFromState(state)].getMaterial();
+    }
+
+    @Override
+    @Nonnull
+    public MapColor getMapColor(IBlockState state) {
+        return getTypes()[getMetaFromState(state)].getMapColor();
+    }
+    
+    @Override
+    public boolean usesDefaultBlockRegistry() {
+        GameRegistry.register(this);
+        IMetaBlock.ModMetaItemBlock itemBlock = new IMetaBlock.ModMetaItemBlock(this);
+        itemBlock.setRegistryName(getBlockRegistryName());
+        itemBlock.setUnlocalizedName(getBlockUnlocalizedName());
+        GameRegistry.register(itemBlock);
+        return false;
+    }
+
+    @Override
+    public boolean usesDefaultRenderRegistry() {
+        Item item = Item.getItemFromBlock(this);
+        if (!(item instanceof IMetaBlock.ModMetaItemBlock)) {
+            return true;
+        }
+        IMetaBlock.ModMetaItemBlock itemBlock = (IMetaBlock.ModMetaItemBlock) item;
+
+        for (int i = 0; i < getTypes().length; i++) {
+            ModelResourceLocation mrl = new ModelResourceLocation(new ResourceLocation(getBlockRegistryName().getResourceDomain(), LibLocations.ITEMBLOCK_MODEL_FOLDER_PREFIX + getBlockRegistryName().getResourcePath() + "_" + getTypes()[i].getName()), LibMisc.INVENTORY_VARIANT);
+            ModelLoader.setCustomModelResourceLocation(itemBlock, i, mrl);
+        }
+        return false;
+    }
+     */
 
 }

@@ -124,4 +124,13 @@ public class BlockConstructionTable extends ModBlock {
         }
     }
 
+    @Override
+    public boolean usesDefaultBlockRegistry() {
+        return true;
+    }
+
+    @Override
+    public boolean usesDefaultRenderRegistry() {
+        return true;
+    }
 }

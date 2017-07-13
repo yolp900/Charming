@@ -37,11 +37,6 @@ public abstract class ModBlock extends Block implements IModBlock {
         super(Material.ROCK);
         this.name = name;
         ModBlocks.modBlocks.add(this);
-
-        if (this instanceof IMetaBlock) {
-            IMetaBlock iMetaBlock = (IMetaBlock) this;
-            this.setDefaultState(blockState.getBaseState().withProperty(iMetaBlock.getTypeEnum(), iMetaBlock.getDefaultState()));
-        }
     }
 
     public ModBlock(String name, float hardness, float resistance, Material material, MapColor mapColor) {
@@ -78,124 +73,34 @@ public abstract class ModBlock extends Block implements IModBlock {
 
     @Override
     public float getBlockHardness(IBlockState state, World world, BlockPos pos) {
-        if (this instanceof IMetaBlock) {
-            IMetaBlock iMetaBlock = (IMetaBlock) this;
-            return iMetaBlock.getTypes()[getMetaFromState(state)].getHardness();
-        }
         return hardness;
     }
 
     @Override
     public float getExplosionResistance(World world, BlockPos pos, @Nullable Entity exploder, Explosion explosion) {
-        if (this instanceof IMetaBlock) {
-            IMetaBlock iMetaBlock = (IMetaBlock) this;
-            return iMetaBlock.getTypes()[getMetaFromState(world.getBlockState(pos))].getResistance();
-        }
         return resistance;
     }
 
     @Override
     @Nonnull
     public Material getMaterial(IBlockState state) {
-        if (this instanceof IMetaBlock) {
-            IMetaBlock iMetaBlock = (IMetaBlock) this;
-            return iMetaBlock.getTypes()[getMetaFromState(state)].getMaterial();
-        }
         return material;
     }
 
     @Override
     @Nonnull
     public MapColor getMapColor(IBlockState state) {
-        if (this instanceof IMetaBlock) {
-            IMetaBlock iMetaBlock = (IMetaBlock) this;
-            return iMetaBlock.getTypes()[getMetaFromState(state)].getMapColor();
-        }
         return mapColor;
     }
 
     @Override
-    @Nonnull
-    public BlockStateContainer getBlockState() {
-        if (this instanceof IMetaBlock) {
-            IMetaBlock iMetaBlock = (IMetaBlock) this;
-            return new BlockStateContainer(this, iMetaBlock.getTypeEnum());
-        }
-        return super.getBlockState();
-    }
-
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        if (this instanceof IMetaBlock) {
-            IMetaBlock iMetaBlock = (IMetaBlock) this;
-            for (int i = 0; i < iMetaBlock.getTypes().length; i++) {
-                Object obj = state.getValue(iMetaBlock.getTypeEnum());
-                if (obj == iMetaBlock.getTypes()[i]) return i;
-            }
-        }
-        return super.getMetaFromState(state);
-    }
-
-    @Override
-    @Nonnull
-    public IBlockState getStateFromMeta(int meta) {
-        if (this instanceof IMetaBlock) {
-            IMetaBlock iMetaBlock = (IMetaBlock) this;
-            if (meta >= iMetaBlock.getTypes().length) {
-                meta = 0;
-            }
-            return getDefaultState().withProperty(iMetaBlock.getTypeEnum(), iMetaBlock.getTypes()[meta]);
-        }
-        return super.getStateFromMeta(meta);
-    }
-
-    @Override
     public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
-        if (this instanceof IMetaBlock) {
-            IMetaBlock iMetaBlock = (IMetaBlock) this;
-            for (int i = 0; i < iMetaBlock.getTypes().length; i++) {
-                list.add(new ItemStack(this, 1, i));
-            }
-        } else {
-            super.getSubBlocks(item, tab, list);
-        }
+        super.getSubBlocks(item, tab, list);
     }
 
     @Override
     public int damageDropped(IBlockState state) {
         return getMetaFromState(state);
-    }
-
-    @Override
-    public boolean usesDefaultBlockRegistry() {
-        if (this instanceof IMetaBlock) {
-            GameRegistry.register(this);
-            IMetaBlock.ModMetaItemBlock itemBlock = new IMetaBlock.ModMetaItemBlock(this);
-            itemBlock.setRegistryName(getBlockRegistryName());
-            itemBlock.setUnlocalizedName(getBlockUnlocalizedName());
-            GameRegistry.register(itemBlock);
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public boolean usesDefaultRenderRegistry() {
-        if (this instanceof IMetaBlock) {
-            IMetaBlock iMetaBlock = (IMetaBlock) this;
-            Item item = Item.getItemFromBlock(this);
-            if (!(item instanceof ModMetaBlock.ModMetaItemBlock)) {
-                return true;
-            }
-            ModMetaBlock.ModMetaItemBlock itemBlock = (ModMetaBlock.ModMetaItemBlock) item;
-
-            for (int i = 0; i < iMetaBlock.getTypes().length; i++) {
-                ModelResourceLocation mrl = new ModelResourceLocation(new ResourceLocation(getBlockRegistryName().getResourceDomain(), LibLocations.ITEMBLOCK_MODEL_FOLDER_PREFIX + getBlockRegistryName().getResourcePath() + "_" + iMetaBlock.getTypes()[i].getName()), LibMisc.INVENTORY_VARIANT);
-                ModelLoader.setCustomModelResourceLocation(itemBlock, i, mrl);
-            }
-            return false;
-        }
-        return true;
     }
 
 }

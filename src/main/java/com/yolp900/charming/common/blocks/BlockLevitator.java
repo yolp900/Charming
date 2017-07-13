@@ -79,4 +79,13 @@ public class BlockLevitator extends ModBlock {
         return new TileEntityLevitator();
     }
 
+    @Override
+    public boolean usesDefaultBlockRegistry() {
+        return true;
+    }
+
+    @Override
+    public boolean usesDefaultRenderRegistry() {
+        return true;
+    }
 }

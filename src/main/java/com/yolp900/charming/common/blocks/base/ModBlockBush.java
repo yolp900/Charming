@@ -4,16 +4,17 @@ import com.yolp900.charming.Charming;
 import com.yolp900.charming.common.blocks.ModBlocks;
 import com.yolp900.charming.reference.Reference;
 import net.minecraft.block.BlockBush;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
-import net.minecraftforge.common.IPlantable;
 
 import javax.annotation.Nonnull;
 
-public class ModBlockBush extends BlockBush implements IModBlock, IPlantable {
+public abstract class ModBlockBush extends BlockBush implements IModBlock {
     private String name;
 
     public ModBlockBush(String name) {
@@ -28,8 +29,14 @@ public class ModBlockBush extends BlockBush implements IModBlock, IPlantable {
 
     @Override
     @Nonnull
-    public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos) {
-        return EnumPlantType.Desert;
+    public abstract EnumPlantType getPlantType(IBlockAccess world, BlockPos pos);
+
+    @Override
+    protected abstract boolean canSustainBush(IBlockState state);
+
+    @Override
+    public boolean canPlaceBlockAt(World world, BlockPos pos) {
+        return canSustainBush(world.getBlockState(pos));
     }
 
     @Override
@@ -48,13 +55,4 @@ public class ModBlockBush extends BlockBush implements IModBlock, IPlantable {
         return Charming.creativeTab;
     }
 
-    @Override
-    public boolean usesDefaultBlockRegistry() {
-        return true;
-    }
-
-    @Override
-    public boolean usesDefaultRenderRegistry() {
-        return true;
-    }
 }

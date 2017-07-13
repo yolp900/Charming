@@ -38,11 +38,6 @@ public abstract class ModBlockLeaves extends BlockLeaves implements IModBlock {
         this.setLightOpacity(1);
         this.setSoundType(SoundType.PLANT);
         ModBlocks.modBlocks.add(this);
-
-        if (this instanceof IMetaBlock) {
-            IMetaBlock iMetaBlock = (IMetaBlock) this;
-            this.setDefaultState(blockState.getBaseState().withProperty(iMetaBlock.getTypeEnum(), iMetaBlock.getDefaultState()));
-        }
     }
 
     public String getName() {
@@ -63,23 +58,6 @@ public abstract class ModBlockLeaves extends BlockLeaves implements IModBlock {
     @Override
     public CreativeTabs getBlockCreativeTab() {
         return Charming.creativeTab;
-    }
-
-    @Override
-    public boolean usesDefaultBlockRegistry() {
-        return true;
-    }
-
-    @Override
-    public boolean usesDefaultRenderRegistry() {
-        ItemBlock itemBlock = (ItemBlock) Item.getItemFromBlock(this);
-        ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(CHECK_DECAY, DECAYABLE).build());
-        ResourceLocation registryName = this.getBlockRegistryName();
-        String domain = registryName.getResourceDomain();
-        String path = LibLocations.ITEMBLOCK_MODEL_FOLDER_PREFIX + registryName.getResourcePath();
-        ResourceLocation location = new ResourceLocation(domain, path);
-        ModelLoader.setCustomModelResourceLocation(itemBlock, 0, new ModelResourceLocation(location.toString()));
-        return false;
     }
 
     @Override

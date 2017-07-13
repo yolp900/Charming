@@ -1,127 +1,160 @@
 package com.yolp900.charming.common.blocks;
 
-import com.yolp900.charming.common.blocks.base.ModMetaBlock;
+import com.yolp900.charming.common.blocks.base.IMetaBlock;
+import com.yolp900.charming.common.blocks.base.ModBlockBush;
 import com.yolp900.charming.reference.LibBlocks;
+import com.yolp900.charming.reference.LibLocations;
 import com.yolp900.charming.reference.LibMisc;
-import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.EnumPlantType;
-import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class BlockFlower extends ModMetaBlock implements IPlantable {
+public class BlockFlower extends ModBlockBush implements IMetaBlock {
     public static final PropertyEnum<EnumTypes> TYPE = PropertyEnum.create(LibMisc.BLOCK_TYPE, EnumTypes.class);
 
     public BlockFlower() {
         super(LibBlocks.FLOWER);
+        this.setUnlocalizedName(getBlockUnlocalizedName());
+        this.setRegistryName(getBlockRegistryName());
+        this.setCreativeTab(getBlockCreativeTab());
         this.setSoundType(SoundType.PLANT);
 
         this.setDefaultState(blockState.getBaseState().withProperty(TYPE, EnumTypes.DesertRose));
     }
 
     @Override
-    protected IProperty<?> getTypeEnum() {
-        return TYPE;
+    @Nonnull
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, TYPE);
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
+        if (state.getBlock() != this) return 0;
         return state.getValue(TYPE).getMetadata();
     }
 
     @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        if (meta >= EnumTypes.values().length) {
+        if (meta >= getTypes().length) {
             meta = 0;
         }
         return getDefaultState().withProperty(TYPE, EnumTypes.values()[meta]);
     }
 
     @Override
-    protected int getNumOfTypes() {
-        return EnumTypes.values().length;
+    public void getSubBlocks(@Nonnull Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list) {
+        for (int i = 0; i < getTypes().length; i++) {
+            list.add(new ItemStack(this, 1, i));
+        }
     }
 
     @Override
-    public String getTypeName(int meta) {
-        return EnumTypes.values()[meta].getName();
+    public int damageDropped(IBlockState state) {
+        return getMetaFromState(state);
     }
 
     @Override
-    protected float getBlockHardness(int meta) {
-        return EnumTypes.values()[meta].getHardness();
+    public float getBlockHardness(IBlockState state, World world, BlockPos pos) {
+        return getTypes()[getMetaFromState(state)].getHardness();
     }
 
     @Override
-    protected float getExplosionResistance(int meta) {
-        return EnumTypes.values()[meta].getResistance();
+    public float getExplosionResistance(World world, BlockPos pos, @Nullable Entity exploder, Explosion explosion) {
+        return getTypes()[getMetaFromState(world.getBlockState(pos))].getResistance();
     }
 
+    @Override
     @Nonnull
-    @Override
-    protected Material getMaterial(int meta) {
-        return EnumTypes.values()[meta].getMaterial();
+    public Material getMaterial(IBlockState state) {
+        return getTypes()[getMetaFromState(state)].getMaterial();
     }
 
+    @Override
     @Nonnull
-    @Override
-    protected MapColor getMapColor(int meta) {
-        return EnumTypes.values()[meta].getMapColor();
+    public MapColor getMapColor(IBlockState state) {
+        return getTypes()[getMetaFromState(state)].getMapColor();
     }
 
+    @Override
     @Nonnull
-    @Override
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-        return new AxisAlignedBB(0.30000001192092896D, 0.0D, 0.30000001192092896D, 0.699999988079071D, 0.6000000238418579D, 0.699999988079071D);
-    }
-
-    @Nullable
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, @Nonnull IBlockAccess worldIn, @Nonnull BlockPos pos) {
-        return Block.NULL_AABB;
-    }
-
-    @Override
-    public boolean isOpaqueCube(IBlockState state)
-    {
-        return false;
-    }
-
-    @Override
-    public boolean isFullCube(IBlockState state)
-    {
-        return false;
-    }
-
-    @Nonnull
-    @Override
-    public BlockRenderLayer getBlockLayer() {
-        return BlockRenderLayer.CUTOUT;
-    }
-
-    @Override
     public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos) {
-        return EnumPlantType.Desert;
+        return EnumTypes.values()[getMetaFromState(world.getBlockState(pos))].getPlantType(world, pos);
     }
 
     @Override
-    public IBlockState getPlant(IBlockAccess world, BlockPos pos) {
-        return null;
+    protected boolean canSustainBush(IBlockState state) {
+        return EnumTypes.values()[getMetaFromState(state)].canSustainBlock(state);
+    }
+
+    @Override
+    public IEnumType[] getTypes() {
+        return EnumTypes.values();
+    }
+
+    @Override
+    public boolean usesDefaultBlockRegistry() {
+        GameRegistry.register(this);
+        IMetaBlock.ModMetaItemBlock itemBlock = new IMetaBlock.ModMetaItemBlock(this);
+        itemBlock.setRegistryName(getBlockRegistryName());
+        itemBlock.setUnlocalizedName(getBlockUnlocalizedName());
+        GameRegistry.register(itemBlock);
+        return false;
+    }
+
+    @Override
+    public boolean usesDefaultRenderRegistry() {
+        Item item = Item.getItemFromBlock(this);
+        if (!(item instanceof IMetaBlock.ModMetaItemBlock)) {
+            return true;
+        }
+        IMetaBlock.ModMetaItemBlock itemBlock = (IMetaBlock.ModMetaItemBlock) item;
+
+        for (int i = 0; i < getTypes().length; i++) {
+            ModelResourceLocation mrl = new ModelResourceLocation(new ResourceLocation(getBlockRegistryName().getResourceDomain(), LibLocations.ITEMBLOCK_MODEL_FOLDER_PREFIX + getBlockRegistryName().getResourcePath() + "_" + getTypes()[i].getName()), LibMisc.INVENTORY_VARIANT);
+            ModelLoader.setCustomModelResourceLocation(itemBlock, i, mrl);
+        }
+        return false;
     }
 
     public enum EnumTypes implements IEnumType {
-        DesertRose;
+        DesertRose {
+            @Override
+            public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos) {
+                return EnumPlantType.Desert;
+            }
+
+            @Override
+            public boolean canSustainBlock(IBlockState state) {
+                return state == Blocks.SAND;
+            }
+        };
+
+        public abstract EnumPlantType getPlantType(IBlockAccess world, BlockPos pos);
+
+        public abstract boolean canSustainBlock(IBlockState state);
 
         @Nonnull
         @Override

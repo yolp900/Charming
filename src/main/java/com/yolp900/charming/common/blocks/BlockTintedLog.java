@@ -7,4 +7,14 @@ public class BlockTintedLog extends ModBlockLog {
     public BlockTintedLog() {
         super(LibBlocks.TINTED_LOG);
     }
+
+    @Override
+    public boolean usesDefaultBlockRegistry() {
+        return true;
+    }
+
+    @Override
+    public boolean usesDefaultRenderRegistry() {
+        return true;
+    }
 }
