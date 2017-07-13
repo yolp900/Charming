@@ -4,15 +4,11 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public abstract class ModItemWithCustomMeshDefinition extends ModItem {
+public interface IHasMeshDefinition {
 
-    public ModItemWithCustomMeshDefinition(String name) {
-        super(name);
-    }
+    IHandlesMeshDefinitions[] getMeshDefinitions();
 
-    public abstract IHandlesMeshDefinitions[] getMeshDefinitions();
-
-    public interface IHandlesMeshDefinitions {
+    interface IHandlesMeshDefinitions {
         boolean getMeshDefinitionCondition(ItemStack stack);
         ModelResourceLocation getModeResourceLocation(Item item);
     }

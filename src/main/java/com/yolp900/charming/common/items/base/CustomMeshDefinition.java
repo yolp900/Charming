@@ -10,16 +10,17 @@ import javax.annotation.Nonnull;
 
 public class CustomMeshDefinition implements ItemMeshDefinition {
 
-    private ModItemWithCustomMeshDefinition item;
+    private ModItem item;
 
-    public CustomMeshDefinition(ModItemWithCustomMeshDefinition item) {
+    public CustomMeshDefinition(ModItem item) {
         this.item = item;
     }
 
-    public static void registerRender(ModItemWithCustomMeshDefinition item) {
-        ModelResourceLocation[] modelResourceLocations = new ModelResourceLocation[item.getMeshDefinitions().length];
-        for (int i = 0; i < item.getMeshDefinitions().length; i++) {
-            modelResourceLocations[i] = item.getMeshDefinitions()[i].getModeResourceLocation(item);
+    public static void registerRender(ModItem item) {
+        IHasMeshDefinition hasMeshDefinition = (IHasMeshDefinition) item;
+        ModelResourceLocation[] modelResourceLocations = new ModelResourceLocation[hasMeshDefinition.getMeshDefinitions().length];
+        for (int i = 0; i < hasMeshDefinition.getMeshDefinitions().length; i++) {
+            modelResourceLocations[i] = hasMeshDefinition.getMeshDefinitions()[i].getModeResourceLocation(item);
         }
         ModelBakery.registerItemVariants(item, modelResourceLocations);
         ModelLoader.setCustomMeshDefinition(item, new CustomMeshDefinition(item));
@@ -28,9 +29,10 @@ public class CustomMeshDefinition implements ItemMeshDefinition {
     @Override
     @Nonnull
     public ModelResourceLocation getModelLocation(@Nonnull ItemStack stack) {
-        for (int i = 0; i < item.getMeshDefinitions().length; i++) {
-            if (item.getMeshDefinitions()[i].getMeshDefinitionCondition(stack)) {
-                return item.getMeshDefinitions()[i].getModeResourceLocation(stack.getItem());
+        IHasMeshDefinition hasMeshDefinition = (IHasMeshDefinition) item;
+        for (int i = 0; i < hasMeshDefinition.getMeshDefinitions().length; i++) {
+            if (hasMeshDefinition.getMeshDefinitions()[i].getMeshDefinitionCondition(stack)) {
+                return hasMeshDefinition.getMeshDefinitions()[i].getModeResourceLocation(stack.getItem());
             }
         }
         return new ModelResourceLocation(item.getItemRegistryName().toString());

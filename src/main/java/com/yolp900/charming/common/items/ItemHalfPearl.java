@@ -1,6 +1,8 @@
 package com.yolp900.charming.common.items;
 
-import com.yolp900.charming.common.items.base.ModItemWithCustomMeshDefinition;
+import com.yolp900.charming.common.items.base.CustomMeshDefinition;
+import com.yolp900.charming.common.items.base.IHasMeshDefinition;
+import com.yolp900.charming.common.items.base.ModItem;
 import com.yolp900.charming.reference.LibItems;
 import com.yolp900.charming.reference.LibMisc;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -8,7 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-public class ItemHalfPearl extends ModItemWithCustomMeshDefinition {
+public class ItemHalfPearl extends ModItem implements IHasMeshDefinition {
     public ItemHalfPearl() {
         super(LibItems.Half_ENDER_PEARL);
         this.setMaxStackSize(2);
@@ -17,6 +19,17 @@ public class ItemHalfPearl extends ModItemWithCustomMeshDefinition {
     @Override
     public IHandlesMeshDefinitions[] getMeshDefinitions() {
         return EnumMeshTypes.values();
+    }
+
+    @Override
+    public boolean usesDefaultItemRegistry() {
+        return true;
+    }
+
+    @Override
+    public boolean usesDefaultRenderRegistry() {
+        CustomMeshDefinition.registerRender(this);
+        return false;
     }
 
     public enum EnumMeshTypes implements IHandlesMeshDefinitions {

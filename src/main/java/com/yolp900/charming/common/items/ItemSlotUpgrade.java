@@ -1,7 +1,8 @@
 package com.yolp900.charming.common.items;
 
 import com.yolp900.charming.common.items.base.CustomMeshDefinition;
-import com.yolp900.charming.common.items.base.ModItemWithCustomMeshDefinition;
+import com.yolp900.charming.common.items.base.IHasMeshDefinition;
+import com.yolp900.charming.common.items.base.ModItem;
 import com.yolp900.charming.reference.LibItems;
 import com.yolp900.charming.reference.LibMisc;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -9,7 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-public class ItemSlotUpgrade extends ModItemWithCustomMeshDefinition {
+public class ItemSlotUpgrade extends ModItem implements IHasMeshDefinition {
 
     public ItemSlotUpgrade() {
         super(LibItems.SLOT_UPGRADE);
