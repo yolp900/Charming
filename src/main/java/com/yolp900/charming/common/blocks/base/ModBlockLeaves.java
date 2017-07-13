@@ -117,28 +117,6 @@ public abstract class ModBlockLeaves extends BlockLeaves implements IModBlock {
         return Lists.newArrayList(new ItemStack(this, 1, 0));
     }
 
-    @Override
-    public void breakBlock(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
-        int k = pos.getX();
-        int l = pos.getY();
-        int i1 = pos.getZ();
-
-        if (worldIn.isAreaLoaded(new BlockPos(k - 2, l - 2, i1 - 2), new BlockPos(k + 2, l + 2, i1 + 2))) {
-            for (int j1 = -1; j1 <= 1; ++j1) {
-                for (int k1 = -1; k1 <= 1; ++k1) {
-                    for (int l1 = -1; l1 <= 1; ++l1) {
-                        BlockPos blockpos = pos.add(j1, k1, l1);
-                        IBlockState iblockstate = worldIn.getBlockState(blockpos);
-
-                        if (iblockstate.getBlock().isLeaves(iblockstate, worldIn, blockpos)) {
-                            iblockstate.getBlock().beginLeavesDecay(iblockstate, worldIn, blockpos);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     protected abstract List<ItemStack> getStackDropped(IBlockState state, Random rand, int fortune);
 
     @Override
@@ -190,4 +168,5 @@ public abstract class ModBlockLeaves extends BlockLeaves implements IModBlock {
     public boolean isOpaqueCube(IBlockState state) {
         return Blocks.LEAVES.isOpaqueCube(state);
     }
+
 }
