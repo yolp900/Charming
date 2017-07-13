@@ -39,7 +39,7 @@ public class BlockConstructionTable extends ModBlock {
     }
 
     @Override
-    public float getExplosionResistance(World world, BlockPos pos, @Nonnull Entity exploder, Explosion explosion) {
+    public float getExplosionResistance(World world, BlockPos pos, @Nullable Entity exploder, Explosion explosion) {
         return 10.0F;
     }
 

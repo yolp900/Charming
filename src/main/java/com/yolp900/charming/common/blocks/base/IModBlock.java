@@ -14,8 +14,8 @@ public interface IModBlock {
 
     CreativeTabs getBlockCreativeTab();
 
-    void registerBlock();
+    boolean usesDefaultBlockRegistry();
 
-    void registerRender();
+    boolean usesDefaultRenderRegistry();
 
 }

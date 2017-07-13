@@ -22,7 +22,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.annotation.Nonnull;
@@ -35,12 +34,15 @@ public abstract class ModBlockLeaves extends BlockLeaves implements IModBlock {
 
     public ModBlockLeaves(String name) {
         this.name = name;
-        this.setUnlocalizedName(getBlockUnlocalizedName());
-        this.setRegistryName(getBlockRegistryName());
         this.setHardness(0.2F);
-        this.setCreativeTab(Charming.creativeTab);
+        this.setLightOpacity(1);
         this.setSoundType(SoundType.PLANT);
         ModBlocks.modBlocks.add(this);
+
+        if (this instanceof IMetaBlock) {
+            IMetaBlock iMetaBlock = (IMetaBlock) this;
+            this.setDefaultState(blockState.getBaseState().withProperty(iMetaBlock.getTypeEnum(), iMetaBlock.getDefaultState()));
+        }
     }
 
     public String getName() {
@@ -64,16 +66,12 @@ public abstract class ModBlockLeaves extends BlockLeaves implements IModBlock {
     }
 
     @Override
-    public void registerBlock() {
-        GameRegistry.register(this);
-        ItemBlock itemBlock = new ItemBlock(this);
-        itemBlock.setRegistryName(getBlockRegistryName());
-        itemBlock.setUnlocalizedName(getBlockUnlocalizedName());
-        GameRegistry.register(itemBlock);
+    public boolean usesDefaultBlockRegistry() {
+        return true;
     }
 
     @Override
-    public void registerRender() {
+    public boolean usesDefaultRenderRegistry() {
         ItemBlock itemBlock = (ItemBlock) Item.getItemFromBlock(this);
         ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(CHECK_DECAY, DECAYABLE).build());
         ResourceLocation registryName = this.getBlockRegistryName();
@@ -81,6 +79,7 @@ public abstract class ModBlockLeaves extends BlockLeaves implements IModBlock {
         String path = LibLocations.ITEMBLOCK_MODEL_FOLDER_PREFIX + registryName.getResourcePath();
         ResourceLocation location = new ResourceLocation(domain, path);
         ModelLoader.setCustomModelResourceLocation(itemBlock, 0, new ModelResourceLocation(location.toString()));
+        return false;
     }
 
     @Override
@@ -114,7 +113,7 @@ public abstract class ModBlockLeaves extends BlockLeaves implements IModBlock {
     }
 
     @Override
-    public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
+    public List<ItemStack> onSheared(@Nonnull ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
         return Lists.newArrayList(new ItemStack(this, 1, 0));
     }
 

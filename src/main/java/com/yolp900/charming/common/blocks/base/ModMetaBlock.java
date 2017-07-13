@@ -21,8 +21,6 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -49,7 +47,7 @@ public abstract class ModMetaBlock extends ModBlock {
     @Override
     public abstract int getMetaFromState(IBlockState state);
 
-    // if (meta >= EnumBlockTypes.values().length) {
+    // if (meta >= EnumTypes.values().length) {
     //    meta = 0;
     // }
     // return getDefaultState().withProperty(TYPE, EnumTypes.values()[meta]);
@@ -106,26 +104,25 @@ public abstract class ModMetaBlock extends ModBlock {
         return getMapColor(getMetaFromState(state));
     }
 
-    // return return EnumBlockTypes.values()[meta].getMapColor();
+    // return return EnumTypes.values()[meta].getMapColor();
     @Nonnull
     protected abstract MapColor getMapColor(int meta);
 
     @Override
-    public void registerBlock() {
+    public boolean usesDefaultBlockRegistry() {
         GameRegistry.register(this);
         ModMetaItemBlock itemBlock = new ModMetaItemBlock(this);
-        if (getRegistryName() == null) return;
-        itemBlock.setRegistryName(getRegistryName());
-        itemBlock.setUnlocalizedName(getUnlocalizedName());
+        itemBlock.setRegistryName(getBlockRegistryName());
+        itemBlock.setUnlocalizedName(getBlockUnlocalizedName());
         GameRegistry.register(itemBlock);
+        return false;
     }
 
     @Override
-    @SideOnly (Side.CLIENT)
-    public void registerRender() {
+    public boolean usesDefaultRenderRegistry() {
         Item item = Item.getItemFromBlock(this);
         if (!(item instanceof ModMetaItemBlock)) {
-            return;
+            return true;
         }
         ModMetaItemBlock itemBlock = (ModMetaItemBlock) item;
 
@@ -133,6 +130,7 @@ public abstract class ModMetaBlock extends ModBlock {
             ModelResourceLocation mrl = new ModelResourceLocation(new ResourceLocation(getBlockRegistryName().getResourceDomain(), LibLocations.ITEMBLOCK_MODEL_FOLDER_PREFIX + getBlockRegistryName().getResourcePath() + "_" + getTypeName(i)), LibMisc.INVENTORY_VARIANT);
             ModelLoader.setCustomModelResourceLocation(itemBlock, i, mrl);
         }
+        return false;
     }
 
     public interface IEnumType extends IStringSerializable {
@@ -151,7 +149,7 @@ public abstract class ModMetaBlock extends ModBlock {
         MapColor getMapColor();
     }
 
-    public class ModMetaItemBlock extends ItemBlock {
+    public static class ModMetaItemBlock extends ItemBlock {
 
         private ModMetaBlock block;
 
