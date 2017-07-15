@@ -1,5 +1,6 @@
 package com.yolp900.charming.common.blocks;
 
+import com.yolp900.charming.Charming;
 import com.yolp900.charming.common.blocks.base.ModBlock;
 import com.yolp900.charming.common.tileentities.TileEntityLevitator;
 import com.yolp900.charming.reference.LibBlocks;
@@ -23,7 +24,8 @@ public class BlockLevitator extends ModBlock {
     public static final PropertyBool INVERTED = PropertyBool.create(LibMisc.INVERTED);
 
     public BlockLevitator() {
-        super(LibBlocks.LEVITATOR);
+        super(LibBlocks.LEVITATOR, 3F, 7F, Material.WOOD);
+
         this.setDefaultState(blockState.getBaseState().withProperty(ON_STATE, false).withProperty(INVERTED, false));
     }
 
@@ -45,28 +47,12 @@ public class BlockLevitator extends ModBlock {
     }
 
     @Override
-    public float getBlockHardness(IBlockState state, World world, BlockPos pos) {
-        return 3F;
-    }
-
-    @Override
-    public float getExplosionResistance(World world, BlockPos pos, @Nullable Entity exploder, Explosion explosion) {
-        return 7F;
-    }
-
-    @Override
-    @Nonnull
-    public Material getMaterial(IBlockState state) {
-        return Material.WOOD;
-    }
-
-    @Override
     @Nonnull
     public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
         TileEntity tile = world.getTileEntity(pos);
         if (tile == null || !(tile instanceof TileEntityLevitator)) return super.getActualState(state, world, pos);
         TileEntityLevitator tileLevitator = (TileEntityLevitator) tile;
-        return state.withProperty(ON_STATE, tileLevitator.on()).withProperty(INVERTED, tileLevitator.isInverted());
+        return super.getActualState(state, world, pos).withProperty(ON_STATE, tileLevitator.isOn()).withProperty(INVERTED, tileLevitator.isInverted());
     }
 
     @Override

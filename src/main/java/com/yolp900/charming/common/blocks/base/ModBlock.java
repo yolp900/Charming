@@ -34,16 +34,20 @@ public abstract class ModBlock extends Block implements IModBlock {
     private MapColor mapColor;
 
     public ModBlock(String name) {
-        super(Material.ROCK);
+        this(name, Material.ROCK);
+    }
+
+    public ModBlock(String name, Material material) {
+        super(material);
         this.name = name;
+        this.material = material;
         ModBlocks.modBlocks.add(this);
     }
 
     public ModBlock(String name, float hardness, float resistance, Material material, MapColor mapColor) {
-       this(name);
+       this(name, material);
        this.hardness = hardness;
        this.resistance = resistance;
-       this.material = material;
        this.mapColor = mapColor;
     }
 

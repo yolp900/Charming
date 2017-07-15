@@ -31,9 +31,11 @@ public class InteractionHandler {
             BlockPos pos = event.getPos();
             List<EntityItem> itemEntities = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos, pos.add(1, 2, 1)));
             for (RecipeWandInteraction recipe : CharmingAPI.WandInteractions.interactionRecipeList) {
-                if (!world.isRemote && recipe.matches(world, player, stack, pos, itemEntities)) {
+                if (recipe.matches(world, player, stack, pos, itemEntities)) {
+                    boolean recurse = recipe.getIngredientsToRemove() != null;
                     while (recipe.matches(world, player, stack, pos, itemEntities)) {
                         itemEntities = recipe.handleInteractionReturnWorldItems(world, player, stack, pos, itemEntities);
+                        if (!recurse) break;
                     }
                     handleAdditionalEffects(recipe, world, player, pos);
                 }

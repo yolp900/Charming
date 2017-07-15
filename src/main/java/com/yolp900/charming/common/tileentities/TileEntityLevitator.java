@@ -1,5 +1,6 @@
 package com.yolp900.charming.common.tileentities;
 
+import com.yolp900.charming.Charming;
 import com.yolp900.charming.api.CharmingAPI;
 import com.yolp900.charming.api.tiles.IInvertible;
 import com.yolp900.charming.client.particle.ModParticles;
@@ -30,7 +31,7 @@ public class TileEntityLevitator extends ModTileEntity implements ITickable, IIn
     @Override
     public void update() {
         if (world == null) return;
-        if (on()) {
+        if (isOn()) {
             List<Entity> entities = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(getPos().getX(), getPos().getY() + 1, getPos().getZ(), getPos().getX() + 1, getPos().getY() + 1 + ModConfig.LEVITATOR_ELEVATOR_RANGE.getValue(), getPos().getZ() + 1));
             if (entities.size() > 0) {
                 for (Entity entity : entities) {
@@ -79,16 +80,18 @@ public class TileEntityLevitator extends ModTileEntity implements ITickable, IIn
         }
     }
 
+    @Override
     public boolean isInverted() {
         return inverted;
     }
 
+    @Override
     public void setInverted(boolean inverted) {
         this.inverted = inverted;
         sendUpdates();
     }
 
-    public boolean on() {
+    public boolean isOn() {
         if (inverted) {
             return !powered();
         }

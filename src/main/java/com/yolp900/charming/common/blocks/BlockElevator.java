@@ -28,23 +28,7 @@ import java.util.Random;
 public class BlockElevator extends ModBlock {
 
     public BlockElevator() {
-        super(LibBlocks.ELEVATOR);
-    }
-
-    @Override
-    public float getBlockHardness(IBlockState state, World world, BlockPos pos) {
-        return 3F;
-    }
-
-    @Override
-    public float getExplosionResistance(World world, BlockPos pos, @Nullable Entity exploder, Explosion explosion) {
-        return 7F;
-    }
-
-    @Nonnull
-    @Override
-    public Material getMaterial(IBlockState state) {
-        return Material.WOOD;
+        super(LibBlocks.ELEVATOR, 3F, 7F, Material.WOOD);
     }
 
     @Override

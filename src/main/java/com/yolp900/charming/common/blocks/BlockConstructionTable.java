@@ -30,23 +30,7 @@ import javax.annotation.Nullable;
 public class BlockConstructionTable extends ModBlock {
 
     public BlockConstructionTable() {
-        super(LibBlocks.CONSTRUCTION_TABLE);
-    }
-
-    @Override
-    public float getBlockHardness(IBlockState state, World world, BlockPos pos) {
-        return 1.5F;
-    }
-
-    @Override
-    public float getExplosionResistance(World world, BlockPos pos, @Nullable Entity exploder, Explosion explosion) {
-        return 10.0F;
-    }
-
-    @Nonnull
-    @Override
-    public Material getMaterial(IBlockState state) {
-        return Material.ROCK;
+        super(LibBlocks.CONSTRUCTION_TABLE, 1.5F, 10.F, Material.ROCK);
     }
 
     @Override
