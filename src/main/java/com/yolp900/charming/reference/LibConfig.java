@@ -8,6 +8,7 @@ public class LibConfig {
 
     public static final Entry CRAFTABLE_CONSTRUCTION_TABLE = new Entry("Craftable Construction Table", "Can the construction table be crafted in a crafting table? (as well as being crafted in-world)");
     public static final Entry LEVITATOR_ELEVATOR_RANGE = new Entry("Levitator's and Elevator's Range", "How high can the levitator levitate and the elevator elevate?");
+    public static final Entry ATTRACTOR_IMPELLER_RANGE = new Entry("Attractor's and Impeller's Range", "How many blocks can the attractor and impeller reach?");
 
     public static class Entry {
         private String title;

@@ -7,5 +7,7 @@ public class LibTileEntities {
      */
     public static final String CONSTRUCTION_TABLE = "ConstructionTable";
     public static final String LEVITATOR = "Levitator";
+    public static final String ATTRACTOR = "Attractor";
+    public static final String IMPELLER = "Impeller";
 
 }

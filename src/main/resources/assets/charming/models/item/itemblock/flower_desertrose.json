@@ -1,3 +1,6 @@
 {
-  "parent": "charming:item/desert_rose_block"
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "charming:blocks/flower_desert_rose"
+  }
 }

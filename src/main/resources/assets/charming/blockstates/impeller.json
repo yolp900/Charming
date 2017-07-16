@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "inverted=false,on=true": { "model": "charming:impeller_on"},
+    "inverted=false,on=false": { "model": "charming:impeller_off" },
+    "inverted=true,on=true": { "model": "charming:impeller_on_inverted"},
+    "inverted=true,on=false": { "model": "charming:impeller_off_inverted" }
+  }
+}

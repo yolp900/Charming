@@ -9,6 +9,8 @@ public class ModTileEntities {
     public static void registerTileEntities() {
         registerTileEntity(TileEntityConstructionTable.class, LibTileEntities.CONSTRUCTION_TABLE);
         registerTileEntity(TileEntityLevitator.class, LibTileEntities.LEVITATOR);
+        registerTileEntity(TileEntityAttractor.class, LibTileEntities.ATTRACTOR);
+        registerTileEntity(TileEntityImpeller.class, LibTileEntities.IMPELLER);
     }
 
     private static void registerTileEntity(Class<? extends TileEntity> classTile, String ID) {

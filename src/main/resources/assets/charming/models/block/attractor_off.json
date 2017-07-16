@@ -1,0 +1,6 @@
+{
+  "parent": "charming:block/base/block-1",
+  "textures": {
+    "texture": "charming:blocks/attractor_off"
+  }
+}

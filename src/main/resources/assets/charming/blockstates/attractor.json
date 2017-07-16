@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "inverted=false,on=true": { "model": "charming:attractor_on"},
+    "inverted=false,on=false": { "model": "charming:attractor_off" },
+    "inverted=true,on=true": { "model": "charming:attractor_on_inverted"},
+    "inverted=true,on=false": { "model": "charming:attractor_off_inverted" }
+  }
+}

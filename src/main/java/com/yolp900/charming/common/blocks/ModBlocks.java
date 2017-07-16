@@ -20,6 +20,8 @@ public class ModBlocks {
     public static BlockTintedLeaves TintedLeaves;
     public static BlockTintedPlanks TintedPlanks;
     public static BlockFlower Flower;
+    public static BlockAttractor Attractor;
+    public static BlockImpeller Impeller;
 
     public static void registerBlocks() {
         ConstructionTable = new BlockConstructionTable();
@@ -30,6 +32,8 @@ public class ModBlocks {
         TintedLeaves = new BlockTintedLeaves();
         TintedPlanks = new BlockTintedPlanks();
         Flower = new BlockFlower();
+        Attractor = new BlockAttractor();
+        Impeller = new BlockImpeller();
 
         for (Block block : modBlocks) {
             if (block instanceof IModBlock) {
