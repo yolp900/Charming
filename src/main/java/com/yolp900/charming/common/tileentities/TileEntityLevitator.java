@@ -1,6 +1,5 @@
 package com.yolp900.charming.common.tileentities;
 
-import com.yolp900.charming.Charming;
 import com.yolp900.charming.api.CharmingAPI;
 import com.yolp900.charming.api.tiles.IInvertible;
 import com.yolp900.charming.client.particle.ModParticles;
@@ -54,13 +53,13 @@ public class TileEntityLevitator extends ModTileEntity implements ITickable, IIn
                             }
                         }
                     } else if (entity.canBePushed()) {
-                        if (!CharmingAPI.Levitator.isEntityBlacklistedFromLevitator(entity.getClass())) {
+                        if (!CharmingAPI.Levitator.isEntityBlacklisted(entity.getClass())) {
                             if (entity.motionY < 0.35) {
                                 entity.motionY += 0.1;
                             }
                         }
                     } else if (entity instanceof EntityItem) {
-                        if (!CharmingAPI.Levitator.isItemStackBlacklistedFromLevitator(((EntityItem) entity).getItem())) {
+                        if (!CharmingAPI.Levitator.isItemStackBlacklisted(((EntityItem) entity).getItem())) {
                             if (entity.motionY < 0.35) {
                                 entity.motionY += 0.1;
                             }

@@ -124,7 +124,7 @@ public class CharmingAPI {
          * Blacklists an Entity from being moved by the levitator.
          * @param entityClass - the class for the blacklisted Entity.
          */
-        public static void blacklistEntityFromLevitator(@Nonnull Class<? extends Entity> entityClass) {
+        public static void blacklistEntity(@Nonnull Class<? extends Entity> entityClass) {
             levitatorEntityBlacklist.add(entityClass);
         }
 
@@ -133,7 +133,7 @@ public class CharmingAPI {
          * @param entityClass - the class for the Entity.
          * @return Whether the entity is blacklisted.
          */
-        public static boolean isEntityBlacklistedFromLevitator(@Nonnull Class<? extends Entity> entityClass) {
+        public static boolean isEntityBlacklisted(@Nonnull Class<? extends Entity> entityClass) {
             return levitatorEntityBlacklist.contains(entityClass);
         }
 
@@ -141,7 +141,7 @@ public class CharmingAPI {
          * Blacklist an ItemStack from bring moved by the levitator.
          * @param stack - the blacklisted stack. The ItemStack's metadata is checked, but not its NBT.
          */
-        public static void blacklistItemStackFromLevitator(@Nonnull ItemStack stack) {
+        public static void blacklistItemStack(@Nonnull ItemStack stack) {
             levitatorItemStackBlacklist.add(stack);
         }
 
@@ -150,7 +150,7 @@ public class CharmingAPI {
          * @param stack - the ItemStack. The ItemStack's metadata is checked, but not its NBT.
          * @return Whether the ItemStack is blacklisted.
          */
-        public static boolean isItemStackBlacklistedFromLevitator(@Nonnull ItemStack stack) {
+        public static boolean isItemStackBlacklisted(@Nonnull ItemStack stack) {
             for (ItemStack blacklistedStack : levitatorItemStackBlacklist) {
                 if (CraftingMechanic.areItemStacksEqualWOStackSize(stack, blacklistedStack)) {
                     return true;
@@ -158,6 +158,36 @@ public class CharmingAPI {
             }
             return false;
         }
+    }
+
+    public static class AttractorImpeller {
+        /**
+         * Blacklist of the attractor and impeller.
+         */
+        public static List<ItemStack> itemStackBlacklist = new ArrayList<>();
+
+        /**
+         * Blacklist an ItemStack from bring moved by the attractor and impeller.
+         * @param stack - the blacklisted stack. The ItemStack's metadata is checked, but not its NBT or stacksize.
+         */
+        public static void blacklistItemStack(@Nonnull ItemStack stack) {
+            itemStackBlacklist.add(stack);
+        }
+
+        /**
+         * Checks if the provided ItemStack is blacklisted from being moved by the attractor and impeller.
+         * @param stack - the ItemStack. The ItemStack's metadata is checked, but not its NBT or stacksize.
+         * @return Whether the ItemStack is blacklisted.
+         */
+        public static boolean isItemStackBlacklisted(@Nonnull ItemStack stack) {
+            for (ItemStack blacklistedStack : itemStackBlacklist) {
+                if (CraftingMechanic.areItemStacksEqualWOStackSize(stack, blacklistedStack)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
     }
 
 }

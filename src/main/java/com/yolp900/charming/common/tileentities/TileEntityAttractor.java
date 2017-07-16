@@ -1,9 +1,16 @@
 package com.yolp900.charming.common.tileentities;
 
+import com.yolp900.charming.Charming;
+import com.yolp900.charming.api.CharmingAPI;
 import com.yolp900.charming.api.tiles.IInvertible;
+import com.yolp900.charming.client.particle.ModParticles;
+import com.yolp900.charming.common.network.MessageParticle;
+import com.yolp900.charming.common.network.NetworkHandler;
 import com.yolp900.charming.config.ModConfig;
 import com.yolp900.charming.reference.LibMisc;
+import com.yolp900.charming.util.Vector3;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -26,10 +33,26 @@ public class TileEntityAttractor extends ModTileEntity implements ITickable, IIn
         if (world == null) return;
         if (isOn()) {
             float range = ModConfig.ATTRACTOR_IMPELLER_RANGE.getValue();
-            List<Entity> entities = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(getPos().getX() - range, getPos().getY(), getPos().getZ() - range, getPos().getX() + range, getPos().getY() + 2, getPos().getZ() + range));
-            if (entities.size() > 0) {
-                for (Entity entity : entities) {
+            List<EntityItem> entityItems = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(getPos().getX() - range, getPos().getY(), getPos().getZ() - range, getPos().getX() + range, getPos().getY() + 2, getPos().getZ() + range));
+            if (entityItems.size() > 0) {
+                for (EntityItem entityItem : entityItems) {
+                    if (!entityItem.getItem().isEmpty() && !CharmingAPI.AttractorImpeller.isItemStackBlacklisted(entityItem.getItem())) {
+                        Vector3 blockV = Vector3.fromBlockPos(getPos()).add(0.5);
+                        Vector3 entityV = Vector3.fromEntity(entityItem).add(0.5);
+                        Vector3 finalV = blockV.subtract(entityV);
 
+                        if (finalV.magnitude() > 1) {
+                            finalV = finalV.normalize();
+                        }
+
+                        entityItem.motionX = finalV.getX() * 0.1;
+                        entityItem.motionY = finalV.getY() * 0.1;
+                        entityItem.motionZ = finalV.getZ() * 0.1;
+
+                        if (!world.isRemote && random.nextDouble() < 0.75) {
+                            NetworkHandler.sendToAllAround(new MessageParticle(ModParticles.Particles.Levitator, entityItem.posX - (entityItem.width / 2) + (random.nextDouble() * entityItem.width), entityItem.posY - (entityItem.height / 2) + (random.nextDouble() * entityItem.height), entityItem.posZ - (entityItem.width / 2) + (random.nextDouble() * entityItem.width), random.nextDouble() + 0.25, (random.nextDouble() / 4) + 0.5, (random.nextDouble() / 4) + 0.5, (random.nextDouble() / 4) + 0.5, -entityItem.motionX, -entityItem.motionY, -entityItem.motionZ), world.provider.getDimension(), entityItem.posX, entityItem.posY, entityItem.posZ, 16);
+                        }
+                    }
                 }
             }
         }
