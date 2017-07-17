@@ -1,6 +1,5 @@
 package com.yolp900.charming.common.items;
 
-import com.yolp900.charming.api.items.ITransmutationWand;
 import com.yolp900.charming.common.items.base.IMetaItem;
 import com.yolp900.charming.common.items.base.ModItem;
 import com.yolp900.charming.reference.LibItems;
@@ -18,11 +17,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 
-public class ItemTransmutationWand extends ModItem implements IMetaItem, ITransmutationWand {
+public class ItemCore extends ModItem implements IMetaItem {
 
-    public ItemTransmutationWand() {
-        super(LibItems.TRANSMUTATION_WAND);
-        this.setMaxStackSize(1);
+    public ItemCore() {
+        super(LibItems.CORE);
         this.setHasSubtypes(true);
     }
 
@@ -34,11 +32,6 @@ public class ItemTransmutationWand extends ModItem implements IMetaItem, ITransm
     @Override
     public String getTypeName(int meta) {
         return EnumTypes.values()[meta].getName();
-    }
-
-    @Override
-    public int getWandTransmutationLevel(ItemStack stack) {
-        return stack.getItemDamage();
     }
 
     @Override
@@ -68,14 +61,14 @@ public class ItemTransmutationWand extends ModItem implements IMetaItem, ITransm
         return false;
     }
 
-    public enum EnumTypes implements IStringSerializable {
-        Wood, Stone, Iron, Obsidian, Diamond;
+    public enum EnumTypes implements IStringSerializable{
+        Motion, Repulsion;
 
         @Override
         @Nonnull
         public String getName() {
             return name();
         }
-
     }
+
 }

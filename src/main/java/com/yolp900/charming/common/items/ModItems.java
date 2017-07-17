@@ -15,12 +15,14 @@ public class ModItems {
     public static ItemSlotUpgrade SlotUpgrade;
     public static ItemEffectStone EffectStone;
     public static ItemHalfPearl HalfPearl;
+    public static ItemCore Core;
 
     public static void registerItems() {
         TransmutationWand = new ItemTransmutationWand();
         SlotUpgrade = new ItemSlotUpgrade();
         EffectStone = new ItemEffectStone();
         HalfPearl = new ItemHalfPearl();
+        Core = new ItemCore();
 
         for (Item item : modItems) {
             if (item instanceof IModItem) {
