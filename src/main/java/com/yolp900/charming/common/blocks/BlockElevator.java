@@ -9,20 +9,15 @@ import com.yolp900.charming.config.ModConfig;
 import com.yolp900.charming.reference.LibBlocks;
 import com.yolp900.charming.util.SoundHandler;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Random;
 
 public class BlockElevator extends ModBlock {

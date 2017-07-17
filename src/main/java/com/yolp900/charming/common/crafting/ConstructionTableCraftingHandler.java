@@ -58,11 +58,8 @@ public class ConstructionTableCraftingHandler {
     }
 
     public enum RecipeType {
-        None,
-        Vanilla, // Shaped and Shapeless, doesn't matter.
-        CTShaped,
-        CTShapeless,
-        CTInfuse // Shaped and Shapeless, doesn't matter
+        None, Vanilla, // Shaped and Shapeless, doesn't matter.
+        CTShaped, CTShapeless, CTInfuse // Shaped and Shapeless, doesn't matter
     }
 
 }

@@ -52,8 +52,7 @@ public class ModParticles {
                     ModParticles.registerSprite(new ResourceLocation(Reference.MOD_ID, LibLocations.PARTICLE_TEXTURE + LibParticles.CONSTRUCTION_TABLE_CONSTRUCTION + i));
                 }
             }
-        },
-        SlotUpgrade {
+        }, SlotUpgrade {
             @Override
             public ModParticle getModParticle(World world, double x, double y, double z, double size, double red, double green, double blue) {
                 return new ModParticle(getParticleTexture(), world, x, y, z, size, red, blue, green);
@@ -63,8 +62,7 @@ public class ModParticles {
             public ResourceLocation getParticleTexture() {
                 return new ResourceLocation(Reference.MOD_ID, LibLocations.PARTICLE_TEXTURE + LibParticles.SLOT_UPGRADE);
             }
-        },
-        Transmutation {
+        }, Transmutation {
             @Override
             public ModParticle getModParticle(World world, double x, double y, double z, double size, double red, double green, double blue) {
                 return new ParticleTransmutation(getParticleTexture(), world, x, y, z, size, red, green, blue);
@@ -74,8 +72,7 @@ public class ModParticles {
             public ResourceLocation getParticleTexture() {
                 return new ResourceLocation(Reference.MOD_ID, LibLocations.PARTICLE_TEXTURE + LibParticles.TRANSMUTATION);
             }
-        },
-        Levitator {
+        }, Levitator {
             @Override
             public ModParticle getModParticle(World world, double x, double y, double z, double size, double red, double green, double blue) {
                 return new ModParticle(getParticleTexture(), world, x, y, z, size, red, green, blue);
@@ -85,8 +82,7 @@ public class ModParticles {
             public ResourceLocation getParticleTexture() {
                 return new ResourceLocation(Reference.MOD_ID, LibLocations.PARTICLE_TEXTURE + LibParticles.LEVITATOR);
             }
-        },
-        Levitate {
+        }, Levitate {
             @Override
             public ModParticle getModParticle(World world, double x, double y, double z, double size, double red, double green, double blue) {
                 return new ModParticle(getParticleTexture(), world, x, y, z, size, red, green, blue);

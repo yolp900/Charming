@@ -1,6 +1,5 @@
 package com.yolp900.charming.common.blocks;
 
-import com.yolp900.charming.Charming;
 import com.yolp900.charming.common.blocks.base.ModBlock;
 import com.yolp900.charming.common.tileentities.TileEntityLevitator;
 import com.yolp900.charming.reference.LibBlocks;
@@ -9,10 +8,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 

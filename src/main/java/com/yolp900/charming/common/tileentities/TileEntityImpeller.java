@@ -8,7 +8,6 @@ import com.yolp900.charming.common.network.NetworkHandler;
 import com.yolp900.charming.config.ModConfig;
 import com.yolp900.charming.reference.LibMisc;
 import com.yolp900.charming.util.Vector3;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
@@ -82,7 +81,7 @@ public class TileEntityImpeller extends ModTileEntity implements ITickable, IInv
     private void sendUpdates() {
         world.markBlockRangeForRenderUpdate(pos, pos);
         world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3);
-        world.scheduleBlockUpdate(pos,this.getBlockType(),0,0);
+        world.scheduleBlockUpdate(pos, this.getBlockType(), 0, 0);
         markDirty();
     }
 

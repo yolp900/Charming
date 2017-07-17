@@ -33,6 +33,7 @@ public class CharmingAPI {
 
         /**
          * Registers a construction table recipe
+         *
          * @param output     - The recipe's output
          * @param gridInputs - The recipe's grid input
          * @param secInputs  - The recipe's secondary inputs
@@ -48,6 +49,7 @@ public class CharmingAPI {
 
         /**
          * Registers a custom recipe. Use this in order to allow charming to recognise your recipes and use them.
+         *
          * @param recipe - The custom recipe.
          * @return the recipe after registration in Charming.
          */
@@ -70,12 +72,13 @@ public class CharmingAPI {
 
         /**
          * Registers a block interaction recipe.
-         * @param output                - The recipe's output.
-         * @param structure             - The recipe's block structure.
-         * @param ingredients           - The recipe's item ingredients (on the transmuted block).
-         * @param ingredientsToRemove   - The ingredients to remove from the world.
-         * @param keepAroundBlocks      - Whether you keep the blocks or not.
-         * @param minimalWandLevel      - minimal wand level for this recipe. 0 = wood, 1 = stone, 2 = iron, 3 = obsidian, 4 = diamond. set to -1 for an empty hand.
+         *
+         * @param output              - The recipe's output.
+         * @param structure           - The recipe's block structure.
+         * @param ingredients         - The recipe's item ingredients (on the transmuted block).
+         * @param ingredientsToRemove - The ingredients to remove from the world.
+         * @param keepAroundBlocks    - Whether you keep the blocks or not.
+         * @param minimalWandLevel    - minimal wand level for this recipe. 0 = wood, 1 = stone, 2 = iron, 3 = obsidian, 4 = diamond. set to -1 for an empty hand.
          * @return The registered recipe.
          */
         public static RecipeWandInteractionBlock registerBlockInteractionRecipe(@Nonnull IBlockState output, @Nonnull TransmutationStructure structure, @Nullable List<Object> ingredients, List<Object> ingredientsToRemove, boolean keepAroundBlocks, int minimalWandLevel) {
@@ -86,12 +89,13 @@ public class CharmingAPI {
 
         /**
          * Registers an item interaction recipe.
-         * @param outputs               - The recipe's outputs.
-         * @param structure             - The recipe's block structure.
-         * @param ingredients           - The recipe's item ingredients.
-         * @param ingredientsToRemove   - The ingredients to remove from the world.
-         * @param keepAroundBlocks      - Whether you keep the blocks or not.
-         * @param minimalWandLevel      - minimal wand level for this recipe. 0 = wood, 1 = stone, 2 = iron, 3 = obsidian, 4 = diamond. set to -1 for an empty hand.
+         *
+         * @param outputs             - The recipe's outputs.
+         * @param structure           - The recipe's block structure.
+         * @param ingredients         - The recipe's item ingredients.
+         * @param ingredientsToRemove - The ingredients to remove from the world.
+         * @param keepAroundBlocks    - Whether you keep the blocks or not.
+         * @param minimalWandLevel    - minimal wand level for this recipe. 0 = wood, 1 = stone, 2 = iron, 3 = obsidian, 4 = diamond. set to -1 for an empty hand.
          * @return The registered recipe.
          */
         public static RecipeWandInteractionItem registerItemInteractionRecipe(@Nonnull NonNullList<ItemStack> outputs, @Nonnull TransmutationStructure structure, @Nullable List<Object> ingredients, List<Object> ingredientsToRemove, boolean keepAroundBlocks, int minimalWandLevel) {
@@ -102,6 +106,7 @@ public class CharmingAPI {
 
         /**
          * Registers a custom recipe. Use this in order to allow charming to recognise your recipes and use them.
+         *
          * @param recipe - The custom recipe.
          */
         public static void registerInteractionRecipe(RecipeWandInteraction recipe) {
@@ -122,6 +127,7 @@ public class CharmingAPI {
 
         /**
          * Blacklists an Entity from being moved by the levitator.
+         *
          * @param entityClass - the class for the blacklisted Entity.
          */
         public static void blacklistEntity(@Nonnull Class<? extends Entity> entityClass) {
@@ -130,6 +136,7 @@ public class CharmingAPI {
 
         /**
          * Checks if the provided Entity is blacklisted from being moved by the levitator.
+         *
          * @param entityClass - the class for the Entity.
          * @return Whether the entity is blacklisted.
          */
@@ -139,6 +146,7 @@ public class CharmingAPI {
 
         /**
          * Blacklist an ItemStack from bring moved by the levitator.
+         *
          * @param stack - the blacklisted stack. The ItemStack's metadata is checked, but not its NBT.
          */
         public static void blacklistItemStack(@Nonnull ItemStack stack) {
@@ -147,6 +155,7 @@ public class CharmingAPI {
 
         /**
          * Checks if the provided ItemStack is blacklisted from being moved by the levitator.
+         *
          * @param stack - the ItemStack. The ItemStack's metadata is checked, but not its NBT.
          * @return Whether the ItemStack is blacklisted.
          */
@@ -168,6 +177,7 @@ public class CharmingAPI {
 
         /**
          * Blacklist an ItemStack from bring moved by the attractor and impeller.
+         *
          * @param stack - the blacklisted stack. The ItemStack's metadata is checked, but not its NBT or stacksize.
          */
         public static void blacklistItemStack(@Nonnull ItemStack stack) {
@@ -176,6 +186,7 @@ public class CharmingAPI {
 
         /**
          * Checks if the provided ItemStack is blacklisted from being moved by the attractor and impeller.
+         *
          * @param stack - the ItemStack. The ItemStack's metadata is checked, but not its NBT or stacksize.
          * @return Whether the ItemStack is blacklisted.
          */

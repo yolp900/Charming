@@ -35,7 +35,7 @@ public class TreeGenerator implements IWorldGenerator {
         int height = random.nextInt(this.treeHeightRange) + this.minTreeHeight;
         int yPos = pos.getY();
 
-        if(yPos >= 1 && yPos + height + 1 <= 256) {
+        if (yPos >= 1 && yPos + height + 1 <= 256) {
             IBlockState state = world.getBlockState(pos.down());
             Block soil = state.getBlock();
 
@@ -67,7 +67,7 @@ public class TreeGenerator implements IWorldGenerator {
 
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
-                if (!(i == 0 && j == 0)){
+                if (!(i == 0 && j == 0)) {
                     setLeaves(world, pos.add(i, 0, j), LeafRarity.ALWAYS, rand);
                 }
             }
@@ -82,7 +82,7 @@ public class TreeGenerator implements IWorldGenerator {
 
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
-                if (!(i == 0 && j == 0)){
+                if (!(i == 0 && j == 0)) {
                     setLeaves(world, pos.add(i, 0, j), LeafRarity.ALWAYS, rand);
                 }
             }
@@ -102,10 +102,10 @@ public class TreeGenerator implements IWorldGenerator {
     }
 
     private void placeTrunk(World world, BlockPos pos, int height) {
-        while(height >= 0) {
+        while (height >= 0) {
             IBlockState state = world.getBlockState(pos);
             Block block = state.getBlock();
-            if(block.isAir(state, world, pos) || block.isReplaceable(world, pos) || block.isLeaves(state, world, pos)) {
+            if (block.isAir(state, world, pos) || block.isReplaceable(world, pos) || block.isLeaves(state, world, pos)) {
                 setLog(world, pos);
             }
 
@@ -131,15 +131,13 @@ public class TreeGenerator implements IWorldGenerator {
     private void setBlockAndMetadata(World world, BlockPos pos, IBlockState stateNew) {
         IBlockState state = world.getBlockState(pos);
         Block block = state.getBlock();
-        if(block.isAir(state, world, pos) || block.canPlaceBlockAt(world, pos) || world.getBlockState(pos) == leaves) {
+        if (block.isAir(state, world, pos) || block.canPlaceBlockAt(world, pos) || world.getBlockState(pos) == leaves) {
             world.setBlockState(pos, stateNew, 2);
         }
     }
 
     private enum LeafRarity {
-        ALWAYS,
-        COMMON,
-        RARE
+        ALWAYS, COMMON, RARE
     }
 
 }

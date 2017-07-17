@@ -92,7 +92,7 @@ public abstract class RecipeWandInteraction extends CraftingMechanic {
         if (!world.isRemote) {
             List<Object> recipeIngredientsCopy = new ArrayList<>();
             recipeIngredientsCopy.addAll(ingredientsToRemove);
-            for (int i = 0; i < recipeIngredientsCopy.size(); i++ ){
+            for (int i = 0; i < recipeIngredientsCopy.size(); i++) {
                 Object recipeObject = recipeIngredientsCopy.get(i);
                 for (int j = 0; j < worldIngredients.size(); j++) {
                     EntityItem worldIngredient = worldIngredients.get(j);

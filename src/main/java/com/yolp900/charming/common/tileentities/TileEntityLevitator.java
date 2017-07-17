@@ -104,7 +104,7 @@ public class TileEntityLevitator extends ModTileEntity implements ITickable, IIn
     private void sendUpdates() {
         world.markBlockRangeForRenderUpdate(pos, pos);
         world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3);
-        world.scheduleBlockUpdate(pos,this.getBlockType(),0,0);
+        world.scheduleBlockUpdate(pos, this.getBlockType(), 0, 0);
         markDirty();
     }
 

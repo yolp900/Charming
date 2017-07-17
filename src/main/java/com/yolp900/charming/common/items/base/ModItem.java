@@ -2,18 +2,10 @@ package com.yolp900.charming.common.items.base;
 
 import com.yolp900.charming.Charming;
 import com.yolp900.charming.common.items.ModItems;
-import com.yolp900.charming.reference.LibMisc;
 import com.yolp900.charming.reference.Reference;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 

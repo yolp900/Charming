@@ -65,8 +65,7 @@ public class Vector3 {
 
     public Vector3 normalize() {
         double d = magnitude();
-        if(d != 0)
-            return multiply(1 / d);
+        if (d != 0) return multiply(1 / d);
 
         return this;
     }

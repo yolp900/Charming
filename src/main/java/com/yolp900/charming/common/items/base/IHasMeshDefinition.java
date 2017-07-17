@@ -10,6 +10,7 @@ public interface IHasMeshDefinition {
 
     interface IHandlesMeshDefinitions {
         boolean getMeshDefinitionCondition(ItemStack stack);
+
         ModelResourceLocation getModeResourceLocation(Item item);
     }
 

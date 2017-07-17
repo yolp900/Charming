@@ -19,6 +19,6 @@ public class OreDictStack {
 
     @Override
     public String toString() {
-        return "oreDictEntry[Charming] of:" +  this.getStackSize() + "x" + this.getOreDictEntry();
+        return "oreDictEntry[Charming] of:" + this.getStackSize() + "x" + this.getOreDictEntry();
     }
 }

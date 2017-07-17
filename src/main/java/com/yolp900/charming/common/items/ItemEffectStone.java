@@ -51,7 +51,7 @@ public class ItemEffectStone extends ModItem implements IMetaItem {
         return super.getUnlocalizedName(stack) + "." + getTypeName(stack.getItemDamage());
     }
 
-    @SideOnly(Side.CLIENT)
+    @SideOnly (Side.CLIENT)
     public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> subItems) {
         for (int i = 0; i < getNumOfTypes(); i++) {
             subItems.add(new ItemStack(this, 1, i));
@@ -73,9 +73,7 @@ public class ItemEffectStone extends ModItem implements IMetaItem {
     }
 
     public enum EnumStoneEffects implements IStringSerializable {
-        None,
-        Inversion,
-        Conversion;
+        None, Inversion, Conversion;
 
         @Override
         @Nonnull

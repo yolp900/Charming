@@ -3,25 +3,19 @@ package com.yolp900.charming.common.blocks.base;
 import com.google.common.collect.Lists;
 import com.yolp900.charming.Charming;
 import com.yolp900.charming.common.blocks.ModBlocks;
-import com.yolp900.charming.reference.LibLocations;
 import com.yolp900.charming.reference.Reference;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.ModelLoader;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.annotation.Nonnull;
@@ -71,13 +65,11 @@ public abstract class ModBlockLeaves extends BlockLeaves implements IModBlock {
     public int getMetaFromState(IBlockState state) {
         int i = 0;
 
-        if (!state.getValue(DECAYABLE))
-        {
+        if (!state.getValue(DECAYABLE)) {
             i |= 4;
         }
 
-        if (state.getValue(CHECK_DECAY))
-        {
+        if (state.getValue(CHECK_DECAY)) {
             i |= 8;
         }
 
@@ -107,7 +99,7 @@ public abstract class ModBlockLeaves extends BlockLeaves implements IModBlock {
     @Nonnull
     public List<ItemStack> getDrops(IBlockAccess world, @Nonnull BlockPos pos, @Nonnull IBlockState state, int fortune) {
         List<ItemStack> ret = new ArrayList<>();
-        Random rand = world instanceof World ? ((World)world).rand : new Random();
+        Random rand = world instanceof World ? ((World) world).rand : new Random();
         int chance = this.getSaplingDropChance(state);
 
         if (fortune > 0) {
@@ -119,7 +111,7 @@ public abstract class ModBlockLeaves extends BlockLeaves implements IModBlock {
 
         List<ItemStack> droppedStacks = getStackDropped(state, rand, fortune);
         if (droppedStacks != null) {
-            for (ItemStack stack :droppedStacks) {
+            for (ItemStack stack : droppedStacks) {
                 if (rand.nextInt(chance) == 0 && stack != null) {
                     ret.add(stack);
                 }
@@ -136,7 +128,7 @@ public abstract class ModBlockLeaves extends BlockLeaves implements IModBlock {
 
         this.captureDrops(true);
         if (world instanceof World) {
-            this.dropApple((World)world, pos, state, chance);
+            this.dropApple((World) world, pos, state, chance);
         }
         ret.addAll(this.captureDrops(false));
         return ret;

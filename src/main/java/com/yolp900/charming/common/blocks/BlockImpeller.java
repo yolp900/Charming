@@ -35,7 +35,7 @@ public class BlockImpeller extends ModBlock implements IConvertible {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
+    @SideOnly (Side.CLIENT)
     @Nonnull
     public BlockRenderLayer getBlockLayer() {
         return BlockRenderLayer.CUTOUT_MIPPED;
