@@ -24,16 +24,10 @@ public class ConfigEntry {
     }
 
     public enum EnumCategories {
-        GENERAL("General"), MECHANICS("Mechanics"), INTEGRATION("Integration");
-
-        private String title;
-
-        EnumCategories(String title) {
-            this.title = title;
-        }
+        General, Mechanics, Integration, Movement;
 
         public String getTitle() {
-            return title;
+            return name();
         }
     }
 

@@ -30,7 +30,7 @@ public class TileEntityAttractor extends ModTileEntity implements ITickable, IIn
     public void update() {
         if (world == null) return;
         if (isOn()) {
-            float range = ModConfig.ATTRACTOR_IMPELLER_RANGE.getValue();
+            float range = ModConfig.ATTRACTOR_RANGE.getValue();
             List<EntityItem> entityItems = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(getPos().getX() - range, getPos().getY(), getPos().getZ() - range, getPos().getX() + range, getPos().getY() + 2, getPos().getZ() + range));
             if (entityItems.size() > 0) {
                 for (EntityItem entityItem : entityItems) {

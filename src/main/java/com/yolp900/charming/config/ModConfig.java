@@ -12,9 +12,11 @@ public class ModConfig {
 
     public static Configuration configuration;
 
-    public static ConfigEntry.BooleanEntry CRAFTABLE_CONSTRUCTION_TABLE = new ConfigEntry.BooleanEntry(LibConfig.CRAFTABLE_CONSTRUCTION_TABLE, ConfigEntry.EnumCategories.MECHANICS, false);
-    public static ConfigEntry.IntegerEntry LEVITATOR_ELEVATOR_RANGE = new ConfigEntry.IntegerEntry(LibConfig.LEVITATOR_ELEVATOR_RANGE, ConfigEntry.EnumCategories.MECHANICS, 8, 2, 16);
-    public static ConfigEntry.FloatEntry ATTRACTOR_IMPELLER_RANGE = new ConfigEntry.FloatEntry(LibConfig.ATTRACTOR_IMPELLER_RANGE, ConfigEntry.EnumCategories.MECHANICS, 4, 1, 6);
+    public static ConfigEntry.BooleanEntry CRAFTABLE_CONSTRUCTION_TABLE = new ConfigEntry.BooleanEntry(LibConfig.CRAFTABLE_CONSTRUCTION_TABLE, ConfigEntry.EnumCategories.Mechanics, false);
+    public static ConfigEntry.FloatEntry LEVITATOR_RANGE = new ConfigEntry.FloatEntry(LibConfig.LEVITATOR_RANGE, ConfigEntry.EnumCategories.Movement, 8, 2, 16);
+    public static ConfigEntry.IntegerEntry ELEVATOR_RANGE = new ConfigEntry.IntegerEntry(LibConfig.ELEVATOR_RANGE, ConfigEntry.EnumCategories.Movement, 8, 2, 16);
+    public static ConfigEntry.FloatEntry ATTRACTOR_RANGE = new ConfigEntry.FloatEntry(LibConfig.ATTRACTOR_RANGE, ConfigEntry.EnumCategories.Movement, 4, 1, 6);
+    public static ConfigEntry.FloatEntry IMPELLER_RANGE = new ConfigEntry.FloatEntry(LibConfig.IMPELLER_RANGE, ConfigEntry.EnumCategories.Movement, 4, 1, 6);
 
     public static void init(File configFile) {
         if (configuration == null) {
@@ -31,8 +33,10 @@ public class ModConfig {
 
     private static void loadConfiguration() {
         loadConfiguration(CRAFTABLE_CONSTRUCTION_TABLE);
-        loadConfiguration(LEVITATOR_ELEVATOR_RANGE);
-        loadConfiguration(ATTRACTOR_IMPELLER_RANGE);
+        loadConfiguration(LEVITATOR_RANGE);
+        loadConfiguration(ELEVATOR_RANGE);
+        loadConfiguration(ATTRACTOR_RANGE);
+        loadConfiguration(IMPELLER_RANGE);
     }
 
     private static void loadConfiguration(ConfigEntry entry) {

@@ -47,38 +47,6 @@ public class ModRecipes {
         WandInteraction.registerWandInteractions();
     }
 
-    private static List<Object> obj(Object... inputs) {
-        return Lists.newArrayList(inputs);
-    }
-
-    private static List<IBlockState> bs(IBlockState... states) {
-        return Lists.newArrayList(states);
-    }
-
-    private static NonNullList<ItemStack> stack(@Nonnull ItemStack... stacks) {
-        NonNullList<ItemStack> ret = NonNullList.create();
-        ret.addAll(Arrays.asList(stacks));
-        return ret;
-    }
-
-    private static Object[] group(Object object, int num) {
-        Object[] ret = new Object[num];
-        Arrays.fill(ret, 0, num, object);
-        return ret;
-    }
-
-    private static IBlockState[] groupBS(IBlockState state, int num) {
-        IBlockState[] ret = new IBlockState[num];
-        Arrays.fill(ret, 0, num, state);
-        return ret;
-    }
-
-    private static ItemStack[] groupIS(ItemStack stack, int num) {
-        ItemStack[] ret = new ItemStack[num];
-        Arrays.fill(ret, 0, num, stack);
-        return ret;
-    }
-
     public static class Crafting {
 
         static void registerCraftingRecipes() {
@@ -219,6 +187,38 @@ public class ModRecipes {
             }
         }
 
+    }
+
+    private static List<Object> obj(Object... inputs) {
+        return Lists.newArrayList(inputs);
+    }
+
+    private static List<IBlockState> bs(IBlockState... states) {
+        return Lists.newArrayList(states);
+    }
+
+    private static NonNullList<ItemStack> stack(@Nonnull ItemStack... stacks) {
+        NonNullList<ItemStack> ret = NonNullList.create();
+        ret.addAll(Arrays.asList(stacks));
+        return ret;
+    }
+
+    private static Object[] group(Object object, int num) {
+        Object[] ret = new Object[num];
+        Arrays.fill(ret, 0, num, object);
+        return ret;
+    }
+
+    private static IBlockState[] groupBS(IBlockState state, int num) {
+        IBlockState[] ret = new IBlockState[num];
+        Arrays.fill(ret, 0, num, state);
+        return ret;
+    }
+
+    private static ItemStack[] groupIS(ItemStack stack, int num) {
+        ItemStack[] ret = new ItemStack[num];
+        Arrays.fill(ret, 0, num, stack);
+        return ret;
     }
 
 }

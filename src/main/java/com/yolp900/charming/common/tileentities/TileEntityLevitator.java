@@ -31,7 +31,7 @@ public class TileEntityLevitator extends ModTileEntity implements ITickable, IIn
     public void update() {
         if (world == null) return;
         if (isOn()) {
-            List<Entity> entities = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(getPos().getX(), getPos().getY() + 1, getPos().getZ(), getPos().getX() + 1, getPos().getY() + 1 + ModConfig.LEVITATOR_ELEVATOR_RANGE.getValue(), getPos().getZ() + 1));
+            List<Entity> entities = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(getPos().getX(), getPos().getY() + 1, getPos().getZ(), getPos().getX() + 1, getPos().getY() + 1 + ModConfig.LEVITATOR_RANGE.getValue(), getPos().getZ() + 1));
             if (entities.size() > 0) {
                 for (Entity entity : entities) {
                     if (entity instanceof EntityPlayer) {

@@ -46,7 +46,7 @@ public class BlockElevator extends ModBlock {
                 World world = player.getEntityWorld();
                 BlockPos pos = player.getPosition();
                 if (world.getBlockState(pos.down()).equals(ModBlocks.Elevator.getDefaultState())) {
-                    for (int i = 1; i < (ModConfig.LEVITATOR_ELEVATOR_RANGE.getValue() + 1); i++) {
+                    for (int i = 1; i < (ModConfig.ELEVATOR_RANGE.getValue() + 1); i++) {
                         if (world.getBlockState(pos.up(i)).equals(ModBlocks.Elevator.getDefaultState()) && isBlockEmpty(world, pos.up(i + 1)) && isBlockEmpty(world, pos.up(i + 2))) {
                             BlockPos destElevator = pos.up(i);
                             teleportPlayerTo(world, player, destElevator.getX() + 0.5, destElevator.getY() + 1.1, destElevator.getZ() + 0.5);
@@ -65,7 +65,7 @@ public class BlockElevator extends ModBlock {
                 World world = player.getEntityWorld();
                 BlockPos pos = player.getPosition();
                 if (player.isSneaking() && world.getBlockState(pos.down()).equals(ModBlocks.Elevator.getDefaultState())) {
-                    for (int i = 1; i < (ModConfig.LEVITATOR_ELEVATOR_RANGE.getValue() + 1); i++) {
+                    for (int i = 1; i < (ModConfig.ELEVATOR_RANGE.getValue() + 1); i++) {
                         if (world.getBlockState(pos.down(i + 1)).equals(ModBlocks.Elevator.getDefaultState()) && isBlockEmpty(world, pos.down(i)) && isBlockEmpty(world, pos.down(i - 1))) {
                             BlockPos destElevator = pos.down(i);
                             teleportPlayerTo(world, player, destElevator.getX() + 0.5, destElevator.getY() + 0.1, destElevator.getZ() + 0.5);
