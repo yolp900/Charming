@@ -31,7 +31,7 @@ public class TileEntityAttractor extends ModTileEntity implements ITickable, IIn
         if (world == null) return;
         if (isOn()) {
             float range = ModConfig.ATTRACTOR_RANGE.getValue();
-            List<EntityItem> entityItems = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(getPos().getX() - range, getPos().getY(), getPos().getZ() - range, getPos().getX() + range, getPos().getY() + 2, getPos().getZ() + range));
+            List<EntityItem> entityItems = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(getPos().getX() - range, getPos().getY(), getPos().getZ() - range, getPos().getX() + range + 1, getPos().getY() + 3, getPos().getZ() + range + 1));
             if (entityItems.size() > 0) {
                 for (EntityItem entityItem : entityItems) {
                     if (!entityItem.getItem().isEmpty() && !CharmingAPI.AttractorImpeller.isItemStackBlacklisted(entityItem.getItem())) {
