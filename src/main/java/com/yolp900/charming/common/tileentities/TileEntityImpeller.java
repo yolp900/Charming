@@ -34,7 +34,7 @@ public class TileEntityImpeller extends ModTileEntity implements ITickable, IInv
             List<EntityItem> entityItems = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(getPos().getX() - range, getPos().getY(), getPos().getZ() - range, getPos().getX() + range, getPos().getY() + 2, getPos().getZ() + range));
             if (entityItems.size() > 0) {
                 for (EntityItem entityItem : entityItems) {
-                    if (!entityItem.getItem().isEmpty() && !CharmingAPI.AttractorImpeller.isItemStackBlacklisted(entityItem.getItem())) {
+                    if (!entityItem.getItem().isEmpty() && !CharmingAPI.Impeller.isItemStackBlacklisted(entityItem.getItem())) {
                         Vector3 blockV = Vector3.fromBlockPos(getPos()).add(0.5);
                         Vector3 entityV = Vector3.fromEntity(entityItem).add(0.5);
                         Vector3 finalV = entityV.subtract(blockV);

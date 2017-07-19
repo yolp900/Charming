@@ -23,8 +23,10 @@ public class ItemEffectStone extends ModItem implements IMetaItem {
     public ItemEffectStone() {
         super(LibItems.EFFECT_STONE);
         CharmingAPI.Levitator.blacklistItemStack(new ItemStack(this, 1, EnumStoneEffects.Inversion.ordinal()));
-        CharmingAPI.AttractorImpeller.blacklistItemStack(new ItemStack(this, 1, EnumStoneEffects.Inversion.ordinal()));
-        CharmingAPI.AttractorImpeller.blacklistItemStack(new ItemStack(this, 1, EnumStoneEffects.Conversion.ordinal()));
+        CharmingAPI.Attractor.blacklistItemStack(new ItemStack(this, 1, EnumStoneEffects.Inversion.ordinal()));
+        CharmingAPI.Impeller.blacklistItemStack(new ItemStack(this, 1, EnumStoneEffects.Inversion.ordinal()));
+        CharmingAPI.Attractor.blacklistItemStack(new ItemStack(this, 1, EnumStoneEffects.Conversion.ordinal()));
+        CharmingAPI.Impeller.blacklistItemStack(new ItemStack(this, 1, EnumStoneEffects.Conversion.ordinal()));
     }
 
     @Override

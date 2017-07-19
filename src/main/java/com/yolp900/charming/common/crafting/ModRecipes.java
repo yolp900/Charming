@@ -12,7 +12,9 @@ import com.yolp900.charming.api.tiles.IConvertible;
 import com.yolp900.charming.api.tiles.IInvertible;
 import com.yolp900.charming.common.blocks.BlockFlower;
 import com.yolp900.charming.common.blocks.ModBlocks;
+import com.yolp900.charming.common.items.ItemCore;
 import com.yolp900.charming.common.items.ItemEffectStone;
+import com.yolp900.charming.common.items.ItemTransmutationWand;
 import com.yolp900.charming.common.items.ModItems;
 import com.yolp900.charming.config.ModConfig;
 import net.minecraft.block.BlockPlanks;
@@ -62,18 +64,29 @@ public class ModRecipes {
     public static class ConstructionTable {
 
         public static RecipeConstructionTable StoneTransmutationWand;
-        public static RecipeConstructionTable IronTransmutationWand;
+        public static RecipeConstructionTable BlankCore;
         public static RecipeConstructionTable NoneEffectStone;
+        public static RecipeConstructionTable InversionEffectStone;
+        public static RecipeConstructionTable ConversionEffectStone;
         public static RecipeConstructionTable Elevator;
+        public static RecipeConstructionTable Levitator;
+        public static RecipeConstructionTable Attractor;
+        public static RecipeConstructionTable Impeller;
 
         public static RecipeConstructionTable[] TreeTransmutation = new RecipeConstructionTable[BlockSapling.TYPE.getAllowedValues().size()];
         public static RecipeConstructionTable[] TintedTreeTransmutation = new RecipeConstructionTable[BlockSapling.TYPE.getAllowedValues().size()];
 
         static void registerConstructionTableRecipes() {
-            StoneTransmutationWand = registerRecipe(new ItemStack(ModItems.TransmutationWand, 1, 1), obj(new ItemStack(ModItems.TransmutationWand, 1, 0)), obj(COBBLESTONE, STONE, new OreDictStack(NUGGET_GOLD, 2)), true, false);
-            IronTransmutationWand = registerRecipe(new ItemStack(ModItems.TransmutationWand, 1, 2), obj(new ItemStack(ModItems.TransmutationWand, 1, 1)), obj(new OreDictStack(INGOT_IRON, 3), new OreDictStack(NUGGET_GOLD, 2)), true, false);
-            NoneEffectStone = registerRecipe(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.None.ordinal()), obj(null, ModBlocks.TintedPlanks, null, ModBlocks.TintedPlanks, STONE, ModBlocks.TintedPlanks, null, ModBlocks.TintedPlanks, null), obj(NUGGET_GOLD, INGOT_IRON, DUST_REDSTONE), false, false);
-            Elevator = registerRecipe(new ItemStack(ModBlocks.Elevator, 2), obj(null, ModBlocks.TintedLog, null, ModBlocks.TintedLog, ModItems.HalfPearl, ModBlocks.TintedLog, null, ModBlocks.TintedLog, null), obj(ModItems.HalfPearl, new OreDictStack(DUST_REDSTONE, 2)), false, false);
+            StoneTransmutationWand = registerRecipe(new ItemStack(ModItems.TransmutationWand, 1, ItemTransmutationWand.EnumTypes.Stone.ordinal()), obj(new ItemStack(ModItems.TransmutationWand, 1, ItemTransmutationWand.EnumTypes.Wood.ordinal())), obj(COBBLESTONE, Items.FLINT, STONE, new OreDictStack(NUGGET_GOLD, 2)), true, false);
+            BlankCore = registerRecipe(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Blank.ordinal()), obj(null, STONE, null, STONE, STONE, STONE, null, STONE, null), obj(INGOT_IRON, DUST_REDSTONE, NUGGET_GOLD), false, false);
+            NoneEffectStone = registerRecipe(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.None.ordinal()), obj(PLANK_WOOD, null, PLANK_WOOD, null, COBBLESTONE, null, PLANK_WOOD, null, PLANK_WOOD), obj(NUGGET_GOLD, INGOT_IRON, DUST_REDSTONE), false, false); // TODO Doesn't work
+            InversionEffectStone = registerRecipe(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.Inversion.ordinal()), obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.None.ordinal()), new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Redstone.ordinal())), obj(new OreDictStack(DUST_REDSTONE, 2)), true, false);
+            ConversionEffectStone = registerRecipe(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.Conversion.ordinal()), obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.None.ordinal()), new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Motion.ordinal()), new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Repulsion.ordinal())), obj(new OreDictStack(DUST_GLOWSTONE, 2)), true, false);
+            Elevator = registerRecipe(new ItemStack(ModBlocks.Elevator, 2), obj(null, ModBlocks.TintedLog, null, ModBlocks.TintedLog, ModItems.HalfPearl, ModBlocks.TintedLog, null, ModBlocks.TintedLog, null), obj(ModItems.HalfPearl), false, false);
+            Levitator = registerRecipe(new ItemStack(ModBlocks.Levitator), obj(null, ModBlocks.TintedLog, null, ModBlocks.TintedLog, ModItems.HalfPearl, ModBlocks.TintedLog, DUST_REDSTONE, ModBlocks.TintedLog, DUST_REDSTONE), obj(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Motion.ordinal()), new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Repulsion.ordinal())), false, true);
+            Attractor = registerRecipe(new ItemStack(ModBlocks.Attractor), obj(null, Blocks.STONE_SLAB, null, Blocks.STONE_SLAB, new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Motion.ordinal()), Blocks.STONE_SLAB, null, Blocks.STONE_SLAB, null), obj(new OreDictStack(DUST_REDSTONE, 2)), false, false);
+            Impeller = registerRecipe(new ItemStack(ModBlocks.Impeller), obj(null, Blocks.STONE_SLAB, null, Blocks.STONE_SLAB, new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Repulsion.ordinal()), Blocks.STONE_SLAB, null, Blocks.STONE_SLAB, null), obj(new OreDictStack(DUST_REDSTONE, 2)), false, false);
+
             for (int i = 0; i < BlockSapling.TYPE.getAllowedValues().size(); i++) {
                 int j = i + 1;
                 if (i == BlockSapling.TYPE.getAllowedValues().size() - 1) {
@@ -88,23 +101,23 @@ public class ModRecipes {
             return CharmingAPI.ConstructionTable.registerConstructionTableRecipe(output, gridInputs, secInputs, shapeless, infusion);
         }
 
-        private static RecipeConstructionTable registerRecipe(@Nonnull RecipeConstructionTable recipe) {
-            return CharmingAPI.ConstructionTable.registerConstructionTableRecipe(recipe);
+        private static void registerRecipe(@Nonnull RecipeConstructionTable recipe) {
+            CharmingAPI.ConstructionTable.registerConstructionTableRecipe(recipe);
         }
     }
 
     public static class WandInteraction {
 
-        public static RecipeWandInteractionBlock ConstructionTable;
-        public static RecipeWandInteractionBlock Levitator;
-        public static RecipeWandInteractionBlock TintedSapling[] = new RecipeWandInteractionBlock[BlockSapling.TYPE.getAllowedValues().size()];
-
         public static RecipeWandInteractionItem WoodenTransmutationWand;
-        public static RecipeWandInteractionItem InversionEffectStone;
-        public static RecipeWandInteractionItem ConversionEffectStone; //TODO maybe find other materials.
+        public static RecipeWandInteractionBlock ConstructionTable;
         public static RecipeWandInteractionItem EnderPearlSplitting;
+        public static RecipeWandInteractionItem RedstoneCore;
+        public static RecipeWandInteractionItem MotionCore;
+        public static RecipeWandInteractionItem RepulsionCore;
         public static RecipeWandInteractionItem DesertRose;
         public static RecipeWandInteractionItem RottenFleshToLeather;
+
+        public static RecipeWandInteractionBlock TintedSapling[] = new RecipeWandInteractionBlock[BlockSapling.TYPE.getAllowedValues().size()];
 
         public static RecipeWandInteraction BlockInversion = new RecipeWandInteraction(TransmutationStructure.EMPTY, obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.Inversion.ordinal())), null, false, 1) {
             @Override
@@ -140,28 +153,27 @@ public class ModRecipes {
             }
         };
 
-        public static List<RecipeWandInteraction> constructionParticleList = new ArrayList<>();
         public static List<RecipeWandInteraction> infusionParticleList = new ArrayList<>();
+        public static List<RecipeWandInteraction> constructionParticleList = new ArrayList<>();
 
         static void registerWandInteractions() {
+            WoodenTransmutationWand = registerItemRecipe(stack(new ItemStack(ModItems.TransmutationWand, 1, ItemTransmutationWand.EnumTypes.Wood.ordinal())), TransmutationStructure.EMPTY, obj(STICK_WOOD, new OreDictStack(NUGGET_GOLD, 2)), obj(STICK_WOOD, new OreDictStack(NUGGET_GOLD, 2)), false, -1);
             ConstructionTable = registerBlockRecipe(ModBlocks.ConstructionTable.getDefaultState(), new TransmutationStructure(Blocks.CRAFTING_TABLE.getDefaultState(), bs(groupBS(Blocks.COBBLESTONE.getDefaultState(), 4)), null, Blocks.COBBLESTONE.getDefaultState()), obj(COBBLESTONE), obj(COBBLESTONE), false, 0);
-            Levitator = registerBlockRecipe(ModBlocks.Levitator.getDefaultState(), new TransmutationStructure(ModBlocks.TintedLog.getDefaultState(), null, null, null), obj(ENDERPEARL), obj(ENDERPEARL), false, 1);
+            EnderPearlSplitting = registerItemRecipe(stack(new ItemStack(ModItems.HalfPearl, 2)), TransmutationStructure.EMPTY, obj(ENDERPEARL), obj(ENDERPEARL), false, 0);
+            RedstoneCore = registerItemRecipe(stack(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Redstone.ordinal())), TransmutationStructure.EMPTY, obj(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Blank.ordinal()), Blocks.LEVER, Blocks.REDSTONE_TORCH), obj(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Blank.ordinal()), Blocks.LEVER, Blocks.REDSTONE_TORCH), false, 1);
+            MotionCore = registerItemRecipe(stack(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Motion.ordinal())), TransmutationStructure.EMPTY, obj(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Blank.ordinal()), new ItemStack(ModItems.HalfPearl, 1), FEATHER), obj(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Blank.ordinal()), new ItemStack(ModItems.HalfPearl, 1), FEATHER), false, 1);
+            RepulsionCore = registerItemRecipe(stack(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Repulsion.ordinal())), TransmutationStructure.EMPTY, obj(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Blank.ordinal()), new ItemStack(ModItems.HalfPearl, 1), OBSIDIAN), obj(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Blank.ordinal()), new ItemStack(ModItems.HalfPearl, 1), OBSIDIAN), false, 1);
+            DesertRose = registerItemRecipe(stack(new ItemStack(ModBlocks.Flower, 1, BlockFlower.EnumTypes.DesertRose.getMetadata())), new TransmutationStructure(Blocks.SAND.getDefaultState(), bs(groupBS(Blocks.SAND.getDefaultState(), 4)), bs(groupBS(Blocks.SAND.getDefaultState(), 4)), null), obj(Blocks.YELLOW_FLOWER, new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.Conversion.ordinal())), obj(Blocks.YELLOW_FLOWER), true, 1);
+            RottenFleshToLeather = registerItemRecipe(stack(new ItemStack(Items.LEATHER)), TransmutationStructure.EMPTY, obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.Conversion.ordinal()), new ItemStack(Items.ROTTEN_FLESH, 2)), obj(new ItemStack(Items.ROTTEN_FLESH, 2)), false, 1);
+
             for (int i = 0; i < BlockSapling.TYPE.getAllowedValues().size(); i++) {
                 TintedSapling[i] = registerBlockRecipe(ModBlocks.TintedSapling.getDefaultState(), new TransmutationStructure(Blocks.SAPLING.getDefaultState().withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.values()[i]), null, null, null), obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.Conversion.ordinal()), new OreDictStack(DYES(0), 2)), obj(new OreDictStack(DYES(0), 2)), false, 0);
             }
 
-            WoodenTransmutationWand = registerItemRecipe(stack(new ItemStack(ModItems.TransmutationWand, 1, 0)), TransmutationStructure.EMPTY, obj(STICK_WOOD, new OreDictStack(NUGGET_GOLD, 2)), obj(STICK_WOOD, new OreDictStack(NUGGET_GOLD, 2)), false, -1);
-            InversionEffectStone = registerItemRecipe(stack(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.Inversion.ordinal())), TransmutationStructure.EMPTY, obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.None.ordinal()), Blocks.LEVER, Blocks.REDSTONE_TORCH), obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.None.ordinal()), Blocks.LEVER, Blocks.REDSTONE_TORCH), false, 0);
-            ConversionEffectStone = registerItemRecipe(stack(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.Conversion.ordinal())), TransmutationStructure.EMPTY, obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.None.ordinal()), NUGGET_GOLD, ModItems.HalfPearl, DUST_REDSTONE), obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.None.ordinal()), NUGGET_GOLD, ModItems.HalfPearl, DUST_REDSTONE), false, 1);
-            EnderPearlSplitting = registerItemRecipe(stack(new ItemStack(ModItems.HalfPearl, 2)), TransmutationStructure.EMPTY, obj(ENDERPEARL), obj(ENDERPEARL), false, 0);
-            DesertRose = registerItemRecipe(stack(new ItemStack(ModBlocks.Flower, 1, BlockFlower.EnumTypes.DesertRose.getMetadata())), new TransmutationStructure(Blocks.SAND.getDefaultState(), bs(groupBS(Blocks.SAND.getDefaultState(), 4)), bs(groupBS(Blocks.SAND.getDefaultState(), 4)), null), obj(Blocks.YELLOW_FLOWER, new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.Conversion.ordinal())), obj(Blocks.YELLOW_FLOWER), true, 1);
-
-            RottenFleshToLeather = registerItemRecipe(stack(new ItemStack(Items.LEATHER)), TransmutationStructure.EMPTY, obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.Conversion.ordinal()), new ItemStack(Items.ROTTEN_FLESH, 2)), obj(new ItemStack(Items.ROTTEN_FLESH, 2)), false, 1);
-
             registerRecipe(BlockInversion);
             registerRecipe(BlockConversion);
 
-            addAllToList(infusionParticleList, WoodenTransmutationWand, InversionEffectStone, EnderPearlSplitting, TintedSapling, DesertRose);
+            addAllToList(infusionParticleList, WoodenTransmutationWand, EnderPearlSplitting, TintedSapling, DesertRose);
             addAllToList(constructionParticleList, ConstructionTable);
         }
 

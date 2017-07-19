@@ -26,6 +26,8 @@ item.charming:EffectStone.None.name=Empty Effect Stone
 item.charming:EffectStone.Inversion.name=Inversion Stone
 item.charming:EffectStone.Conversion.name=Conversion Stone
 item.charming:HalfEnderPearl.name=Half Ender Pearl
+item.charming:Core.Blank.name=Blank Core
+item.charming:Core.Redstone.name=Redstone Core
 item.charming:Core.Motion.name=Motion Core
 item.charming:Core.Repulsion.name=Repulsion Core
 

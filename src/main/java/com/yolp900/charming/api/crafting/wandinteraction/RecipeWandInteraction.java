@@ -89,17 +89,15 @@ public abstract class RecipeWandInteraction extends CraftingMechanic {
 
     protected List<EntityItem> removeItemStacks(World world, List<EntityItem> worldIngredients, List<Object> ingredientsToRemove) {
         if (ingredientsToRemove == null) return worldIngredients;
-        if (!world.isRemote) {
-            List<Object> recipeIngredientsCopy = new ArrayList<>();
-            recipeIngredientsCopy.addAll(ingredientsToRemove);
-            for (int i = 0; i < recipeIngredientsCopy.size(); i++) {
-                Object recipeObject = recipeIngredientsCopy.get(i);
-                for (int j = 0; j < worldIngredients.size(); j++) {
-                    EntityItem worldIngredient = worldIngredients.get(j);
-                    if (isStackTheSameAsRecipeObj(worldIngredient.getItem(), recipeObject)) {
-                        if (removeItemStackFromWorldAfterMatching(world, recipeObject, i, recipeIngredientsCopy, worldIngredient, j, worldIngredients)) {
-                            break;
-                        }
+        List<Object> recipeIngredientsCopy = new ArrayList<>();
+        recipeIngredientsCopy.addAll(ingredientsToRemove);
+        for (int i = 0; i < recipeIngredientsCopy.size(); i++) {
+            Object recipeObject = recipeIngredientsCopy.get(i);
+            for (int j = 0; j < worldIngredients.size(); j++) {
+                EntityItem worldIngredient = worldIngredients.get(j);
+                if (isStackTheSameAsRecipeObj(worldIngredient.getItem(), recipeObject)) {
+                    if (removeItemStackFromWorldAfterMatching(world, recipeObject, i, recipeIngredientsCopy, worldIngredient, j, worldIngredients)) {
+                        break;
                     }
                 }
             }

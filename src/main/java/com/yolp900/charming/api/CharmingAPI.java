@@ -53,9 +53,8 @@ public class CharmingAPI {
          * @param recipe - The custom recipe.
          * @return the recipe after registration in Charming.
          */
-        public static RecipeConstructionTable registerConstructionTableRecipe(@Nonnull RecipeConstructionTable recipe) {
+        public static void registerConstructionTableRecipe(@Nonnull RecipeConstructionTable recipe) {
             constructionTableRecipeList.add(recipe);
-            return recipe;
         }
 
     }
@@ -169,14 +168,14 @@ public class CharmingAPI {
         }
     }
 
-    public static class AttractorImpeller {
+    public static class Attractor {
         /**
-         * Blacklist of the attractor and impeller.
+         * Blacklist of the attractor.
          */
         public static List<ItemStack> itemStackBlacklist = new ArrayList<>();
 
         /**
-         * Blacklist an ItemStack from bring moved by the attractor and impeller.
+         * Blacklist an ItemStack from bring moved by the attractor.
          *
          * @param stack - the blacklisted stack. The ItemStack's metadata is checked, but not its NBT or stacksize.
          */
@@ -185,7 +184,7 @@ public class CharmingAPI {
         }
 
         /**
-         * Checks if the provided ItemStack is blacklisted from being moved by the attractor and impeller.
+         * Checks if the provided ItemStack is blacklisted from being moved by the attractor.
          *
          * @param stack - the ItemStack. The ItemStack's metadata is checked, but not its NBT or stacksize.
          * @return Whether the ItemStack is blacklisted.
@@ -199,6 +198,37 @@ public class CharmingAPI {
             return false;
         }
 
+    }
+
+    public static class Impeller {
+        /**
+         * Blacklist of the impeller.
+         */
+        public static List<ItemStack> itemStackBlacklist = new ArrayList<>();
+
+        /**
+         * Blacklist an ItemStack from bring moved by the impeller.
+         *
+         * @param stack - the blacklisted stack. The ItemStack's metadata is checked, but not its NBT or stacksize.
+         */
+        public static void blacklistItemStack(@Nonnull ItemStack stack) {
+            itemStackBlacklist.add(stack);
+        }
+
+        /**
+         * Checks if the provided ItemStack is blacklisted from being moved by the impeller.
+         *
+         * @param stack - the ItemStack. The ItemStack's metadata is checked, but not its NBT or stacksize.
+         * @return Whether the ItemStack is blacklisted.
+         */
+        public static boolean isItemStackBlacklisted(@Nonnull ItemStack stack) {
+            for (ItemStack blacklistedStack : itemStackBlacklist) {
+                if (CraftingMechanic.areItemStacksEqualWOStackSize(stack, blacklistedStack)) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
 }
