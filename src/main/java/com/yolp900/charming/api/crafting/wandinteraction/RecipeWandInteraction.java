@@ -1,7 +1,6 @@
 package com.yolp900.charming.api.crafting.wandinteraction;
 
 import com.yolp900.charming.api.crafting.CraftingMechanic;
-import com.yolp900.charming.api.crafting.OreDictStack;
 import com.yolp900.charming.api.items.ITransmutationWand;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
@@ -35,7 +34,11 @@ public abstract class RecipeWandInteraction extends CraftingMechanic {
     }
 
     public boolean matches(World world, EntityPlayer player, ItemStack wand, BlockPos pos, List<EntityItem> ingredients) {
-        return player.isSneaking() && matchesPlayerWand(player, wand, getMinimalWandLevel()) && matchesStructure(world, player, pos, getStructure()) && matchesIngredients(ingredients, getIngredients());
+        boolean sneak = player.isSneaking();
+        boolean playerWand = matchesPlayerWand(player, wand, getMinimalWandLevel());
+        boolean structure = matchesStructure(world, player, pos, getStructure());
+        boolean items = matchesIngredients(ingredients, getIngredients());
+        return sneak && playerWand && structure && items;
     }
 
     protected boolean matchesPlayerWand(EntityPlayer player, ItemStack wand, int minimalWandLevel) {
@@ -66,7 +69,7 @@ public abstract class RecipeWandInteraction extends CraftingMechanic {
             for (int j = 0; j < worldItemStacks.size(); j++) {
                 ItemStack worldIngredient = worldItemStacks.get(j);
                 if (isStackTheSameAsRecipeObj(worldIngredient, recipeObj)) {
-                    if (removeFromListsAfterMatching(recipeObj, i, recipeIngredientsCopy, worldIngredient, j, worldItemStacks)) {
+                    if (removeFromListsAfterMatching(recipeObj, i, recipeIngredientsCopy, worldIngredient, j, worldItemStacks, false)) {
                         break;
                     }
                 }
@@ -137,14 +140,6 @@ public abstract class RecipeWandInteraction extends CraftingMechanic {
             } else if (recipeObject instanceof String) {
                 NonNullList<ItemStack> oreDictList = OreDictionary.getOres((String) recipeObject);
                 for (ItemStack oreStack : oreDictList) {
-                    if (removeItemStackFromWorldAfterMatching(world, oreStack, recipeIndex, recipe, worldIngredient, worldIngredientsIndex, worldIngredients)) {
-                        return true;
-                    }
-                }
-            } else if (recipeObject instanceof OreDictStack) {
-                NonNullList<ItemStack> oreDictList = OreDictionary.getOres(((OreDictStack) recipeObject).getOreDictEntry());
-                for (ItemStack oreStack : oreDictList) {
-                    oreStack.setCount(((OreDictStack) recipeObject).getStackSize());
                     if (removeItemStackFromWorldAfterMatching(world, oreStack, recipeIndex, recipe, worldIngredient, worldIngredientsIndex, worldIngredients)) {
                         return true;
                     }

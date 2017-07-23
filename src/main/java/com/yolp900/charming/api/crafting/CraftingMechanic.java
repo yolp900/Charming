@@ -1,6 +1,5 @@
 package com.yolp900.charming.api.crafting;
 
-import com.yolp900.charming.Charming;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -42,7 +41,7 @@ public abstract class CraftingMechanic {
                 Object recipeObj = copyOfRecipe.get(j);
                 if (recipeObj == null || recipeObj == ItemStack.EMPTY) continue;
                 if (isStackTheSameAsRecipeObj(currStack, recipeObj)) {
-                    if (removeFromListsAfterMatching(recipeObj, j, copyOfRecipe, currStack, i, copyOfInputs)) {
+                    if (removeFromListsAfterMatching(recipeObj, j, copyOfRecipe, currStack, i, copyOfInputs, true)) {
                         break;
                     }
                 }
@@ -76,14 +75,6 @@ public abstract class CraftingMechanic {
                     return true;
                 }
             }
-        } else if (recipeObj instanceof OreDictStack) {
-            NonNullList<ItemStack> oreDictList = OreDictionary.getOres(((OreDictStack) recipeObj).getOreDictEntry());
-            for (ItemStack oreStack : oreDictList) {
-                oreStack.setCount(((OreDictStack) recipeObj).getStackSize());
-                if (isStackTheSameAsRecipeObj(stack, oreStack)) {
-                    return true;
-                }
-            }
         }
         return false;
     }
@@ -92,7 +83,7 @@ public abstract class CraftingMechanic {
         return !firstStack.isEmpty() && firstStack.getItem() == secStack.getItem() && (!secStack.getHasSubtypes() || secStack.getMetadata() == firstStack.getMetadata()) && ItemStack.areItemStackTagsEqual(secStack, firstStack);
     }
 
-    protected boolean removeFromListsAfterMatching(Object recipeObject, int recipeIndex, List<Object> recipe, ItemStack input, int inputsIndex, NonNullList<ItemStack> inputs) {
+    protected boolean removeFromListsAfterMatching(Object recipeObject, int recipeIndex, List<Object> recipe, ItemStack input, int inputsIndex, NonNullList<ItemStack> inputs, boolean grid) {
         if (recipeObject instanceof ItemStack) {
             ItemStack recipeStack = (ItemStack) recipeObject;
             if (recipeStack.getCount() > input.getCount()) {
@@ -102,27 +93,33 @@ public abstract class CraftingMechanic {
                 recipe.set(recipeIndex, setStack);
                 return false;
             } else {
-                inputs.set(inputsIndex, ItemStack.EMPTY);
-                recipe.set(recipeIndex, null);
-                return true;
-            }
-        } else {
-            if (recipeObject instanceof Item) {
-                return removeFromListsAfterMatching(new ItemStack((Item) recipeObject), recipeIndex, recipe, input, inputsIndex, inputs);
-            } else if (recipeObject instanceof Block) {
-                return removeFromListsAfterMatching(new ItemStack((Block) recipeObject), recipeIndex, recipe, input, inputsIndex, inputs);
-            } else if (recipeObject instanceof String) {
-                NonNullList<ItemStack> oreDictList = OreDictionary.getOres((String) recipeObject);
-                for (ItemStack oreStack : oreDictList) {
-                    if (removeFromListsAfterMatching(oreStack, recipeIndex, recipe, input, inputsIndex, inputs)) {
+                if (grid) {
+                    inputs.set(inputsIndex, ItemStack.EMPTY);
+                    recipe.set(recipeIndex, null);
+                    return true;
+                } else {
+                    if (recipeStack.getCount() == input.getCount()) {
+                        inputs.set(inputsIndex, ItemStack.EMPTY);
+                        recipe.set(recipeIndex, null);
+                        return true;
+                    } else if (recipeStack.getCount() < input.getCount()) {
+                        ItemStack setStack = input.copy();
+                        setStack.setCount(input.getCount() - recipeStack.getCount());
+                        inputs.set(inputsIndex, setStack);
+                        recipe.set(recipeIndex, null);
                         return true;
                     }
                 }
-            } else if (recipeObject instanceof OreDictStack) {
-                NonNullList<ItemStack> oreDictList = OreDictionary.getOres(((OreDictStack) recipeObject).getOreDictEntry());
+            }
+        } else {
+            if (recipeObject instanceof Item) {
+                return removeFromListsAfterMatching(new ItemStack((Item) recipeObject), recipeIndex, recipe, input, inputsIndex, inputs, grid);
+            } else if (recipeObject instanceof Block) {
+                return removeFromListsAfterMatching(new ItemStack((Block) recipeObject), recipeIndex, recipe, input, inputsIndex, inputs, grid);
+            } else if (recipeObject instanceof String) {
+                NonNullList<ItemStack> oreDictList = OreDictionary.getOres((String) recipeObject);
                 for (ItemStack oreStack : oreDictList) {
-                    oreStack.setCount(((OreDictStack) recipeObject).getStackSize());
-                    if (removeFromListsAfterMatching(oreStack, recipeIndex, recipe, input, inputsIndex, inputs)) {
+                    if (removeFromListsAfterMatching(oreStack, recipeIndex, recipe, input, inputsIndex, inputs, grid)) {
                         return true;
                     }
                 }

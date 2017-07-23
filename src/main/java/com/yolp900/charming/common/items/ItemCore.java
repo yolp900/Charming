@@ -61,7 +61,7 @@ public class ItemCore extends ModItem implements IMetaItem {
         return false;
     }
 
-    public enum EnumTypes implements IStringSerializable{
+    public enum EnumTypes implements IStringSerializable {
         Blank, Redstone, Motion, Repulsion;
 
         @Override
