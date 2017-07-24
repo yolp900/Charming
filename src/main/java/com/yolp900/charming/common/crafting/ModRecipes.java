@@ -110,7 +110,12 @@ public class ModRecipes {
         public static RecipeWandInteractionItem WoodenTransmutationWand;
         public static RecipeWandInteractionBlock ConstructionTable;
         public static RecipeWandInteractionItem EnderPearlSplitting;
+        public static RecipeWandInteractionItem WaterCore;
+        public static RecipeWandInteractionItem EarthCore;
+        public static RecipeWandInteractionItem FireCore;
+        public static RecipeWandInteractionItem AirCore;
         public static RecipeWandInteractionItem RedstoneCore;
+        public static RecipeWandInteractionItem IlluminationCore;
         public static RecipeWandInteractionItem MotionCore;
         public static RecipeWandInteractionItem DesertRose;
         public static RecipeWandInteractionItem RottenFleshToLeather;
@@ -158,8 +163,15 @@ public class ModRecipes {
             WoodenTransmutationWand = registerItemRecipe(stack(new ItemStack(ModItems.TransmutationWand, 1, ItemTransmutationWand.EnumTypes.Wood.ordinal())), TransmutationStructure.EMPTY, obj(STICK_WOOD, NUGGET_GOLD, NUGGET_GOLD), obj(STICK_WOOD, NUGGET_GOLD, NUGGET_GOLD), false, -1);
             ConstructionTable = registerBlockRecipe(ModBlocks.ConstructionTable.getDefaultState(), new TransmutationStructure(Blocks.CRAFTING_TABLE.getDefaultState(), bs(groupBS(Blocks.COBBLESTONE.getDefaultState(), 4)), null, Blocks.COBBLESTONE.getDefaultState()), obj(COBBLESTONE), obj(COBBLESTONE), false, 0);
             EnderPearlSplitting = registerItemRecipe(stack(new ItemStack(ModItems.HalfPearl, 2)), TransmutationStructure.EMPTY, obj(ENDERPEARL), obj(ENDERPEARL), false, 0);
-            RedstoneCore = registerItemRecipe(stack(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Redstone.ordinal())), TransmutationStructure.EMPTY, obj(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Blank.ordinal()), Blocks.LEVER, Blocks.REDSTONE_TORCH), obj(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Blank.ordinal()), Blocks.LEVER, Blocks.REDSTONE_TORCH), false, 1);
+
+            WaterCore = registerItemRecipe(stack(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Water.ordinal()), new ItemStack(Items.BUCKET)), TransmutationStructure.EMPTY, obj(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Blank.ordinal()), Items.WATER_BUCKET, SUGARCANE), obj(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Blank.ordinal()), Items.WATER_BUCKET, SUGARCANE), false, 1);
+            EarthCore = registerItemRecipe(stack(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Earth.ordinal())), TransmutationStructure.EMPTY, obj(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Blank.ordinal()), STONE, DIRT, SAND), obj(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Blank.ordinal()), STONE, DIRT, SAND), false, 1);
+            FireCore = registerItemRecipe(stack(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Fire.ordinal()), new ItemStack(Items.BUCKET)), TransmutationStructure.EMPTY, obj(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Blank.ordinal()), Items.LAVA_BUCKET, Items.FLINT), obj(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Blank.ordinal()), Items.LAVA_BUCKET, Items.FLINT), false, 1);
+            AirCore = registerItemRecipe(stack(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Air.ordinal())), TransmutationStructure.EMPTY, obj(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Blank.ordinal()), FEATHER, Blocks.TALLGRASS), obj(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Blank.ordinal()), FEATHER, Blocks.TALLGRASS), false, 1);
+            RedstoneCore = registerItemRecipe(stack(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Redstone.ordinal())), TransmutationStructure.EMPTY, obj(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Blank.ordinal()), BLOCK_REDSTONE, Blocks.REDSTONE_TORCH), obj(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Blank.ordinal()), BLOCK_REDSTONE, Blocks.REDSTONE_TORCH), false, 1);
+            IlluminationCore = registerItemRecipe(stack(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Illumination.ordinal())), TransmutationStructure.EMPTY, obj(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Blank.ordinal()), BLOCK_GLOWSTONE, TORCH), obj(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Blank.ordinal()), BLOCK_GLOWSTONE, TORCH), false, 1);
             MotionCore = registerItemRecipe(stack(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Motion.ordinal())), TransmutationStructure.EMPTY, obj(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Blank.ordinal()), new ItemStack(ModItems.HalfPearl, 1), FEATHER), obj(new ItemStack(ModItems.Core, 1, ItemCore.EnumTypes.Blank.ordinal()), new ItemStack(ModItems.HalfPearl, 1), FEATHER), false, 1);
+
             DesertRose = registerItemRecipe(stack(new ItemStack(ModBlocks.Flower, 1, BlockFlower.EnumTypes.DesertRose.getMetadata())), new TransmutationStructure(Blocks.SAND.getDefaultState(), bs(groupBS(Blocks.SAND.getDefaultState(), 4)), bs(groupBS(Blocks.SAND.getDefaultState(), 4)), null), obj(Blocks.YELLOW_FLOWER, DYES(15), DYES(15), new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.Conversion.ordinal())), obj(Blocks.YELLOW_FLOWER, DYES(15), DYES(15)), true, 1);
             RottenFleshToLeather = registerItemRecipe(stack(new ItemStack(Items.LEATHER)), TransmutationStructure.EMPTY, obj(new ItemStack(ModItems.EffectStone, 1, ItemEffectStone.EnumStoneEffects.Conversion.ordinal()), new ItemStack(Items.ROTTEN_FLESH, 2)), obj(new ItemStack(Items.ROTTEN_FLESH, 2)), false, 1);
 
@@ -170,7 +182,7 @@ public class ModRecipes {
             registerRecipe(BlockInversion);
             registerRecipe(BlockConversion);
 
-            addAllToList(infusionParticleList, WoodenTransmutationWand, EnderPearlSplitting, TintedSapling, DesertRose);
+            addAllToList(infusionParticleList, WoodenTransmutationWand);
             addAllToList(constructionParticleList, ConstructionTable);
         }
 
