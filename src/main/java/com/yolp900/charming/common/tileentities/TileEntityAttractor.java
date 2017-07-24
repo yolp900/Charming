@@ -7,7 +7,6 @@ import com.yolp900.charming.common.network.MessageParticle;
 import com.yolp900.charming.common.network.NetworkHandler;
 import com.yolp900.charming.config.ModConfig;
 import com.yolp900.charming.reference.LibMisc;
-import com.yolp900.charming.util.Vector3;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
@@ -35,17 +34,19 @@ public class TileEntityAttractor extends ModTileEntity implements ITickable, IIn
             if (entityItems.size() > 0) {
                 for (EntityItem entityItem : entityItems) {
                     if (!entityItem.getItem().isEmpty() && !CharmingAPI.Attractor.isItemStackBlacklisted(entityItem.getItem())) {
-                        Vector3 blockV = Vector3.fromBlockPos(getPos()).add(0.5);
-                        Vector3 entityV = Vector3.fromEntity(entityItem).add(0.5);
-                        Vector3 finalV = blockV.subtract(entityV);
-
-                        if (finalV.magnitude() > 1) {
-                            finalV = finalV.normalize();
+                        double x = getPos().getX() + 0.5 - entityItem.posX;
+                        double y = getPos().getY() + 0.5 - entityItem.posY;
+                        double z = getPos().getZ() + 0.5 - entityItem.posZ;
+                        double mag = Math.sqrt(x*x + y*y + z*z);
+                        if (mag > 1) {
+                            x *= 1 / mag;
+                            y *= 1 / mag;
+                            z *= 1 / mag;
                         }
 
-                        entityItem.motionX = finalV.getX() * 0.1;
-                        entityItem.motionY = finalV.getY() * 0.1;
-                        entityItem.motionZ = finalV.getZ() * 0.1;
+                        entityItem.motionX = x * 0.1;
+                        entityItem.motionY = y * 0.1;
+                        entityItem.motionZ = z * 0.1;
 
                         if (!world.isRemote && random.nextDouble() < 0.75) {
                             NetworkHandler.sendToAllAround(new MessageParticle(ModParticles.Particles.Levitator, entityItem.posX - (entityItem.width / 2) + (random.nextDouble() * entityItem.width), entityItem.posY - (entityItem.height / 2) + (random.nextDouble() * entityItem.height), entityItem.posZ - (entityItem.width / 2) + (random.nextDouble() * entityItem.width), random.nextDouble() + 0.25, (random.nextDouble() / 4) + 0.5, (random.nextDouble() / 4) + 0.5, (random.nextDouble() / 4) + 0.5, -entityItem.motionX, -entityItem.motionY, -entityItem.motionZ), world.provider.getDimension(), entityItem.posX, entityItem.posY, entityItem.posZ, 16);
