@@ -1,5 +1,6 @@
 package com.yolp900.charming.common.inventory;
 
+import com.yolp900.charming.api.crafting.CraftingMechanic;
 import com.yolp900.charming.common.tileentities.TileEntityConstructionTable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -104,7 +105,7 @@ public class ContainerConstructionTable extends ModContainer {
             if (!slot.getHasStack() || slotStack.isEmpty()) {
                 space = true;
                 maxAmountOfSpace += Math.min(slot.getSlotStackLimit(), stack.getMaxStackSize());
-            } else if (areItemStacksEqualWOStackSize(slotStack, stack) && slotStack.getCount() < slotStack.getMaxStackSize()) {
+            } else if (CraftingMechanic.areItemStacksEqualWOStackSize(slotStack, stack) && slotStack.getCount() < slotStack.getMaxStackSize()) {
                 space = true;
                 maxAmountOfSpace += Math.min(slot.getSlotStackLimit(), stack.getMaxStackSize()) - slot.getStack().getCount();
             }

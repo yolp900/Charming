@@ -22,8 +22,4 @@ public abstract class ModContainer extends Container {
         return mergeItemStack;
     }
 
-    public static boolean areItemStacksEqualWOStackSize(ItemStack itemstack, ItemStack stack) {
-        return !itemstack.isEmpty() && itemstack.getItem() == stack.getItem() && (!stack.getHasSubtypes() || stack.getMetadata() == itemstack.getMetadata()) && ItemStack.areItemStackTagsEqual(stack, itemstack);
-    }
-
 }
