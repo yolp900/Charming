@@ -34,6 +34,7 @@ item.charming:Core.Air.name=Air Core
 item.charming:Core.Redstone.name=Redstone Core
 item.charming:Core.Illumination.name=Illumination Core
 item.charming:Core.Motion.name=Motion Core
+item.charming:Core.Storage.name=Storage Core
 
 //Gui Titles
 //guititle.charming:*title*=
