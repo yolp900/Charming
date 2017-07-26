@@ -62,7 +62,7 @@ public class ItemCore extends ModItem implements IMetaItem {
     }
 
     public enum EnumTypes implements IStringSerializable {
-        Blank, Water, Earth, Fire, Air, Redstone, Illumination, Motion;
+        Blank, Water, Earth, Fire, Air, Redstone, Illumination, Motion, Storage;
 
         @Override
         @Nonnull

@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 
 public class ModParticle extends Particle {
 
-    protected ModParticle(ResourceLocation texture, World world, double x, double y, double z, double size, double red, double green, double blue) {
+    public ModParticle(ResourceLocation texture, World world, double x, double y, double z, double size, double red, double green, double blue) {
         super(world, x, y, z);
         TextureAtlasSprite sprite = Charming.proxy.getMinecraft().getTextureMapBlocks().getAtlasSprite(texture.toString());
         this.setParticleTexture(sprite);

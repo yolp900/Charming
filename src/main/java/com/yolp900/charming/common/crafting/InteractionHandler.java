@@ -2,7 +2,9 @@ package com.yolp900.charming.common.crafting;
 
 import com.yolp900.charming.api.CharmingAPI;
 import com.yolp900.charming.api.crafting.wandinteraction.RecipeWandInteraction;
+import com.yolp900.charming.api.crafting.wandinteraction.RecipeWandInteractionItem;
 import com.yolp900.charming.client.particle.ModParticles;
+import com.yolp900.charming.common.network.MessageItemStackParticle;
 import com.yolp900.charming.common.network.MessageParticle;
 import com.yolp900.charming.common.network.MessageSound;
 import com.yolp900.charming.common.network.NetworkHandler;
@@ -45,7 +47,7 @@ public class InteractionHandler {
 
     private void handleAdditionalEffects(RecipeWandInteraction recipe, World world, EntityPlayer player, BlockPos pos) {
         if (!world.isRemote) {
-            if (ModRecipes.WandInteraction.constructionParticleList.contains(recipe)) {
+            if (ModRecipes.WandInteraction.ConstructionParticleList.contains(recipe)) {
                 NetworkHandler.sendToAllAround(new MessageSound(SoundHandler.ModSounds.Construction, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 1.5, 1), player.dimension, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 16);
                 Random rand = new Random();
                 int num = rand.nextInt(32) + 64;
@@ -53,13 +55,23 @@ public class InteractionHandler {
                     NetworkHandler.sendToAllAround(new MessageParticle(ModParticles.Particles.ConstructionTableConstruction, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, -1 + rand.nextDouble() * 2, -1 + rand.nextDouble() * 2, -1 + rand.nextDouble() * 2), player.dimension, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 16);
                 }
             }
-            if (ModRecipes.WandInteraction.infusionParticleList.contains(recipe)) {
+            if (ModRecipes.WandInteraction.InfusionParticleList.contains(recipe)) {
                 NetworkHandler.sendToAllAround(new MessageSound(SoundHandler.ModSounds.MagicDing, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 1.5, 1), player.dimension, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 16);
                 double y = pos.getY() + 1.5;
                 if (recipe.getStructure().getBlockClicked() != null && !recipe.getStructure().getBlockClicked().isFullBlock()) {
                     y = pos.getY() + 0.5;
                 }
-                NetworkHandler.sendToAllAround(new MessageParticle(ModParticles.Particles.Transmutation, pos.getX() + 0.5, y, pos.getZ() + 0.5), player.dimension, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, 16);
+                NetworkHandler.sendToAllAround(new MessageParticle(ModParticles.Particles.Transmutation, pos.getX() + 0.5, y, pos.getZ() + 0.5), player.dimension, pos.getX() + 0.5, y, pos.getZ() + 0.5, 16);
+            }
+            if (ModRecipes.WandInteraction.CoreParticleList.contains(recipe)) {
+                NetworkHandler.sendToAllAround(new MessageSound(SoundHandler.ModSounds.MagicDing, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 1.5, 1), player.dimension, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 16);
+                if (recipe instanceof RecipeWandInteractionItem) {
+                    RecipeWandInteractionItem itemRecipe = (RecipeWandInteractionItem) recipe;
+                    if (itemRecipe.getOutputs().size() == 1) {
+                        ItemStack core = itemRecipe.getOutputs().get(0);
+                        NetworkHandler.sendToAllAround(new MessageItemStackParticle(core, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5), player.dimension, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 16);
+                    }
+                }
             }
         }
     }

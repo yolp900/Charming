@@ -1,5 +1,6 @@
 package com.yolp900.charming.client;
 
+import com.yolp900.charming.Charming;
 import com.yolp900.charming.client.particle.ModParticle;
 import com.yolp900.charming.client.render.BlockRenderHandler;
 import com.yolp900.charming.client.render.ItemRenderHandler;

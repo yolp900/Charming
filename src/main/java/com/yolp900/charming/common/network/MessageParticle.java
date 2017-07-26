@@ -1,5 +1,6 @@
 package com.yolp900.charming.common.network;
 
+import com.google.common.collect.Lists;
 import com.yolp900.charming.Charming;
 import com.yolp900.charming.client.particle.ModParticle;
 import com.yolp900.charming.client.particle.ModParticles;
@@ -8,11 +9,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 
+import java.util.Collections;
+
 public class MessageParticle extends MessageBase<MessageParticle> {
-    private ModParticles.Particles particle;
-    private double x, y, z;
-    private double motionX, motionY, motionZ;
-    private double size, red, green, blue;
+    protected ModParticles.Particles particle;
+    protected double x, y, z;
+    protected double motionX, motionY, motionZ;
+    protected double size, red, green, blue;
 
     public MessageParticle() {
 
@@ -67,7 +70,7 @@ public class MessageParticle extends MessageBase<MessageParticle> {
         }
     }
 
-    private boolean doParticle(World world) {
+    protected boolean doParticle(World world) {
         if (!world.isRemote) return false;
 
         float chance = 1F;
@@ -85,7 +88,8 @@ public class MessageParticle extends MessageBase<MessageParticle> {
 
     @Override
     public void fromBytes(ByteBuf buf) {
-        this.particle = ModParticles.Particles.valueOf(ByteBufUtils.readUTF8String(buf));
+        String name = ByteBufUtils.readUTF8String(buf);
+        this.particle = ModParticles.Particles.valueOf(name);
         this.x = buf.readDouble();
         this.y = buf.readDouble();
         this.z = buf.readDouble();

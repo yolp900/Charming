@@ -168,4 +168,5 @@ public abstract class RecipeWandInteraction extends CraftingMechanic {
     public TransmutationStructure getStructure() {
         return structure;
     }
+
 }
