@@ -18,7 +18,6 @@ public class NetworkHandler {
         i = 0;
         registerMessage(MessageSound.class, Side.CLIENT);
         registerMessage(MessageParticle.class, Side.CLIENT);
-        registerMessage(MessageItemStackParticle.class, Side.CLIENT);
     }
 
     @SuppressWarnings ("unchecked")

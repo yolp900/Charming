@@ -100,7 +100,7 @@ public class BlockElevator extends ModBlock {
                 } else {
                     particle = ModParticles.Particles.Levitator;
                 }
-                MessageParticle message = new MessageParticle(particle, xDest, yDest + rand.nextDouble() * (player.height / 2), zDest, rand.nextGaussian() + 0.25, (rand.nextGaussian() / 4) + 0.5, (rand.nextGaussian() / 4) + 0.5, (rand.nextGaussian() / 4) + 0.5, rand.nextGaussian(), 0, rand.nextGaussian());
+                MessageParticle message = new MessageParticle(particle, xDest, yDest + ((rand.nextDouble() * 2) - 1) * (player.height / 2), zDest, rand.nextGaussian() + 0.25, (rand.nextGaussian() / 4) + 0.5, (rand.nextGaussian() / 4) + 0.5, (rand.nextGaussian() / 4) + 0.5, rand.nextGaussian(), 0, rand.nextGaussian());
                 NetworkHandler.sendToAllAround(message, player.dimension, xDest, yDest, zDest, 16);
             }
         }

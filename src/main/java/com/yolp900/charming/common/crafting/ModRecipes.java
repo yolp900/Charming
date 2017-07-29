@@ -25,6 +25,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -110,6 +111,7 @@ public class ModRecipes {
         public static RecipeWandInteractionItem WoodenTransmutationWand;
         public static RecipeWandInteractionBlock ConstructionTable;
         public static RecipeWandInteractionItem EnderPearlSplitting;
+
         public static RecipeWandInteractionItem WaterCore;
         public static RecipeWandInteractionItem EarthCore;
         public static RecipeWandInteractionItem FireCore;
@@ -118,6 +120,7 @@ public class ModRecipes {
         public static RecipeWandInteractionItem IlluminationCore;
         public static RecipeWandInteractionItem MotionCore;
         public static RecipeWandInteractionItem StorageCore;
+
         public static RecipeWandInteractionItem DesertRose;
         public static RecipeWandInteractionItem RottenFleshToLeather;
 
@@ -159,7 +162,6 @@ public class ModRecipes {
 
         public static List<RecipeWandInteraction> InfusionParticleList = new ArrayList<>();
         public static List<RecipeWandInteraction> ConstructionParticleList = new ArrayList<>();
-        public static List<RecipeWandInteraction> CoreParticleList = new ArrayList<>();
 
         static void registerWandInteractions() {
             WoodenTransmutationWand = registerItemRecipe(stack(new ItemStack(ModItems.TransmutationWand, 1, ItemTransmutationWand.EnumTypes.Wood.ordinal())), TransmutationStructure.EMPTY, obj(STICK_WOOD, NUGGET_GOLD, NUGGET_GOLD), obj(STICK_WOOD, NUGGET_GOLD, NUGGET_GOLD), false, -1);
@@ -185,9 +187,8 @@ public class ModRecipes {
             registerRecipe(BlockInversion);
             registerRecipe(BlockConversion);
 
-            addAllToList(InfusionParticleList, WoodenTransmutationWand);
+            addAllToList(InfusionParticleList, WoodenTransmutationWand, WaterCore, EarthCore, FireCore, AirCore, RedstoneCore, IlluminationCore, MotionCore, StorageCore);
             addAllToList(ConstructionParticleList, ConstructionTable);
-            addAllToList(CoreParticleList, WaterCore, EarthCore, FireCore, AirCore, RedstoneCore, IlluminationCore, MotionCore, StorageCore);
         }
 
         private static RecipeWandInteractionBlock registerBlockRecipe(@Nonnull IBlockState output, @Nonnull TransmutationStructure structure, @Nullable List<Object> ingredients, List<Object> ingredientsToRemove, boolean keepAroundBlocks, int minimalWandLevel) {

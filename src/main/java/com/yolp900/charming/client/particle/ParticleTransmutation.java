@@ -17,7 +17,7 @@ public class ParticleTransmutation extends ModParticle {
         this.initX = x;
         this.initZ = z;
         this.partialTicks = 0;
-        this.particleMaxAge = rand.nextInt(20) + 20;
+        setMaxAge(rand.nextInt(20) + 20);
         this.spinSpeed = 0.04 + rand.nextDouble() / 5;
         this.spinSize = 1 + rand.nextDouble() * 3;
     }

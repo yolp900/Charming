@@ -4,7 +4,6 @@ import com.yolp900.charming.api.CharmingAPI;
 import com.yolp900.charming.api.crafting.wandinteraction.RecipeWandInteraction;
 import com.yolp900.charming.api.crafting.wandinteraction.RecipeWandInteractionItem;
 import com.yolp900.charming.client.particle.ModParticles;
-import com.yolp900.charming.common.network.MessageItemStackParticle;
 import com.yolp900.charming.common.network.MessageParticle;
 import com.yolp900.charming.common.network.MessageSound;
 import com.yolp900.charming.common.network.NetworkHandler;
@@ -62,16 +61,6 @@ public class InteractionHandler {
                     y = pos.getY() + 0.5;
                 }
                 NetworkHandler.sendToAllAround(new MessageParticle(ModParticles.Particles.Transmutation, pos.getX() + 0.5, y, pos.getZ() + 0.5), player.dimension, pos.getX() + 0.5, y, pos.getZ() + 0.5, 16);
-            }
-            if (ModRecipes.WandInteraction.CoreParticleList.contains(recipe)) {
-                NetworkHandler.sendToAllAround(new MessageSound(SoundHandler.ModSounds.MagicDing, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 1.5, 1), player.dimension, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 16);
-                if (recipe instanceof RecipeWandInteractionItem) {
-                    RecipeWandInteractionItem itemRecipe = (RecipeWandInteractionItem) recipe;
-                    if (itemRecipe.getOutputs().size() == 1) {
-                        ItemStack core = itemRecipe.getOutputs().get(0);
-                        NetworkHandler.sendToAllAround(new MessageItemStackParticle(core, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5), player.dimension, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 16);
-                    }
-                }
             }
         }
     }
