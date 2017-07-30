@@ -1,5 +1,6 @@
 package com.yolp900.charming.client.gui;
 
+import com.yolp900.charming.Charming;
 import com.yolp900.charming.common.inventory.ContainerAdjustableStorage;
 import com.yolp900.charming.common.tileentities.TileEntityAdjustableStorage;
 import com.yolp900.charming.util.TextHelper;
@@ -55,6 +56,14 @@ public class GuiAdjustableStorage extends ModGuiContainer {
         RenderHelper.enableGUIStandardItemLighting();
         ItemStack adjustableChest = new ItemStack(tile.getBlockType());
         mc.getRenderItem().renderItemIntoGUI(adjustableChest, 4, 4);
+    }
+
+    @Override
+    public void onGuiClosed() {
+        super.onGuiClosed();
+        if (tile.isOpen()) {
+            tile.setOpen(false);
+        }
     }
 
 }

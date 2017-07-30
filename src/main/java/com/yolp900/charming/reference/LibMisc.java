@@ -42,4 +42,14 @@ public class LibMisc {
      */
     public static final String PNG = ".png";
 
+    /**
+     * Adjustable Chest open state integer tag name.
+     */
+    public static final String OPEN_STATE = "open";
+
+    /**
+     * Adjustable Chest time on open state integer tag name.
+     */
+    public static final String TIME_ON_OPEN_STATE = "timeOnOpenState";
+
 }

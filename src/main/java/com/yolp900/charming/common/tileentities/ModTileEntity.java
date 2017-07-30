@@ -27,4 +27,13 @@ public abstract class ModTileEntity extends TileEntity {
         handleUpdateTag(pkt.getNbtCompound());
     }
 
+    protected void sendUpdates() {
+        if (world != null) {
+            world.markBlockRangeForRenderUpdate(pos, pos);
+            world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3);
+            world.scheduleBlockUpdate(pos, this.getBlockType(), 0, 0);
+            markDirty();
+        }
+    }
+
 }

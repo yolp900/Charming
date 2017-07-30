@@ -14,6 +14,10 @@ public class TileEntityAdjustableStorage extends ModTileEntityIInventory {
     private int size = 73;
     public final int UPGRADE_SLOT = size - 1;
 
+    private boolean open;
+    private int openState;
+    private int timeOnOpenState;
+
     // Values for textures (Gui) and slots (Container)
     public static final int WIDTH = 176;
     public static final int DEFAULT_HEIGHT = 114;
@@ -29,6 +33,9 @@ public class TileEntityAdjustableStorage extends ModTileEntityIInventory {
 
     public TileEntityAdjustableStorage() {
         this.slots = NonNullList.withSize(size, ItemStack.EMPTY);
+        open = false;
+        openState = 0;
+        timeOnOpenState = 0;
     }
 
     @Override
@@ -111,6 +118,8 @@ public class TileEntityAdjustableStorage extends ModTileEntityIInventory {
                 slots.set(slot, new ItemStack(data));
             }
         }
+        setOpenState(tag.getInteger(LibMisc.OPEN_STATE));
+        setTimeOnOpenState(tag.getInteger(LibMisc.TIME_ON_OPEN_STATE));
     }
 
     @Override
@@ -129,6 +138,8 @@ public class TileEntityAdjustableStorage extends ModTileEntityIInventory {
         }
 
         tag.setTag(LibMisc.INVENTORY_NBT_KEY, tags);
+        tag.setInteger(LibMisc.OPEN_STATE, getOpenState());
+        tag.setInteger(LibMisc.TIME_ON_OPEN_STATE, getTimeOnOpenState());
         return tag;
     }
 
@@ -159,5 +170,30 @@ public class TileEntityAdjustableStorage extends ModTileEntityIInventory {
         } else {
             return ((n - 1) - ((n - 1) % 9)) / 9 + 1;
         }
+    }
+
+    public int getOpenState() {
+        return openState;
+    }
+
+    public void setOpenState(int openState) {
+        this.openState = openState;
+        sendUpdates();
+    }
+
+    public int getTimeOnOpenState() {
+        return timeOnOpenState;
+    }
+
+    public void setTimeOnOpenState(int timeOnOpenState) {
+        this.timeOnOpenState = timeOnOpenState;
+    }
+
+    public boolean isOpen() {
+        return open;
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
     }
 }

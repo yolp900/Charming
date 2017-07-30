@@ -4,6 +4,7 @@ import com.yolp900.charming.Charming;
 import com.yolp900.charming.client.particle.ModParticle;
 import com.yolp900.charming.client.render.BlockRenderHandler;
 import com.yolp900.charming.client.render.ItemRenderHandler;
+import com.yolp900.charming.client.render.TileEntityRenderHandler;
 import com.yolp900.charming.common.CommonProxy;
 import com.yolp900.charming.common.events.ModEvents;
 import com.yolp900.charming.reference.Reference;
@@ -24,6 +25,7 @@ public class ClientProxy extends CommonProxy {
         OBJLoader.INSTANCE.addDomain(Reference.MOD_ID);
         BlockRenderHandler.registerBlockRenders();
         ItemRenderHandler.registerItemRenders();
+        TileEntityRenderHandler.registerTileEntityRenders();
         ModEvents.registerClientEvents();
     }
 

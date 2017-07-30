@@ -52,29 +52,38 @@ public class BlockAdjustableStorage extends ModBlock {
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (player.isSneaking()) return false;
+        if (player.isSneaking()) {
+            return false;
+        }
 
         ItemStack heldItem = player.getHeldItem(hand);
         TileEntity tile = world.getTileEntity(pos);
         boolean insert = false;
 
-        if (tile instanceof TileEntityAdjustableStorage && !heldItem.isEmpty() && heldItem.getItem() == ModItems.SlotUpgrade) {
+        if (tile instanceof TileEntityAdjustableStorage) {
             TileEntityAdjustableStorage adjustableStorage = (TileEntityAdjustableStorage) tile;
-            ItemStack upgradeSlot = adjustableStorage.getStackInSlot(adjustableStorage.UPGRADE_SLOT);
-            if (adjustableStorage.getNumOfSlots() == 0) {
-                adjustableStorage.setInventorySlotContents(adjustableStorage.UPGRADE_SLOT, new ItemStack(heldItem.getItem(), 1));
-                insert = true;
-                decrSlotUpgradeFromHand(player, hand, heldItem);
-            } else if (upgradeSlot.getItem() == ModItems.SlotUpgrade) {
-                if (adjustableStorage.getNumOfSlots() < adjustableStorage.getSizeInventory() - 1) {
-                    adjustableStorage.getStackInSlot(adjustableStorage.UPGRADE_SLOT).setCount(upgradeSlot.getCount() + 1);
+            if (!heldItem.isEmpty() && heldItem.getItem() == ModItems.SlotUpgrade) {
+                ItemStack upgradeSlot = adjustableStorage.getStackInSlot(adjustableStorage.UPGRADE_SLOT);
+                if (adjustableStorage.getNumOfSlots() == 0) {
+                    adjustableStorage.setInventorySlotContents(adjustableStorage.UPGRADE_SLOT, new ItemStack(heldItem.getItem(), 1));
                     insert = true;
                     decrSlotUpgradeFromHand(player, hand, heldItem);
+                } else if (upgradeSlot.getItem() == ModItems.SlotUpgrade) {
+                    if (adjustableStorage.getNumOfSlots() < adjustableStorage.getSizeInventory() - 1) {
+                        adjustableStorage.getStackInSlot(adjustableStorage.UPGRADE_SLOT).setCount(upgradeSlot.getCount() + 1);
+                        insert = true;
+                        decrSlotUpgradeFromHand(player, hand, heldItem);
+                    }
+                }
+                if (insert && !world.isRemote) {
+                    NetworkHandler.sendToAllAround(new MessageParticle(ModParticles.Particles.SlotUpgrade, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, 0, 0.5, 0), player.dimension, pos.getX(), pos.getY(), pos.getZ(), 16);
+                    NetworkHandler.sendToAllAround(new MessageSound(SoundHandler.ModSounds.Ding, pos.getX(), pos.getY(), pos.getZ(), 1, ((double) (adjustableStorage.getNumOfSlots()) / 40) + 0.4, true), player.dimension, pos.getX(), pos.getY(), pos.getZ(), 16);
                 }
             }
-            if (insert && !world.isRemote) {
-                NetworkHandler.sendToAllAround(new MessageParticle(ModParticles.Particles.SlotUpgrade, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, 0, 0.5, 0), player.dimension, pos.getX(), pos.getY(), pos.getZ(), 16);
-                NetworkHandler.sendToAllAround(new MessageSound(SoundHandler.ModSounds.Ding, pos.getX(), pos.getY(), pos.getZ(), 1, ((double) (adjustableStorage.getNumOfSlots()) / 40) + 0.4, true), player.dimension, pos.getX(), pos.getY(), pos.getZ(), 16);
+            if (!insert) {
+                if (!adjustableStorage.isOpen()) {
+                    adjustableStorage.setOpen(true);
+                }
             }
         }
         if (!insert) {

@@ -2,11 +2,15 @@
   "forge_marker": 1,
   "defaults": {
     "custom": { "flip-v": true },
-    "model": "charming:adjustable_storage.obj",
+    "model": "charming:adjustable_storage_base.obj",
     "transform" : "forge:default-block"
   },
   "variants": {
-    "normal": [{}],
-    "inventory": [{}]
+    "normal": [{
+      "submodel": "charming:adjustable_storage_top.obj"
+    }],
+    "inventory": [{
+      "submodel": "charming:adjustable_storage_top.obj"
+    }]
   }
 }
