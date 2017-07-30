@@ -37,6 +37,10 @@ public class ContainerConstructionTable extends ModContainer {
         this.addSlotToContainer(new SlotSecInput(tile, 16, 14, 78));
         this.addSlotToContainer(new SlotSecInput(tile, 17, 14, 29));
 
+        registerInventorySlots(inventory);
+    }
+
+    private void registerInventorySlots(InventoryPlayer inventory) {
         for (int x = 0; x < 9; x++) {
             this.addSlotToContainer(new Slot(inventory, x, 23 + x * 18, 216));
         }
@@ -59,20 +63,20 @@ public class ContainerConstructionTable extends ModContainer {
             if (itemClicked != ItemStack.EMPTY) {
                 itemPlaced = itemClicked.copy();
 
-                if (index == 0) {
+                if (index == tile.OUTPUT_SLOT) {
                     if (!this.mergeItemStackOutput(itemClicked)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (index >= 1 && index <= 17) { // Shift Click Out of Crafting Grid + Secondary Grid
-                    if (!this.mergeItemStack(itemClicked, 27, 54, false) && !this.mergeItemStack(itemClicked, 18, 27, false)) {
+                } else if (index < tile.getSizeInventory() - 1) { // Shift Click Out of Crafting Grid + Secondary Grid
+                    if (!this.mergeItemStack(itemClicked, tile.getSizeInventory() - 1 + 9, tile.getSizeInventory() - 1 + 9 + 27, false) && !this.mergeItemStack(itemClicked, tile.getSizeInventory() - 1, tile.getSizeInventory() - 1 + 9, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (index >= 18 && index <= 26) { // Shift Click Out of Hotbar.
-                    if (!this.mergeItemStack(itemClicked, 27, 54, false)) {
+                } else if (index < tile.getSizeInventory() - 1 + 9) { // Shift Click Out of Hotbar.
+                    if (!this.mergeItemStack(itemClicked, tile.getSizeInventory() - 1 + 9, tile.getSizeInventory() - 1 + 9 + 27, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (index >= 27 && index <= 53) {
-                    if (!this.mergeItemStack(itemClicked, 18, 27, false)) {
+                } else if (index < tile.getSizeInventory() - 1 + 9 + 27) { // Shift Click Out of Inventory
+                    if (!this.mergeItemStack(itemClicked, tile.getSizeInventory() - 1, tile.getSizeInventory() - 1 + 9, false)) {
                         return ItemStack.EMPTY;
                     }
                 }
@@ -99,7 +103,7 @@ public class ContainerConstructionTable extends ModContainer {
         int maxAmountOfSpace = 0;
         ItemStack copy = stack.copy();
 
-        for (int i = 18; i < 54; i++) {
+        for (int i = tile.getSizeInventory() - 1; i < tile.getSizeInventory() - 1 + 9 + 27; i++) {
             Slot slot = getSlot(i);
             ItemStack slotStack = slot.getStack();
             if (!slot.getHasStack() || slotStack.isEmpty()) {
@@ -112,18 +116,18 @@ public class ContainerConstructionTable extends ModContainer {
         }
         if (space) {
             int outputSize = Math.min(maxAmountOfSpace - (maxAmountOfSpace % stack.getCount()), tile.getMaxStackSizeShiftClickOutput());
-            tile.decrStackSize(0, outputSize);
+            tile.decrStackSize(tile.OUTPUT_SLOT, outputSize);
             if (outputSize >= stack.getCount()) {
                 while (outputSize > stack.getMaxStackSize()) {
                     copy.setCount(stack.getMaxStackSize());
                     outputSize -= stack.getMaxStackSize();
-                    if (!super.mergeItemStack(copy.copy(), 18, 27, true)) {
-                        super.mergeItemStack(copy.copy(), 27, 54, true);
+                    if (!super.mergeItemStack(copy.copy(), tile.getSizeInventory() - 1, tile.getSizeInventory() - 1 + 9, true)) {
+                        super.mergeItemStack(copy.copy(), tile.getSizeInventory() - 1 + 9, tile.getSizeInventory() - 1 + 9 + 27, true);
                     }
                 }
                 copy.setCount(outputSize);
 
-                return super.mergeItemStack(copy.copy(), 18, 27, true) || super.mergeItemStack(copy.copy(), 27, 54, true);
+                return super.mergeItemStack(copy.copy(), tile.getSizeInventory() - 1, tile.getSizeInventory() - 1 + 9, true) || super.mergeItemStack(copy.copy(), tile.getSizeInventory() - 1 + 9, tile.getSizeInventory() - 1 + 9 + 27, true);
             }
         }
         return false;
@@ -132,10 +136,10 @@ public class ContainerConstructionTable extends ModContainer {
     @Override
     @Nonnull
     public ItemStack slotClick(int slot, int dragType, ClickType clickType, EntityPlayer player) {
-        if (slot == 0) {
+        if (slot == tile.OUTPUT_SLOT) {
             if (dragType > 0) dragType = 0;
-            ItemStack stack = inventorySlots.get(0).getStack();
-            if (stack != ItemStack.EMPTY) {
+            ItemStack stack = inventorySlots.get(tile.OUTPUT_SLOT).getStack();
+            if (!stack.isEmpty()) {
                 /*
                 Item item = stack.getItem();
                 if (item instanceof ICraftAchievement) {

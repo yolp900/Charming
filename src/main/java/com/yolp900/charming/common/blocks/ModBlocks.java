@@ -22,6 +22,7 @@ public class ModBlocks {
     public static BlockFlower Flower;
     public static BlockAttractor Attractor;
     public static BlockImpeller Impeller;
+    public static BlockAdjustableStorage AdjustableStorage;
 
     public static void registerBlocks() {
         ConstructionTable = new BlockConstructionTable();
@@ -34,6 +35,7 @@ public class ModBlocks {
         Flower = new BlockFlower();
         Attractor = new BlockAttractor();
         Impeller = new BlockImpeller();
+        AdjustableStorage = new BlockAdjustableStorage();
 
         for (Block block : modBlocks) {
             if (block instanceof IModBlock) {

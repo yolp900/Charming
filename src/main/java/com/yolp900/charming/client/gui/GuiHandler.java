@@ -1,9 +1,10 @@
 package com.yolp900.charming.client.gui;
 
+import com.yolp900.charming.common.inventory.ContainerAdjustableStorage;
 import com.yolp900.charming.common.inventory.ContainerConstructionTable;
+import com.yolp900.charming.common.tileentities.TileEntityAdjustableStorage;
 import com.yolp900.charming.common.tileentities.TileEntityConstructionTable;
-import com.yolp900.charming.reference.LibLocations;
-import com.yolp900.charming.reference.LibMisc;
+import com.yolp900.charming.reference.LibGuis;
 import com.yolp900.charming.reference.Reference;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -34,9 +35,8 @@ public class GuiHandler implements IGuiHandler {
         return Guis.values()[ID].getClientGuiElement(player, world, pos, tile);
     }
 
-
     public enum Guis {
-        ConstructionTable() {
+        ConstructionTable {
             @Override
             public Object getServerGuiElement(EntityPlayer player, World world, BlockPos pos, TileEntity tile) {
                 if (!(tile instanceof TileEntityConstructionTable)) return null;
@@ -51,24 +51,69 @@ public class GuiHandler implements IGuiHandler {
 
             @Override
             public String getTitle(EntityPlayer player, World world, BlockPos pos, TileEntity tile) {
-                return LibMisc.GUI_TITLE_PREFIX + "ConstructionTable";
+                return LibGuis.CONSTRUCTION_TABLE_TITLE;
             }
 
             @Override
             public ResourceLocation getBackground(EntityPlayer player, World world, BlockPos pos, TileEntity tile) {
-                return new ResourceLocation(Reference.MOD_ID, LibLocations.GUI_BACKGROUNDS + "construction_table" + ".png");
+                return new ResourceLocation(Reference.MOD_ID, LibGuis.CONSTRUCTION_TABLE_BACKGROUND);
             }
 
             @Override
             public int getWidth(EntityPlayer player, World world, BlockPos pos, TileEntity tile) {
-                return 206;
+                return TileEntityConstructionTable.WIDTH;
             }
 
             @Override
             public int getHeight(EntityPlayer player, World world, BlockPos pos, TileEntity tile) {
-                return 243;
+                return TileEntityConstructionTable.HEIGHT;
             }
-        },;
+        },
+        AdjustableStorage {
+            @Override
+            Object getServerGuiElement(EntityPlayer player, World world, BlockPos pos, TileEntity tile) {
+                if (!(tile instanceof TileEntityAdjustableStorage)) return null;
+                return new ContainerAdjustableStorage(player.inventory, (TileEntityAdjustableStorage) tile);
+            }
+
+            @Override
+            Object getClientGuiElement(EntityPlayer player, World world, BlockPos pos, TileEntity tile) {
+                if (!(tile instanceof TileEntityAdjustableStorage)) return null;
+                return new GuiAdjustableStorage(player.inventory, (TileEntityAdjustableStorage) tile);
+            }
+
+            @Override
+            String getTitle(EntityPlayer player, World world, BlockPos pos, TileEntity tile) {
+                return LibGuis.ADJUSTABLE_STORAGE_TITLE;
+            }
+
+            @Override
+            ResourceLocation getBackground(EntityPlayer player, World world, BlockPos pos, TileEntity tile) {
+                return new ResourceLocation(Reference.MOD_ID, LibGuis.ADJUSTABLE_STORAGE_BACKGROUND);
+            }
+
+            @Override
+            int getWidth(EntityPlayer player, World world, BlockPos pos, TileEntity tile) {
+                return TileEntityAdjustableStorage.WIDTH;
+            }
+
+            @Override
+            int getHeight(EntityPlayer player, World world, BlockPos pos, TileEntity tile) {
+                if (!(tile instanceof TileEntityAdjustableStorage)) {
+                    return TileEntityAdjustableStorage.DEFAULT_HEIGHT;
+                }
+                TileEntityAdjustableStorage adjustableStorage = (TileEntityAdjustableStorage) tile;
+                int n = adjustableStorage.getNumOfRows();
+
+                int h = TileEntityAdjustableStorage.TOP_BLANK_GAP;
+                if (n > 0) {
+                    h += n * TileEntityAdjustableStorage.SLOTS_SIZE;
+                }
+                h += TileEntityAdjustableStorage.PLAYER_INVENTORY_AND_GAP_TEXTURE_HEIGHT;
+                return h;
+            }
+
+        };
 
         public int getID() {
             return ordinal();

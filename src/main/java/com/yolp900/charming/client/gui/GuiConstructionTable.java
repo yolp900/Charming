@@ -6,6 +6,7 @@ import com.yolp900.charming.util.TextHelper;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
@@ -28,15 +29,16 @@ public class GuiConstructionTable extends ModGuiContainer {
 
         for (int i = 10; i < 18; i++) {
             Slot slot = inventorySlots.getSlot(i);
-            if (!slot.isEnabled()) continue;
-            drawTexturedModalRect(guiLeft + slot.xPos - 1, guiTop + slot.yPos - 1, 22, 157, 18, 18);
+            if (!slot.isEnabled()) break;
+            drawTexturedModalRect(guiLeft + slot.xPos - 1, guiTop + slot.yPos - 1, TileEntityConstructionTable.SLOT_TEXTURE_XPOS, TileEntityConstructionTable.SLOT_TEXTURE_YPOS, TileEntityConstructionTable.SLOTS_SIZE, TileEntityConstructionTable.SLOTS_SIZE);
         }
     }
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         String title = TextHelper.getFormattedText(GuiHandler.Guis.ConstructionTable.getTitle(inventory.player, tile.getWorld(), tile.getPos(), tile));
-        this.fontRenderer.drawString(title, (xSize / 2) - (this.fontRenderer.getStringWidth(title) / 2), 8, 0x444444);
+        this.fontRenderer.drawString(title, (xSize / 2) - (this.fontRenderer.getStringWidth(title) / 2), 8, 4210752);
+        this.fontRenderer.drawString(inventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96, 4210752);
 
         GlStateManager.color(1F, 1F, 1F, 1F);
         RenderHelper.enableGUIStandardItemLighting();

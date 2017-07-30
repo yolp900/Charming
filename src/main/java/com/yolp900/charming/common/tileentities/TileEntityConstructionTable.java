@@ -16,6 +16,16 @@ public class TileEntityConstructionTable extends ModTileEntityIInventory {
     private NonNullList<ItemStack> slots;
     private int size = 19;
     private ConstructionTableCraftingHandler.RecipeType currRecipeType;
+    public final int UPGRADE_SLOT = 18;
+    public final int OUTPUT_SLOT = 0;
+
+    // Values for textures (Gui) and slots (Container)
+    public static final int WIDTH = 206;
+    public static final int HEIGHT = 243;
+    public static final int SLOTS_SIZE = 18;
+    public static final int SLOT_TEXTURE_XPOS = 22;
+    public static final int SLOT_TEXTURE_YPOS = 157;
+
 
     public TileEntityConstructionTable() {
         this.slots = NonNullList.withSize(size, ItemStack.EMPTY);
@@ -52,7 +62,7 @@ public class TileEntityConstructionTable extends ModTileEntityIInventory {
                 setInventorySlotContents(index, ItemStack.EMPTY);
                 checkRecipes();
                 markDirty();
-                if (index == 0) {
+                if (index == OUTPUT_SLOT) {
                     decrGrid(amount / itemStack.getCount());
                 }
                 return itemStack;
@@ -107,11 +117,16 @@ public class TileEntityConstructionTable extends ModTileEntityIInventory {
     @Override
     public void setInventorySlotContents(int index, @Nonnull ItemStack stack) {
         slots.set(index, stack);
-        if (!stack.isEmpty() && stack.getCount() > getInventoryStackLimit()) stack.setCount(getInventoryStackLimit());
-        if (index != 0) checkRecipes();
+        if (!stack.isEmpty() && stack.getCount() > getInventoryStackLimit()) {
+            stack.setCount(getInventoryStackLimit());
+        }
+        if (index != OUTPUT_SLOT) {
+            checkRecipes();
+        }
         markDirty();
-        if (!getWorld().isRemote)
+        if (!getWorld().isRemote) {
             getWorld().notifyBlockUpdate(getPos(), getWorld().getBlockState(getPos()), getWorld().getBlockState(getPos()), 3);
+        }
     }
 
     @Override
@@ -160,7 +175,7 @@ public class TileEntityConstructionTable extends ModTileEntityIInventory {
     }
 
     public int getSlotUpgradeLevel() {
-        return getStackInSlot(18).getCount();
+        return getStackInSlot(UPGRADE_SLOT).getCount();
     }
 
     private NonNullList<ItemStack> getCurrentGridInputs() {
@@ -184,7 +199,7 @@ public class TileEntityConstructionTable extends ModTileEntityIInventory {
         NonNullList<ItemStack> secGrid = getCurrSecInputs();
         ConstructionTableCraftingHandler.RecipeType recipeType = getCurrRecipeType();
         if (recipeType == ConstructionTableCraftingHandler.RecipeType.None) return 0;
-        ItemStack output = getStackInSlot(0);
+        ItemStack output = getStackInSlot(OUTPUT_SLOT);
         int stackSize = 0;
         if (!output.isEmpty()) {
             int factor = output.getCount();

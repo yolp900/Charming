@@ -13,6 +13,7 @@ tile.charming:TintedPlanks.name=Tinted Wood Planks
 tile.charming:Flower.desertrose.name=Desert Rose
 tile.charming:Attractor.name=Attractor
 tile.charming:Impeller.name=Impeller
+tile.charming:AdjustableStorage.name=Adjustable Storage
 
 //Items
 //item.charming:*name*.name=
@@ -39,6 +40,7 @@ item.charming:Core.Storage.name=Storage Core
 //Gui Titles
 //guititle.charming:*title*=
 guititle.charming:ConstructionTable=Construction Table
+guititle.charming:AdjustableStorage=Adjustable Storage
 
 //Sound Subtitles
 subtitle.charming.ding=Ding!

@@ -11,6 +11,7 @@ public class ModTileEntities {
         registerTileEntity(TileEntityLevitator.class, LibTileEntities.LEVITATOR);
         registerTileEntity(TileEntityAttractor.class, LibTileEntities.ATTRACTOR);
         registerTileEntity(TileEntityImpeller.class, LibTileEntities.IMPELLER);
+        registerTileEntity(TileEntityAdjustableStorage.class, LibTileEntities.ADJUSTABLE_STORAGE);
     }
 
     private static void registerTileEntity(Class<? extends TileEntity> classTile, String ID) {

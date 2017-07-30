@@ -23,11 +23,6 @@ public class LibMisc {
     public static final String INVENTORY_VARIANT = "inventory";
 
     /**
-     * Gui Titles Prefix for Localizations.
-     */
-    public static final String GUI_TITLE_PREFIX = "guititle.charming:";
-
-    /**
      * Inventory NBT Key.
      */
     public static final String INVENTORY_NBT_KEY = "inventory";
@@ -41,5 +36,10 @@ public class LibMisc {
      * Inverted NBT Key.
      */
     public static final String INVERTED = "inverted";
+
+    /**
+     * .png suffix for files (currently gui backgrounds).
+     */
+    public static final String PNG = ".png";
 
 }

@@ -9,5 +9,6 @@ public class LibTileEntities {
     public static final String LEVITATOR = "Levitator";
     public static final String ATTRACTOR = "Attractor";
     public static final String IMPELLER = "Impeller";
+    public static final String ADJUSTABLE_STORAGE = "AdjustableStorage";
 
 }

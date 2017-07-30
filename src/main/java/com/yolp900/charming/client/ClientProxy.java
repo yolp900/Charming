@@ -6,10 +6,12 @@ import com.yolp900.charming.client.render.BlockRenderHandler;
 import com.yolp900.charming.client.render.ItemRenderHandler;
 import com.yolp900.charming.common.CommonProxy;
 import com.yolp900.charming.common.events.ModEvents;
+import com.yolp900.charming.reference.Reference;
 import com.yolp900.charming.util.SoundHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -19,6 +21,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
+        OBJLoader.INSTANCE.addDomain(Reference.MOD_ID);
         BlockRenderHandler.registerBlockRenders();
         ItemRenderHandler.registerItemRenders();
         ModEvents.registerClientEvents();

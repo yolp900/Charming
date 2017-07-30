@@ -51,25 +51,15 @@ public class BlockConstructionTable extends ModBlock {
         boolean insert = false;
         if (tile instanceof TileEntityConstructionTable && !heldItem.isEmpty() && heldItem.getItem() == ModItems.SlotUpgrade) {
             TileEntityConstructionTable constructionTable = (TileEntityConstructionTable) tile;
-            ItemStack upgradeSlot = constructionTable.getStackInSlot(18);
+            ItemStack upgradeSlot = constructionTable.getStackInSlot(constructionTable.UPGRADE_SLOT);
             if (constructionTable.getSlotUpgradeLevel() == 0) {
-                constructionTable.setInventorySlotContents(18, new ItemStack(heldItem.getItem(), 1));
+                constructionTable.setInventorySlotContents(constructionTable.UPGRADE_SLOT, new ItemStack(heldItem.getItem(), 1));
                 insert = true;
-                if (heldItem.getCount() == 1) {
-                    player.setHeldItem(hand, ItemStack.EMPTY);
-                } else {
-                    player.getHeldItem(hand).setCount(heldItem.getCount() - 1);
-                }
-            } else if (upgradeSlot.getItem() == ModItems.SlotUpgrade) {
-                if (constructionTable.getSlotUpgradeLevel() < 8) {
-                    constructionTable.getStackInSlot(18).setCount(upgradeSlot.getCount() + 1);
-                    insert = true;
-                    if (heldItem.getCount() == 1) {
-                        player.setHeldItem(hand, ItemStack.EMPTY);
-                    } else {
-                        player.getHeldItem(hand).setCount(heldItem.getCount() - 1);
-                    }
-                }
+                decrSlotUpgradeFromHand(player, hand, heldItem);
+            } else if (upgradeSlot.getItem() == ModItems.SlotUpgrade && constructionTable.getSlotUpgradeLevel() < 8) {
+                constructionTable.getStackInSlot(constructionTable.UPGRADE_SLOT).setCount(upgradeSlot.getCount() + 1);
+                insert = true;
+                decrSlotUpgradeFromHand(player, hand, heldItem);
             }
             if (insert && !world.isRemote) {
                 NetworkHandler.sendToAllAround(new MessageParticle(ModParticles.Particles.SlotUpgrade, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, 0, 0.5, 0), player.dimension, pos.getX(), pos.getY(), pos.getZ(), 16);
@@ -81,6 +71,14 @@ public class BlockConstructionTable extends ModBlock {
             player.openGui(Charming.instance, GuiHandler.Guis.ConstructionTable.getID(), world, pos.getX(), pos.getY(), pos.getZ());
         }
         return true;
+    }
+
+    private void decrSlotUpgradeFromHand(EntityPlayer player, EnumHand hand, ItemStack heldItem) {
+        if (heldItem.getCount() == 1) {
+            player.setHeldItem(hand, ItemStack.EMPTY);
+        } else {
+            player.getHeldItem(hand).setCount(heldItem.getCount() - 1);
+        }
     }
 
     @Override

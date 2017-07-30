@@ -16,5 +16,6 @@ public class LibBlocks {
     public static final String FLOWER = "Flower";
     public static final String ATTRACTOR = "Attractor";
     public static final String IMPELLER = "Impeller";
+    public static final String ADJUSTABLE_STORAGE = "AdjustableStorage";
 
 }
